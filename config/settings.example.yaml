@@ -1,0 +1,24 @@
+# Nexus OS — Configuração Principal
+# Copia este ficheiro para config/settings.yaml e edita conforme necessário.
+
+llm:
+  provider: "ollama"       # anthropic | ollama
+  model: "qwen3:8b"        # modelo local — alternativa mais rápida: gemma3:4b
+  api_key: ""              # só necessário para provider: anthropic
+  max_tokens: 1500
+  temperature: 0.3
+
+ollama:
+  base_url: "http://localhost:11434"
+
+scraper:
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+  delay_min: 2   # segundos entre visitas (anti-block)
+  delay_max: 5
+  timeout: 15    # timeout por página em segundos
+  headless: true
+
+output:
+  database_path: "database"
+  leads_file: "leads_pendentes.json"
+  default_region: "Acores"

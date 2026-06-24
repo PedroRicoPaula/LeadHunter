@@ -1,0 +1,27 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Runtime data
+nexus_os.db
+nexus_os.db-wal
+nexus_os.db-shm
+leads_pendentes.json
+database/
+
+# Exports
+export_leads.csv
+export_leads.md
+
+# Config (use config/settings.example.yaml as template)
+config/settings.yaml
+
+# Frontend
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Playwright
+.playwright/
