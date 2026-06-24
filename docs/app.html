@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Hunter — Pesquisar Negócios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { margin: 0; background: #060a10; color: white; overflow: hidden; }
+
+    #map { position: fixed; inset: 0; top: 110px; bottom: 80px; z-index: 1; }
+
+    /* Override Leaflet tiles for dark look */
+    .leaflet-tile { filter: brightness(.85) saturate(.7) invert(1) hue-rotate(180deg); }
+    .leaflet-container { background: #111827; }
+
+    /* Custom marker */
+    .lh-marker {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: white;
+      border: 2px solid rgba(255,255,255,.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,.5);
+      cursor: pointer;
+      transition: transform .15s ease, border-color .15s ease;
+      user-select: none;
+    }
+    .lh-marker:hover { transform: scale(1.2); }
+    .lh-marker.selected {
+      border: 3px solid white !important;
+      background: #10f5a0 !important;
+      color: #060a10 !important;
+      transform: scale(1.15);
+      box-shadow: 0 0 0 4px rgba(16,245,160,.25), 0 4px 12px rgba(0,0,0,.5);
+    }
+
+    /* Popup */
+    .leaflet-popup-content-wrapper {
+      background: #0d1220;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      padding: 0;
+      overflow: hidden;
+    }
+    .leaflet-popup-content { margin: 0; width: 280px !important; }
+    .leaflet-popup-tip { background: #0d1220; }
+    .leaflet-popup-close-button { color: #6b7280 !important; font-size: 18px !important; padding: 10px 12px !important; }
+    .leaflet-popup-close-button:hover { color: white !important; }
+
+    /* Category scroll */
+    .cat-scroll::-webkit-scrollbar { display: none; }
+    .cat-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Bottom bar animation */
+    #bottom-bar { transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
+    #bottom-bar.hidden-bar { transform: translateY(100%); opacity: 0; }
+
+    /* Pulse for selected count */
+    @keyframes pop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+    .pop { animation: pop .2s ease; }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ══ -->
+<div class="fixed top-0 inset-x-0 z-30" style="background:rgba(6,10,16,.96);backdrop-filter:blur(16px)">
+  <!-- Nav row -->
+  <div class="flex items-center justify-between px-4 h-12 border-b border-white/[.05]">
+    <a href="index.html" class="font-bold text-[14px] tracking-tight">
+      Lead<span class="text-[#10f5a0]">Hunter</span>
+    </a>
+    <div id="top-counter" class="hidden items-center gap-2 text-[13px]">
+      <span id="top-count" class="font-bold text-[#10f5a0]">0</span>
+      <span class="text-gray-500">selecionados</span>
+      <span class="text-gray-700">·</span>
+      <span id="top-price" class="font-bold text-white">€0</span>
+    </div>
+  </div>
+  <!-- Category tabs -->
+  <div class="cat-scroll overflow-x-auto flex gap-2 px-4 py-2.5">
+    <button onclick="filterCategory('all')" data-cat="all"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/10 bg-white/[.06] text-white transition-all">
+      Todos
+    </button>
+    <button onclick="filterCategory('restaurantes')" data-cat="restaurantes"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Restaurantes
+    </button>
+    <button onclick="filterCategory('clinicas')" data-cat="clinicas"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Clinicas
+    </button>
+    <button onclick="filterCategory('ginasios')" data-cat="ginasios"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Ginasios
+    </button>
+    <button onclick="filterCategory('alojamento')" data-cat="alojamento"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Alojamento
+    </button>
+    <button onclick="filterCategory('saloes')" data-cat="saloes"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Saloes
+    </button>
+    <button onclick="filterCategory('servicos')" data-cat="servicos"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      Servicos
+    </button>
+  </div>
+</div>
+
+<!-- ══ MAP ══ -->
+<div id="map"></div>
+
+<!-- ══ LEGEND ══ -->
+<div class="fixed top-[118px] right-3 z-20 rounded-xl border border-white/[.06] p-3 space-y-1.5" style="background:rgba(6,10,16,.85);backdrop-filter:blur(8px)">
+  <div class="text-[9px] text-gray-600 font-semibold uppercase tracking-widest mb-2">Score</div>
+  <div class="flex items-center gap-2 text-[10px] text-gray-400">
+    <div class="w-3 h-3 rounded-full bg-red-500 shrink-0"></div> 86-100
+  </div>
+  <div class="flex items-center gap-2 text-[10px] text-gray-400">
+    <div class="w-3 h-3 rounded-full bg-orange-500 shrink-0"></div> 71-85
+  </div>
+  <div class="flex items-center gap-2 text-[10px] text-gray-400">
+    <div class="w-3 h-3 rounded-full bg-yellow-500 shrink-0"></div> 51-70
+  </div>
+</div>
+
+<!-- ══ BOTTOM BAR ══ -->
+<div id="bottom-bar" class="fixed bottom-0 inset-x-0 z-30 hidden-bar"
+  style="background:rgba(6,10,16,.96);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.07)">
+  <div class="max-w-xl mx-auto flex items-center gap-4 px-4 h-20">
+    <div class="flex-1">
+      <div class="flex items-baseline gap-1.5">
+        <span id="bar-count" class="text-[28px] font-black text-[#10f5a0] leading-none">0</span>
+        <span class="text-gray-500 text-[12px]">negocio(s) selecionado(s)</span>
+      </div>
+      <div class="text-[11px] text-gray-600 mt-0.5" id="bar-tier">Seleciona ate 5 por €5</div>
+    </div>
+    <div class="text-right mr-2">
+      <div id="bar-price" class="text-[24px] font-black text-white leading-none">€0</div>
+      <div class="text-[10px] text-gray-600">pagamento unico</div>
+    </div>
+    <button onclick="handlePayment()" id="pay-btn"
+      class="shrink-0 px-6 py-3 rounded-xl font-bold text-[14px] text-[#060a10] transition-all"
+      style="background:linear-gradient(135deg,#10f5a0,#06d6a0)">
+      Pagar
+    </button>
+  </div>
+</div>
+
+<!-- ══ POPUP TEMPLATE (rendered by JS) ══ -->
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────
+const STRIPE_STARTER = 'https://buy.stripe.com/dRm00jgvj4h461C6FtdUY00';
+const STRIPE_HUNTER  = 'https://buy.stripe.com/bJe4gzbaZcNAey86FtdUY01';
+
+const CAT_COLORS = {
+  restaurantes: '#f97316',
+  clinicas:     '#3b82f6',
+  ginasios:     '#8b5cf6',
+  alojamento:   '#14b8a6',
+  saloes:       '#ec4899',
+  servicos:     '#6b7280'
+};
+
+const CAT_NAMES = {
+  restaurantes: 'Restaurante',
+  clinicas:     'Clinica',
+  ginasios:     'Ginasio / Fitness',
+  alojamento:   'Alojamento',
+  saloes:       'Salao / Beleza',
+  servicos:     'Servico Local'
+};
+
+const GAP_LABELS = {
+  sem_website:       'Sem website',
+  sem_reservas:      'Sem reservas online',
+  sem_whatsapp:      'Sem WhatsApp Business',
+  sem_analytics:     'Sem Google Analytics',
+  sem_facebook_pixel:'Sem Facebook Pixel',
+  sem_ssl:           'Sem certificado SSL',
+  sem_mobile:        'Nao mobile-friendly',
+  sem_instagram:     'Sem Instagram',
+  sem_facebook:      'Sem Facebook'
+};
+
+// ── STATE ────────────────────────────────────────────────────────
+let allBusinesses = [];
+let visibleMarkers = {};
+let selectedIds = new Set();
+let currentCategory = 'all';
+let map;
+let openPopupId = null;
+
+// ── INIT ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load data
+  const res = await fetch('data/businesses.json');
+  allBusinesses = await res.json();
+
+  // Compute gaps from booleans
+  allBusinesses.forEach(b => {
+    b.gaps = computeGaps(b);
+  });
+
+  // Init map
+  map = L.map('map', {
+    center: [37.765, -25.58],
+    zoom: 11,
+    zoomControl: false
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  renderMarkers();
+});
+
+// ── GAPS ─────────────────────────────────────────────────────────
+function computeGaps(b) {
+  const g = [];
+  if (!b.has_website)        g.push('sem_website');
+  if (!b.has_booking)        g.push('sem_reservas');
+  if (!b.whatsapp)           g.push('sem_whatsapp');
+  if (!b.has_analytics)      g.push('sem_analytics');
+  if (!b.has_facebook_pixel) g.push('sem_facebook_pixel');
+  if (b.has_website && !b.has_ssl)            g.push('sem_ssl');
+  if (b.has_website && !b.is_mobile_friendly) g.push('sem_mobile');
+  return g;
+}
+
+// ── MARKERS ──────────────────────────────────────────────────────
+function scoreColor(score) {
+  if (score >= 86) return '#ef4444';
+  if (score >= 71) return '#f97316';
+  if (score >= 51) return '#eab308';
+  return '#6b7280';
+}
+
+function createIcon(b, selected) {
+  const color = selected ? '#10f5a0' : scoreColor(b.score);
+  const textColor = selected ? '#060a10' : 'white';
+  const border = selected ? '3px solid white' : '2px solid rgba(255,255,255,.25)';
+  return L.divIcon({
+    html: `<div class="lh-marker${selected ? ' selected' : ''}" style="background:${color};border:${border};color:${textColor}">${b.score}</div>`,
+    className: '',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -20]
+  });
+}
+
+function renderMarkers() {
+  // Remove existing
+  Object.values(visibleMarkers).forEach(m => map.removeLayer(m));
+  visibleMarkers = {};
+
+  const filtered = currentCategory === 'all'
+    ? allBusinesses
+    : allBusinesses.filter(b => b.category === currentCategory);
+
+  filtered.forEach(b => {
+    const marker = L.marker([b.lat, b.lng], {
+      icon: createIcon(b, selectedIds.has(b.id))
+    }).addTo(map);
+
+    marker.bindPopup(buildPopupHTML(b), { maxWidth: 300, minWidth: 280 });
+
+    marker.on('click', () => {
+      openPopupId = b.id;
+    });
+
+    marker.on('popupopen', () => {
+      // Wire up the select button inside the popup
+      const btn = document.getElementById(`select-btn-${b.id}`);
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleSelect(b.id);
+          map.closePopup();
+        });
+      }
+    });
+
+    visibleMarkers[b.id] = marker;
+  });
+}
+
+function refreshMarkerIcon(id) {
+  const marker = visibleMarkers[id];
+  const b = allBusinesses.find(x => x.id === id);
+  if (marker && b) {
+    marker.setIcon(createIcon(b, selectedIds.has(id)));
+  }
+}
+
+// ── POPUP HTML ───────────────────────────────────────────────────
+function buildPopupHTML(b) {
+  const color = scoreColor(b.score);
+  const catColor = CAT_COLORS[b.category] || '#6b7280';
+  const isSelected = selectedIds.has(b.id);
+
+  const gapTags = b.gaps.slice(0, 4).map(g =>
+    `<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.15)">${GAP_LABELS[g] || g}</span>`
+  ).join('');
+
+  const contact = [
+    b.email ? `<div style="color:#9ca3af;font-size:12px;margin-top:4px">✉ ${b.email}</div>` : '',
+    b.phone ? `<div style="color:#9ca3af;font-size:12px;margin-top:2px">✆ ${b.phone}</div>` : '',
+    b.website ? `<div style="color:#10f5a0;font-size:12px;margin-top:2px">↗ ${b.website}</div>` : '<div style="color:#6b7280;font-size:12px;margin-top:2px">sem website</div>'
+  ].join('');
+
+  const btnStyle = isSelected
+    ? 'background:#1a2a1a;color:#10f5a0;border:1px solid #10f5a0'
+    : 'background:linear-gradient(135deg,#10f5a0,#06d6a0);color:#060a10';
+
+  const canSelect = !isSelected && selectedIds.size >= 30;
+
+  return `
+    <div style="font-family:Inter,sans-serif">
+      <div style="padding:14px 14px 10px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+          <div>
+            <div style="font-weight:800;font-size:14px;color:white;line-height:1.3">${b.name}</div>
+            <div style="display:inline-flex;align-items:center;margin-top:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600;background:${catColor}18;color:${catColor};border:1px solid ${catColor}25">${CAT_NAMES[b.category]}</div>
+          </div>
+          <div style="text-align:center;shrink:0">
+            <div style="width:38px;height:38px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;border:2px solid rgba(255,255,255,.2)">${b.score}</div>
+            <div style="font-size:8px;color:#6b7280;margin-top:2px;font-weight:600">SCORE</div>
+          </div>
+        </div>
+        <div style="color:#6b7280;font-size:11px;margin-top:6px">${b.municipality}, Sao Miguel</div>
+      </div>
+
+      <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#4b5563;font-weight:600;margin-bottom:6px">Gaps</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">${gapTags || '<span style="color:#6b7280;font-size:11px">Dados em analise</span>'}</div>
+      </div>
+
+      <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#4b5563;font-weight:600;margin-bottom:4px">Contacto</div>
+        ${contact}
+      </div>
+
+      <div style="padding:10px 14px">
+        <button id="select-btn-${b.id}" ${canSelect ? 'disabled' : ''}
+          style="width:100%;padding:9px;border-radius:10px;font-weight:700;font-size:13px;cursor:${canSelect ? 'not-allowed' : 'pointer'};border:none;${btnStyle};opacity:${canSelect ? '.4' : '1'}">
+          ${isSelected ? 'Remover selecao' : canSelect ? 'Limite atingido (30)' : 'Selecionar este negocio'}
+        </button>
+      </div>
+    </div>`;
+}
+
+// ── SELECTION ────────────────────────────────────────────────────
+function toggleSelect(id) {
+  if (selectedIds.has(id)) {
+    selectedIds.delete(id);
+  } else {
+    if (selectedIds.size >= 30) return;
+    selectedIds.add(id);
+  }
+  refreshMarkerIcon(id);
+  updateUI();
+}
+
+function updateUI() {
+  const count = selectedIds.size;
+  const price = count === 0 ? 0 : count <= 5 ? 5 : 12;
+  const tier = count === 0
+    ? 'Seleciona ate 5 por €5'
+    : count <= 5
+    ? `Pack Starter — ate 5 negocios por €5`
+    : `Pack Hunter — ate 30 negocios por €12`;
+
+  // Bottom bar
+  const bar = document.getElementById('bottom-bar');
+  if (count > 0) {
+    bar.classList.remove('hidden-bar');
+  } else {
+    bar.classList.add('hidden-bar');
+  }
+
+  document.getElementById('bar-count').textContent = count;
+  document.getElementById('bar-price').textContent = price > 0 ? `€${price}` : '€0';
+  document.getElementById('bar-tier').textContent = tier;
+
+  // Top counter
+  const topCounter = document.getElementById('top-counter');
+  if (count > 0) {
+    topCounter.classList.remove('hidden');
+    topCounter.classList.add('flex');
+  } else {
+    topCounter.classList.add('hidden');
+    topCounter.classList.remove('flex');
+  }
+  document.getElementById('top-count').textContent = count;
+  document.getElementById('top-price').textContent = price > 0 ? `€${price}` : '';
+
+  // Animate count
+  const el = document.getElementById('bar-count');
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+}
+
+// ── CATEGORY FILTER ──────────────────────────────────────────────
+function filterCategory(cat) {
+  currentCategory = cat;
+
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    const active = btn.dataset.cat === cat;
+    btn.style.background = active ? '#10f5a0' : 'rgba(255,255,255,.06)';
+    btn.style.color = active ? '#060a10' : '#9ca3af';
+    btn.style.borderColor = active ? '#10f5a0' : 'rgba(255,255,255,.06)';
+  });
+
+  renderMarkers();
+}
+
+// ── PAYMENT ──────────────────────────────────────────────────────
+function handlePayment() {
+  if (selectedIds.size === 0) return;
+
+  // Store selected IDs
+  const ids = Array.from(selectedIds);
+  localStorage.setItem('lh_selected', JSON.stringify(ids));
+  localStorage.setItem('lh_ts', Date.now().toString());
+
+  // Choose payment link
+  const link = selectedIds.size <= 5 ? STRIPE_STARTER : STRIPE_HUNTER;
+  window.location.href = link;
+}
+</script>
+</body>
+</html>
