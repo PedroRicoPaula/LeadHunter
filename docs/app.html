@@ -13,7 +13,8 @@
     *, *::before, *::after { box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { margin: 0; background: #060a10; color: white; overflow: hidden; }
 
-    #map { position: fixed; inset: 0; top: 110px; bottom: 80px; z-index: 1; }
+    #map { position: fixed; inset: 0; top: 110px; bottom: 0; z-index: 1; transition: bottom .3s cubic-bezier(.4,0,.2,1); }
+    #map.bar-open { bottom: 80px; }
 
     /* Override Leaflet tiles for dark look */
     .leaflet-tile { filter: brightness(.85) saturate(.7) invert(1) hue-rotate(180deg); }
@@ -84,7 +85,8 @@
     </div>
   </div>
   <!-- Category tabs -->
-  <div class="cat-scroll overflow-x-auto flex gap-2 px-4 py-2.5">
+  <div class="relative">
+  <div class="cat-scroll overflow-x-auto flex gap-2 px-4 py-2.5 pr-10">
     <button onclick="filterCategory('all')" data-cat="all"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/10 bg-white/[.06] text-white transition-all">
       Todos
@@ -109,6 +111,9 @@
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
       Servicos
     </button>
+  </div>
+  <!-- Fade gradient to indicate more tabs on mobile -->
+  <div class="absolute right-0 top-0 bottom-0 w-10 pointer-events-none md:hidden" style="background:linear-gradient(to right, transparent, rgba(6,10,16,.95))"></div>
   </div>
 </div>
 
@@ -396,12 +401,15 @@ function updateUI() {
     ? `Pack Starter — ate 5 negocios por €5`
     : `Pack Hunter — ate 30 negocios por €12`;
 
-  // Bottom bar
+  // Bottom bar + map resize
   const bar = document.getElementById('bottom-bar');
+  const mapEl = document.getElementById('map');
   if (count > 0) {
     bar.classList.remove('hidden-bar');
+    mapEl.classList.add('bar-open');
   } else {
     bar.classList.add('hidden-bar');
+    mapEl.classList.remove('bar-open');
   }
 
   document.getElementById('bar-count').textContent = count;
