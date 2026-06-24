@@ -1,4 +1,4 @@
-# Nexus OS — Guia Rápido
+# Lead Hunter — Guia Rápido
 
 Sistema de prospeção B2B local para os Açores. Descobre empresas, audita a presença digital e gera scores de oportunidade — tudo grátis, sem API keys pagas.
 

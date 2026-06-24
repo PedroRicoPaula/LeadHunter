@@ -1,5 +1,5 @@
 """
-Nexus OS — Launcher
+Lead Hunter — Launcher
 Starts FastAPI (port 8000) + Vite dev server (port 5173).
 
 Usage:
@@ -16,7 +16,7 @@ WEB_DIR = ROOT / "web"
 
 
 def main():
-    print("Starting Nexus OS...")
+    print("Starting Lead Hunter...")
     print("  API  → http://localhost:8000")
     print("  UI   → http://localhost:5173")
     print("  Press Ctrl+C to stop\n")

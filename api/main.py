@@ -16,11 +16,11 @@ from api.routers import companies, pipeline, llm
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
-    print("[nexus] DB ready")
+    print("[lead-hunter] DB ready")
     yield
 
 
-app = FastAPI(title="Nexus OS API", version="1.0", lifespan=lifespan)
+app = FastAPI(title="Lead Hunter API", version="1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
