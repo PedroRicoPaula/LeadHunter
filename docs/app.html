@@ -311,53 +311,64 @@ function buildPopupHTML(b) {
   const color = scoreColor(b.score);
   const catColor = CAT_COLORS[b.category] || '#6b7280';
   const isSelected = selectedIds.has(b.id);
+  const gapCount = b.gaps.length;
 
-  const gapTags = b.gaps.slice(0, 4).map(g =>
-    `<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.15)">${GAP_LABELS[g] || g}</span>`
-  ).join('');
-
-  const contact = [
-    b.email ? `<div style="color:#9ca3af;font-size:12px;margin-top:4px">✉ ${b.email}</div>` : '',
-    b.phone ? `<div style="color:#9ca3af;font-size:12px;margin-top:2px">✆ ${b.phone}</div>` : '',
-    b.website ? `<div style="color:#10f5a0;font-size:12px;margin-top:2px">↗ ${b.website}</div>` : '<div style="color:#6b7280;font-size:12px;margin-top:2px">sem website</div>'
-  ].join('');
+  const scoreTier = b.score >= 86
+    ? { label: 'Oportunidade critica', color: '#ef4444', bg: 'rgba(239,68,68,.08)' }
+    : b.score >= 71
+    ? { label: 'Oportunidade alta', color: '#f97316', bg: 'rgba(249,115,22,.08)' }
+    : { label: 'Oportunidade media', color: '#eab308', bg: 'rgba(234,179,8,.08)' };
 
   const btnStyle = isSelected
-    ? 'background:#1a2a1a;color:#10f5a0;border:1px solid #10f5a0'
+    ? 'background:#0f2a1a;color:#10f5a0;border:1px solid rgba(16,245,160,.4)'
     : 'background:linear-gradient(135deg,#10f5a0,#06d6a0);color:#060a10';
 
   const canSelect = !isSelected && selectedIds.size >= 30;
 
   return `
     <div style="font-family:Inter,sans-serif">
-      <div style="padding:14px 14px 10px;border-bottom:1px solid rgba(255,255,255,.06)">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-          <div>
-            <div style="font-weight:800;font-size:14px;color:white;line-height:1.3">${b.name}</div>
-            <div style="display:inline-flex;align-items:center;margin-top:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600;background:${catColor}18;color:${catColor};border:1px solid ${catColor}25">${CAT_NAMES[b.category]}</div>
+      <!-- Header: nome + score -->
+      <div style="padding:16px 16px 12px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:800;font-size:15px;color:white;line-height:1.3;margin-bottom:5px">${b.name}</div>
+            <div style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600;background:${catColor}15;color:${catColor};border:1px solid ${catColor}22">${CAT_NAMES[b.category] || b.category}</div>
           </div>
-          <div style="text-align:center;shrink:0">
-            <div style="width:38px;height:38px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;border:2px solid rgba(255,255,255,.2)">${b.score}</div>
-            <div style="font-size:8px;color:#6b7280;margin-top:2px;font-weight:600">SCORE</div>
+          <div style="text-align:center;flex-shrink:0">
+            <div style="width:44px;height:44px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:white;border:2px solid rgba(255,255,255,.15);box-shadow:0 4px 12px ${color}50">${b.score}</div>
+            <div style="font-size:7px;color:#6b7280;margin-top:3px;font-weight:700;letter-spacing:.05em">SCORE</div>
           </div>
         </div>
-        <div style="color:#6b7280;font-size:11px;margin-top:6px">${b.municipality}, Sao Miguel</div>
+        <div style="color:#6b7280;font-size:11px;margin-top:8px;display:flex;align-items:center;gap:4px">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${b.municipality}, Sao Miguel
+        </div>
       </div>
 
-      <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#4b5563;font-weight:600;margin-bottom:6px">Gaps</div>
-        <div style="display:flex;flex-wrap:wrap;gap:4px">${gapTags || '<span style="color:#6b7280;font-size:11px">Dados em analise</span>'}</div>
+      <!-- Score tier -->
+      <div style="margin:0 12px 12px;padding:8px 12px;border-radius:10px;background:${scoreTier.bg};border:1px solid ${scoreTier.color}22">
+        <div style="font-size:10px;font-weight:700;color:${scoreTier.color};letter-spacing:.02em">${scoreTier.label}</div>
       </div>
 
-      <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#4b5563;font-weight:600;margin-bottom:4px">Contacto</div>
-        ${contact}
+      <!-- Gaps teaser — count only, details locked -->
+      <div style="margin:0 12px 12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#4b5563;font-weight:700;margin-bottom:3px">Gaps digitais</div>
+            <div style="font-size:13px;font-weight:800;color:white">${gapCount} problema${gapCount !== 1 ? 's' : ''} identificado${gapCount !== 1 ? 's' : ''}</div>
+          </div>
+          <div style="padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:10px;color:#4b5563">Contacto + detalhes disponiveis no PDF apos pagamento</div>
       </div>
 
-      <div style="padding:10px 14px">
+      <!-- CTA -->
+      <div style="padding:0 12px 14px">
         <button id="select-btn-${b.id}" ${canSelect ? 'disabled' : ''}
-          style="width:100%;padding:9px;border-radius:10px;font-weight:700;font-size:13px;cursor:${canSelect ? 'not-allowed' : 'pointer'};border:none;${btnStyle};opacity:${canSelect ? '.4' : '1'}">
-          ${isSelected ? 'Remover selecao' : canSelect ? 'Limite atingido (30)' : 'Selecionar este negocio'}
+          style="width:100%;padding:10px;border-radius:10px;font-weight:700;font-size:13px;cursor:${canSelect ? 'not-allowed' : 'pointer'};border:none;${btnStyle};opacity:${canSelect ? '.4' : '1'};transition:all .2s">
+          ${isSelected ? '&#10003; Selecionado — clica para remover' : canSelect ? 'Limite atingido (30)' : 'Selecionar — ver PDF apos pagamento'}
         </button>
       </div>
     </div>`;
