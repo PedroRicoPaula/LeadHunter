@@ -302,6 +302,11 @@ function refreshMarkerIcon(id) {
   }
 }
 
+// ── UTILS ────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 // ── POPUP HTML ───────────────────────────────────────────────────
 function buildPopupHTML(b) {
   const color = scoreColor(b.score);
@@ -327,8 +332,8 @@ function buildPopupHTML(b) {
       <div style="padding:16px 16px 12px">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
           <div style="flex:1;min-width:0">
-            <div style="font-weight:800;font-size:15px;color:white;line-height:1.3;margin-bottom:5px">${b.name}</div>
-            <div style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600;background:${catColor}15;color:${catColor};border:1px solid ${catColor}22">${CAT_NAMES[b.category] || b.category}</div>
+            <div style="font-weight:800;font-size:15px;color:white;line-height:1.3;margin-bottom:5px">${esc(b.name)}</div>
+            <div style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600;background:${catColor}15;color:${catColor};border:1px solid ${catColor}22">${esc(CAT_NAMES[b.category] || b.category)}</div>
           </div>
           <div style="text-align:center;flex-shrink:0">
             <div style="width:44px;height:44px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:white;border:2px solid rgba(255,255,255,.15);box-shadow:0 4px 12px ${color}50">${b.score}</div>
@@ -337,7 +342,7 @@ function buildPopupHTML(b) {
         </div>
         <div style="color:#6b7280;font-size:11px;margin-top:8px;display:flex;align-items:center;gap:4px">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${b.municipality}, Sao Miguel
+          ${esc(b.municipality)}, Sao Miguel
         </div>
       </div>
 
@@ -440,13 +445,15 @@ function filterCategory(cat) {
 function handlePayment() {
   if (selectedIds.size === 0) return;
 
-  // Store selected IDs
+  // Store selected IDs and plan tier
   const ids = Array.from(selectedIds);
+  const plan = selectedIds.size <= 5 ? 'starter' : 'hunter';
   localStorage.setItem('lh_selected', JSON.stringify(ids));
+  localStorage.setItem('lh_plan', plan);
   localStorage.setItem('lh_ts', Date.now().toString());
 
   // Choose payment link
-  const link = selectedIds.size <= 5 ? STRIPE_STARTER : STRIPE_HUNTER;
+  const link = plan === 'starter' ? STRIPE_STARTER : STRIPE_HUNTER;
   window.location.href = link;
 }
 </script>

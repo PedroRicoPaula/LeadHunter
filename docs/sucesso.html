@@ -140,6 +140,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   const ids = JSON.parse(raw);
   if (!ids || ids.length === 0) { show('nodata'); return; }
 
+  // Enforce plan limits — starter: ≤5, hunter: ≤30
+  const plan = localStorage.getItem('lh_plan') || 'hunter';
+  const maxAllowed = plan === 'starter' ? 5 : 30;
+  if (ids.length > maxAllowed) { show('nodata'); return; }
+
   try {
     const res = await fetch('data/businesses.json');
     const all = await res.json();
@@ -186,16 +191,20 @@ function scoreColor(s) {
   return s >= 86 ? '#ef4444' : s >= 71 ? '#f97316' : s >= 51 ? '#eab308' : '#6b7280';
 }
 
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function renderList() {
   document.getElementById('business-count').textContent = businesses.length + ' negocio(s)';
 
   const container = document.getElementById('business-list');
   container.innerHTML = businesses.map((b, i) => `
     <div class="rounded-2xl border border-white/[.06] p-4 flex items-center gap-4" style="background:rgba(255,255,255,.02)">
-      <div style="width:40px;height:40px;border-radius:50%;background:${scoreColor(b.score)};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;shrink:0;flex-shrink:0">${b.score}</div>
+      <div style="width:40px;height:40px;border-radius:50%;background:${scoreColor(b.score)};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;shrink:0;flex-shrink:0">${esc(b.score)}</div>
       <div class="flex-1 min-w-0">
-        <div class="font-semibold text-[13px] truncate">${b.name}</div>
-        <div class="text-gray-500 text-[11px]">${b.municipality} · ${b.gaps.length} gaps</div>
+        <div class="font-semibold text-[13px] truncate">${esc(b.name)}</div>
+        <div class="text-gray-500 text-[11px]">${esc(b.municipality)} · ${b.gaps.length} gaps</div>
       </div>
       <button onclick="downloadOne(${i})" class="btn-dl shrink-0 px-4 py-2 rounded-lg text-[12px]">
         PDF
