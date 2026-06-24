@@ -178,15 +178,15 @@ const CAT_NAMES = {
 };
 
 const GAP_LABELS = {
-  sem_website:       'Sem website',
-  sem_reservas:      'Sem reservas online',
-  sem_whatsapp:      'Sem WhatsApp Business',
-  sem_analytics:     'Sem Google Analytics',
-  sem_facebook_pixel:'Sem Facebook Pixel',
-  sem_ssl:           'Sem certificado SSL',
-  sem_mobile:        'Nao mobile-friendly',
-  sem_instagram:     'Sem Instagram',
-  sem_facebook:      'Sem Facebook'
+  sem_website:        'Sem website',
+  sem_reservas:       'Sem reservas online',
+  sem_whatsapp:       'Sem WhatsApp Business',
+  sem_redes_sociais:  'Sem redes sociais',
+  sem_email:          'Sem email no site',
+  sem_analytics:      'Sem Google Analytics',
+  sem_facebook_pixel: 'Sem Facebook Pixel',
+  sem_ssl:            'Sem certificado SSL',
+  sem_mobile:         'Nao mobile-friendly'
 };
 
 // ── STATE ────────────────────────────────────────────────────────
@@ -203,9 +203,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const res = await fetch('data/businesses.json');
   allBusinesses = await res.json();
 
-  // Compute gaps from booleans
+  // Use pre-computed gaps from JSON, fall back to local computation
   allBusinesses.forEach(b => {
-    b.gaps = computeGaps(b);
+    if (!b.gaps || b.gaps.length === 0) b.gaps = computeGaps(b);
   });
 
   // Init map

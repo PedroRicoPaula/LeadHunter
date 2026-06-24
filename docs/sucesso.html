@@ -108,15 +108,15 @@
 
 <script>
 const GAP_DESC = {
-  sem_website:       'Sem website — oportunidade critica para criar presenca online',
-  sem_reservas:      'Sem reservas online — TheFork, Calendly ou similar',
-  sem_whatsapp:      'Sem WhatsApp Business — canal de contacto directo em falta',
-  sem_analytics:     'Sem Google Analytics — sem dados de visitantes',
-  sem_facebook_pixel:'Sem Facebook Pixel — sem capacidade de remarketing',
-  sem_ssl:           'Sem certificado SSL — site inseguro (HTTP)',
-  sem_mobile:        'Nao mobile-friendly — perde clientes mobile',
-  sem_instagram:     'Sem Instagram — presenca social em falta',
-  sem_facebook:      'Sem Facebook — presenca social em falta'
+  sem_website:        'Sem website real — oportunidade critica para criar presenca online',
+  sem_reservas:       'Sem reservas online — TheFork, Calendly, Booksy ou similar',
+  sem_whatsapp:       'Sem WhatsApp Business — canal de contacto directo em falta',
+  sem_redes_sociais:  'Sem redes sociais detectadas — presenca digital zero',
+  sem_email:          'Sem email de contacto no site — dificuldade de contacto',
+  sem_analytics:      'Sem Google Analytics — sem dados de visitantes',
+  sem_facebook_pixel: 'Sem Facebook Pixel — sem capacidade de remarketing',
+  sem_ssl:            'Sem certificado SSL — site inseguro (HTTP)',
+  sem_mobile:         'Nao mobile-friendly — perde clientes mobile'
 };
 
 const CAT_NAMES = {
@@ -147,7 +147,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Attach computed gaps
     businesses = all
       .filter(b => ids.includes(b.id))
-      .map(b => ({ ...b, gaps: computeGaps(b) }));
+      .map(b => ({ ...b, gaps: (b.gaps && b.gaps.length) ? b.gaps : computeGaps(b) }));
 
     if (businesses.length === 0) { show('nodata'); return; }
 
