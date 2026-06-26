@@ -10,6 +10,7 @@ import time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
+import httpx
 import typer
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright, Page, TimeoutError as PWTimeout
@@ -21,6 +22,32 @@ from config_loader import CONFIG
 
 app = typer.Typer()
 console = Console()
+
+
+def _cleanup_playwright_procs() -> None:
+    """Kill playwright/node/chromium processes not in uninterruptible-sleep."""
+    import subprocess as _sp
+    try:
+        out = _sp.run(["ps", "axo", "pid,stat,command"], capture_output=True, text=True).stdout
+        killed = []
+        for line in out.splitlines():
+            parts = line.split(None, 2)
+            if len(parts) < 3:
+                continue
+            pid_s, stat, cmd = parts
+            if stat.startswith("U"):
+                continue
+            if any(kw in cmd for kw in ["playwright/driver", "playwright-driver", "chromium-headless"]):
+                try:
+                    _sp.run(["kill", "-9", pid_s], capture_output=True)
+                    killed.append(pid_s)
+                except Exception:
+                    pass
+        if killed:
+            console.print(f"[dim]Cleanup: {len(killed)} proc(s) playwright removidos {killed}[/]")
+    except Exception:
+        pass
+
 
 ROOT = Path(__file__).parent.parent
 LEADS_FILE = ROOT / CONFIG["output"]["leads_file"]
@@ -57,6 +84,114 @@ _SOCIAL_RE = {
     "linkedin": re.compile(r"linkedin\.com/", re.I),
     "youtube": re.compile(r"youtube\.com/", re.I),
 }
+
+_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+
+
+async def _audit_page_httpx(url: str, timeout: int) -> dict:
+    """Lightweight audit via httpx+BeautifulSoup — no browser required."""
+    result = {
+        "url_auditada": url, "load_time": None, "emails": [], "telefones": [],
+        "whatsapp_link": None, "redes_sociais": {}, "tem_booking": False,
+        "booking_hints": [], "formularios": 0, "texto_homepage": "",
+        "subpages_visitadas": [], "favicon_url": None,
+        "has_https": int(url.startswith("https://")),
+        "has_mobile_meta": 0, "has_analytics": 0, "has_facebook_pixel": 0,
+        "cms_detected": None, "page_word_count": 0, "erro": None,
+    }
+    headers = {"User-Agent": _UA, "Accept-Language": "pt-PT,pt;q=0.9,en;q=0.8"}
+    try:
+        t0 = time.time()
+        async with httpx.AsyncClient(follow_redirects=True, timeout=timeout,
+                                     verify=False, headers=headers) as client:
+            resp = await client.get(url)
+            result["load_time"] = round(time.time() - t0, 2)
+            result["status_code"] = resp.status_code
+            html = resp.text
+            final_url = str(resp.url)
+            result["has_https"] = int(final_url.startswith("https://"))
+
+        soup = BeautifulSoup(html, "lxml")
+        # Favicon
+        for rel in ("icon", "shortcut icon", "apple-touch-icon"):
+            tag = soup.find("link", rel=lambda r, _r=rel: r and _r in (" ".join(r).lower() if isinstance(r, list) else str(r).lower()))
+            if tag and tag.get("href"):
+                href = tag["href"]
+                result["favicon_url"] = urljoin(url, href) if not href.startswith("http") else href
+                break
+        if not result["favicon_url"]:
+            result["favicon_url"] = f"https://www.google.com/s2/favicons?domain={urlparse(url).netloc}&sz=32"
+
+        result["has_mobile_meta"]    = int(bool(soup.find("meta", attrs={"name": re.compile("viewport", re.I)})))
+        result["has_analytics"]      = int(bool(_ANALYTICS_RE.search(html)))
+        result["has_facebook_pixel"] = int(bool(_PIXEL_RE.search(html)))
+        html_lower = html.lower()
+        for cms_name, patterns in _CMS_PATTERNS:
+            if any(p in html_lower for p in patterns):
+                result["cms_detected"] = cms_name
+                break
+
+        for tag in soup(["script", "style", "noscript", "svg", "img"]):
+            tag.decompose()
+        text = soup.get_text(separator=" ", strip=True)
+        result["page_word_count"] = len(text.split())
+        result["texto_homepage"] = text[:3000]
+
+        raw_emails = set(_EMAIL_RE.findall(text + html))
+        result["emails"] = [e for e in raw_emails
+                            if not _EMAIL_BAD_EXT.search(e) and "." in e.split("@")[-1]
+                            and len(e.split("@")[-1]) > 3][:5]
+        result["telefones"] = list(set(_PHONE_RE.findall(text)))[:5]
+        links = [a.get("href", "") for a in soup.find_all("a", href=True)]
+        wa = [l for l in links if _WHATSAPP_RE.search(l)]
+        result["whatsapp_link"] = wa[0] if wa else None
+        for platform, pattern in _SOCIAL_RE.items():
+            found = [l for l in links if pattern.search(l)]
+            if found:
+                result["redes_sociais"][platform] = found[0]
+        platform_links = [l for l in links if _BOOKING_PLATFORM_RE.search(l)]
+        platform_iframe = bool(_BOOKING_IFRAME_RE.search(html))
+        kw_matches = list(set(_BOOKING_KEYWORDS_RE.findall(text[:5000])))
+        result["tem_booking"] = bool(platform_links) or platform_iframe or len(kw_matches) >= 3
+        result["booking_hints"] = list(set(
+            [l.split("//")[-1].split("/")[0][:25] for l in platform_links] + kw_matches[:3]
+        ))[:5]
+        result["formularios"] = len(soup.find_all("form"))
+
+        # Visit subpages
+        parsed = urlparse(final_url)
+        origin = f"{parsed.scheme}://{parsed.netloc}"
+        visited = 0
+        async with httpx.AsyncClient(follow_redirects=True, timeout=8, verify=False, headers=headers) as client:
+            for path in _SUBPAGES[:6]:
+                if visited >= 3:
+                    break
+                try:
+                    sr = await client.get(origin + path)
+                    if sr.status_code >= 400:
+                        continue
+                    sh = sr.text
+                    ssoup = BeautifulSoup(sh, "lxml")
+                    for tag in ssoup(["script", "style", "noscript"]):
+                        tag.decompose()
+                    st = ssoup.get_text(separator=" ", strip=True)
+                    new_e = [e for e in set(_EMAIL_RE.findall(st + sh))
+                             if not _EMAIL_BAD_EXT.search(e) and "." in e.split("@")[-1]]
+                    result["emails"] = list(dict.fromkeys(result["emails"] + new_e))[:5]
+                    result["telefones"] = list(dict.fromkeys(result["telefones"] + list(set(_PHONE_RE.findall(st)))))[:5]
+                    slinks = [a.get("href","") for a in ssoup.find_all("a", href=True)]
+                    if not result["whatsapp_link"]:
+                        swa = [l for l in slinks if _WHATSAPP_RE.search(l)]
+                        if swa:
+                            result["whatsapp_link"] = swa[0]
+                    result["subpages_visitadas"].append(path)
+                    visited += 1
+                except Exception:
+                    continue
+    except Exception as e:
+        result["erro"] = str(e)[:200]
+    return result
+
 
 _SUBPAGES = [
     "/contacto", "/contactos", "/contact",
@@ -305,9 +440,57 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
     total = len(to_audit)
     console.print(f"[cyan]A auditar {total} sites...[/]\n")
 
-    async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=headless)
+    # Check free RAM — fork() for Node.js/Chromium needs ~200MB; use httpx mode if low
+    import subprocess as _sp
+    _vm = _sp.run(["vm_stat"], capture_output=True, text=True).stdout
+    _free_mb = sum(
+        int(l.split(":")[1].strip().rstrip(".")) * 16384 // 1024 // 1024
+        for l in _vm.splitlines()
+        if l.startswith("Pages free") or l.startswith("Pages speculative")
+    )
+    browser = None
+    pw_ctx = None
+    if _free_mb >= 200:
+        try:
+            pw_ctx = await asyncio.wait_for(async_playwright().__aenter__(), timeout=30)
+            browser = await asyncio.wait_for(
+                pw_ctx.chromium.launch(
+                    headless=headless,
+                    args=["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu",
+                          "--memory-pressure-off", "--disable-extensions",
+                          "--disable-background-networking"],
+                ),
+                timeout=30,
+            )
+            console.print("[dim]Browser lançado.[/]")
+        except Exception as launch_err:
+            if pw_ctx:
+                try:
+                    await pw_ctx.__aexit__(None, None, None)
+                except Exception:
+                    pass
+            browser = None
+            pw_ctx = None
+            console.print(f"[yellow]Browser falhou ({launch_err.__class__.__name__}) — modo httpx.[/]")
+            _cleanup_playwright_procs()
+    else:
+        console.print(f"[yellow]RAM livre: {_free_mb}MB (<200MB) — modo httpx (sem browser).[/]")
 
+    async def _audit_one(lead: dict) -> dict:
+        if browser is not None:
+            context = await browser.new_context(
+                user_agent=ua, viewport={"width": 1280, "height": 800},
+                ignore_https_errors=True, java_script_enabled=True,
+            )
+            page = await context.new_page()
+            try:
+                return await _audit_page(page, lead["website"], timeout)
+            finally:
+                await context.close()
+        else:
+            return await _audit_page_httpx(lead["website"], timeout)
+
+    try:
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -321,18 +504,7 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
                 nome = lead["nome"] or lead["website"]
                 progress.update(task, description=f"[cyan]{nome[:40]}[/]")
 
-                # New page per site — isolates crashes and JS state
-                context = await browser.new_context(
-                    user_agent=ua,
-                    viewport={"width": 1280, "height": 800},
-                    ignore_https_errors=True,
-                    java_script_enabled=True,
-                )
-                page = await context.new_page()
-                try:
-                    audit = await _audit_page(page, lead["website"], timeout)
-                finally:
-                    await context.close()
+                audit = await _audit_one(lead)
 
                 lead.update(audit)
                 lead["status"] = "auditado" if not audit["erro"] else "erro_auditoria"
@@ -340,13 +512,30 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
                 progress.advance(task)
 
                 if progress_callback:
-                    progress_callback(i + 1, total)  # after processing
+                    progress_callback(i + 1, total)
+
+                # Incremental save every 10 sites — avoid losing all work on crash
+                if (i + 1) % 10 == 0:
+                    try:
+                        with open(LEADS_FILE, "w", encoding="utf-8") as f:
+                            json.dump(leads, f, ensure_ascii=False, indent=2)
+                    except Exception:
+                        pass
 
                 if i < total - 1:
-                    delay = random.uniform(delay_min, delay_max)
-                    await asyncio.sleep(delay)
-
-        await browser.close()
+                    await asyncio.sleep(random.uniform(delay_min, delay_max))
+    finally:
+        if browser:
+            try:
+                await browser.close()
+            except Exception:
+                pass
+        if pw_ctx:
+            try:
+                await pw_ctx.__aexit__(None, None, None)
+            except Exception:
+                pass
+        _cleanup_playwright_procs()
 
     return leads
 

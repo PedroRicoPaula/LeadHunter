@@ -7,7 +7,7 @@ aiosqlite>=0.20.0
 
 # Scripts / pipeline
 typer[all]>=0.12.3
-rich>=13.7.1
+rich>=13.7.1,<15.0.0
 playwright>=1.44.0
 beautifulsoup4>=4.12.3
 lxml>=5.3.0

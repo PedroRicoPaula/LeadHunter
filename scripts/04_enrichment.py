@@ -20,6 +20,33 @@ from config_loader import CONFIG
 app = typer.Typer()
 console = Console()
 
+
+def _cleanup_playwright_procs() -> None:
+    """Kill playwright/node/chromium processes that are NOT in uninterruptible-sleep (UE).
+    UE processes can only be cleared by the kernel (reboot). Non-UE ones accumulate and block new launches."""
+    import subprocess as _sp, signal as _sig
+    try:
+        out = _sp.run(["ps", "axo", "pid,stat,command"], capture_output=True, text=True).stdout
+        killed = []
+        for line in out.splitlines():
+            parts = line.split(None, 2)
+            if len(parts) < 3:
+                continue
+            pid_s, stat, cmd = parts
+            if stat.startswith("U"):  # uninterruptible — skip, can't kill
+                continue
+            if any(kw in cmd for kw in ["playwright/driver", "playwright-driver", "chromium-headless"]):
+                try:
+                    _sp.run(["kill", "-9", pid_s], capture_output=True)
+                    killed.append(pid_s)
+                except Exception:
+                    pass
+        if killed:
+            console.print(f"[dim]Cleanup: {len(killed)} proc(s) playwright removidos {killed}[/]")
+    except Exception:
+        pass
+
+
 ROOT = Path(__file__).parent.parent
 LEADS_FILE = ROOT / CONFIG["output"]["leads_file"]
 
@@ -157,33 +184,45 @@ async def _verify_domain_guesses(name: str) -> list[str]:
     slug, slug_dash = _name_to_slug(name)
     if len(slug) < 3:
         return []
-    patterns = [
-        f"https://www.{slug}.pt",
-        f"https://www.{slug_dash}.pt",
-        f"https://{slug}.pt",
-        f"https://{slug_dash}.pt",
-        f"https://www.{slug}.com",
-    ]
-    seen: set[str] = set()
+
+    # Also try first meaningful word only (e.g. "Coffee Bar Alfredo" → "alfredo")
+    words = [w for w in re.sub(r"[^a-z0-9 ]", "", slug_dash).split("-") if len(w) > 2]
+    first_slug = words[0] if words else ""
+    last_slug = words[-1] if len(words) > 1 else ""
+
+    patterns: list[str] = []
+    for s in dict.fromkeys([slug, slug_dash, first_slug, last_slug]):
+        if not s or len(s) < 3:
+            continue
+        patterns += [
+            f"https://www.{s}.pt",
+            f"https://{s}.pt",
+            f"https://www.{s}.com",
+            f"https://{s}.com",
+        ]
+
+    seen_p: set[str] = set()
     unique = []
     for p in patterns:
-        if p not in seen:
-            seen.add(p)
+        if p not in seen_p:
+            seen_p.add(p)
             unique.append(p)
 
     found: list[str] = []
+    seen_final: set[str] = set()
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     async with httpx.AsyncClient(
         timeout=6.0, verify=False, follow_redirects=True
     ) as client:
-        tasks = [client.head(url, headers=headers) for url in unique[:4]]
+        tasks = [client.head(url, headers=headers) for url in unique[:12]]
         results = await asyncio.gather(*tasks, return_exceptions=True)
-        for url, res in zip(unique, results):
+        for url, res in zip(unique[:12], results):
             if isinstance(res, Exception):
                 continue
             if res.status_code < 400:
                 final = str(res.url).rstrip("/")
-                if _valid_candidate(final):
+                if _valid_candidate(final) and final not in seen_final:
+                    seen_final.add(final)
                     found.append(final)
     return found
 
@@ -226,6 +265,57 @@ async def _probe_platform_subdomains(name: str) -> list[str]:
                     console.print(f"    [green]Platform hit:[/] {final_url}")
 
     return found
+
+
+# ── httpx-based searches (no browser) ────────────────────────────────────────
+
+_HTTPX_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept-Language": "pt-PT,pt;q=0.9,en;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+}
+
+
+async def _search_ddg_httpx(name: str, city: str, nicho: str) -> list[str]:
+    """DuckDuckGo HTML endpoint — no JS, no browser needed."""
+    candidates: list[str] = []
+    queries = [
+        f'"{name}" {city} Açores site oficial',
+        f'{name} {nicho} {city} Portugal',
+    ]
+    async with httpx.AsyncClient(follow_redirects=True, timeout=12, headers=_HTTPX_HEADERS) as client:
+        for query in queries:
+            if candidates:
+                break
+            try:
+                url = f"https://html.duckduckgo.com/html/?q={quote_plus(query)}"
+                resp = await client.get(url)
+                soup = BeautifulSoup(resp.text, "lxml")
+                for a in soup.select("a.result__a")[:8]:
+                    href = _decode_ddg_href(a.get("href", "")) or a.get("href", "")
+                    if href and href.startswith("http") and _valid_candidate(href) and href not in candidates:
+                        candidates.append(href)
+            except Exception:
+                continue
+    return candidates[:5]
+
+
+async def _search_bing_httpx(name: str, city: str, nicho: str) -> list[str]:
+    """Bing HTML search — no browser needed."""
+    query = f'"{name}" {nicho} {city} Açores Portugal'
+    candidates: list[str] = []
+    try:
+        url = f"https://www.bing.com/search?q={quote_plus(query)}&setlang=pt-PT&cc=PT"
+        async with httpx.AsyncClient(follow_redirects=True, timeout=12, headers=_HTTPX_HEADERS) as client:
+            resp = await client.get(url)
+        soup = BeautifulSoup(resp.text, "lxml")
+        for a in soup.select("li.b_algo h2 a, .b_title a")[:8]:
+            href = a.get("href", "")
+            if href and href.startswith("http") and _valid_candidate(href) and href not in candidates:
+                candidates.append(href)
+    except Exception:
+        pass
+    return candidates[:5]
 
 
 # ── Search functions ──────────────────────────────────────────────────────────
@@ -611,7 +701,7 @@ def _same_domain(a: str, b: str) -> bool:
 
 # ── Core enrichment ───────────────────────────────────────────────────────────
 
-async def _enrich_one(lead: dict, browser: Browser) -> dict:
+async def _enrich_one(lead: dict, browser) -> dict:
     """
     Find website for a company. Cascade (fast-to-slow):
       0. OSM tags — free, instant, reliable
@@ -660,31 +750,39 @@ async def _enrich_one(lead: dict, browser: Browser) -> dict:
     if candidates:
         console.print(f"    [cyan]Platform hit →[/] {candidates[0]}")
 
-    # ── Source 2: Google Search — primary search engine ──────────────────────────
-    _add(await _search_google(browser, name, city, nicho))
+    if browser is not None:
+        # ── Source 2: Google Search — primary search engine ──────────────────────────
+        _add(await _search_google(browser, name, city, nicho))
 
-    # ── Source 3: Bing — usually succeeds even when Google is blocked ─────────────
-    if len(candidates) < 4:
-        _add(await _search_bing(browser, name, city, nicho))
+        # ── Source 3: Bing — usually succeeds even when Google is blocked ─────────────
+        if len(candidates) < 4:
+            _add(await _search_bing(browser, name, city, nicho))
 
-    # ── Source 4: DuckDuckGo ─────────────────────────────────────────────────────
-    if len(candidates) < 3:
-        _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=0))
+        # ── Source 4: DuckDuckGo ─────────────────────────────────────────────────────
+        if len(candidates) < 3:
+            _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=0))
 
-    # ── Source 5: Google Maps — lat/lon makes it very precise ────────────────────
-    if len(candidates) < 3:
-        gm = await _search_google_maps(browser, name, lat, lon, city)
-        _add(gm, prepend=bool(gm))  # Prepend — Maps result is usually the real site
+        # ── Source 5: Google Maps — lat/lon makes it very precise ────────────────────
+        if len(candidates) < 3:
+            gm = await _search_google_maps(browser, name, lat, lon, city)
+            _add(gm, prepend=bool(gm))  # Prepend — Maps result is usually the real site
 
-    # ── Source 6: TripAdvisor (food/tourism only) ─────────────────────────────────
-    if nicho in _TA_NICHOS and len(candidates) < 4:
-        _add(await _search_tripadvisor(browser, name, city))
+        # ── Source 6: TripAdvisor (food/tourism only) ─────────────────────────────────
+        if nicho in _TA_NICHOS and len(candidates) < 4:
+            _add(await _search_tripadvisor(browser, name, city))
+    else:
+        # ── Httpx fallbacks when browser unavailable ──────────────────────────────────
+        if len(candidates) < 3:
+            _add(await _search_ddg_httpx(name, city, nicho))
+        if len(candidates) < 3:
+            _add(await _search_bing_httpx(name, city, nicho))
 
-    # ── Source 7: DDG alternate queries ──────────────────────────────────────────
-    if len(candidates) < 2:
-        _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=1))
-    if nicho in _TA_NICHOS and len(candidates) < 3:
-        _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=2))
+    # ── Source 7: DDG alternate queries (browser only) ───────────────────────────
+    if browser is not None:
+        if len(candidates) < 2:
+            _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=1))
+        if nicho in _TA_NICHOS and len(candidates) < 3:
+            _add(await _search_duckduckgo(browser, name, city, nicho, query_variant=2))
 
     # ── Source 8: Domain guessing + HTTP HEAD verify ──────────────────────────────
     _add(await _verify_domain_guesses(name))
@@ -742,29 +840,72 @@ async def _run_enrichment(
     total = len(to_enrich)
     console.print(f"[cyan]A enriquecer {total} empresas...[/]\n")
 
-    async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=cfg["headless"])
+    import subprocess as _sp
+    _vm = _sp.run(["vm_stat"], capture_output=True, text=True).stdout
+    _free_mb = sum(
+        int(l.split(":")[1].strip().rstrip(".")) * 16384 // 1024 // 1024
+        for l in _vm.splitlines()
+        if l.startswith("Pages free") or l.startswith("Pages speculative")
+    )
+    browser = None
+    pw_ctx = None
+    if _free_mb >= 200:
         try:
-            for i, lead in enumerate(to_enrich):
-                if progress_callback:
-                    progress_callback(i, total)
+            pw_ctx = await asyncio.wait_for(async_playwright().__aenter__(), timeout=30)
+            browser = await asyncio.wait_for(
+                pw_ctx.chromium.launch(
+                    headless=cfg["headless"],
+                    args=["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu",
+                          "--memory-pressure-off", "--disable-extensions",
+                          "--disable-background-networking"],
+                ),
+                timeout=30,
+            )
+            console.print("[dim]Browser lançado.[/]")
+        except Exception as e:
+            console.print(f"[yellow]Browser falhou ({e.__class__.__name__}) — modo sem browser.[/]")
+            if pw_ctx:
+                try:
+                    await pw_ctx.__aexit__(None, None, None)
+                except Exception:
+                    pass
+            pw_ctx = None
+            browser = None
+            _cleanup_playwright_procs()
+    else:
+        console.print(f"[yellow]RAM livre: {_free_mb}MB (<200MB) — modo sem browser (probes + domain-guess).[/]")
 
-                enriched = await _enrich_one(lead, browser)
+    try:
+        for i, lead in enumerate(to_enrich):
+            if progress_callback:
+                progress_callback(i, total)
 
-                idx = next(
-                    (j for j, l in enumerate(leads) if l.get("place_id") == lead.get("place_id")),
-                    None,
-                )
-                if idx is not None:
-                    leads[idx] = enriched
+            enriched = await _enrich_one(lead, browser)
 
-                if progress_callback:
-                    progress_callback(i + 1, total)
+            idx = next(
+                (j for j, l in enumerate(leads) if l.get("place_id") == lead.get("place_id")),
+                None,
+            )
+            if idx is not None:
+                leads[idx] = enriched
 
-                if i < total - 1:
-                    await asyncio.sleep(random.uniform(2.5, 4.0))
-        finally:
-            await browser.close()
+            if progress_callback:
+                progress_callback(i + 1, total)
+
+            if i < total - 1:
+                await asyncio.sleep(random.uniform(2.5, 4.0))
+    finally:
+        if browser:
+            try:
+                await browser.close()
+            except Exception:
+                pass
+        if pw_ctx:
+            try:
+                await pw_ctx.__aexit__(None, None, None)
+            except Exception:
+                pass
+        _cleanup_playwright_procs()
 
     return leads
 

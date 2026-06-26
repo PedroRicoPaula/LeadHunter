@@ -103,7 +103,7 @@ def run(
     # ── Step 2: Enrichment ──
     console.print("\n[bold]Etapa 2/4 — Enriquecimento (encontrar websites)[/]")
     enrichment = _load("04_enrichment")
-    enrichment.run_enrichment(max_leads=max_leads, progress_cb=None)
+    enrichment.enrich_all(max_companies=max_leads)
 
     if so_enrich:
         raise typer.Exit(0)
@@ -177,7 +177,7 @@ def enrich(
     """Etapa 2: Enriquecimento — encontra websites para empresas sem URL."""
     _banner()
     enrichment = _load("04_enrichment")
-    enrichment.run_enrichment(max_leads=max_leads, progress_cb=None)
+    enrichment.enrich_all(max_companies=max_leads)
 
 
 @app.command()
