@@ -25,3 +25,4 @@ web/.vite/
 
 # Playwright
 .playwright/
+.DS_Store
