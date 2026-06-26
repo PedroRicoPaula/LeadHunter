@@ -6,7 +6,7 @@ import { ScoreBadge, StatusPill, FaviconImg } from "../components/ScoreBadge";
 import {
   Search, Globe, ExternalLink, X, SlidersHorizontal,
   ChevronUp, ChevronDown, Download, Mail, MessageCircle,
-  ShieldOff, Smartphone, ArrowRight, Navigation,
+  ShieldOff, Smartphone, Navigation,
 } from "lucide-react";
 
 const STATUSES = ["", "pendente", "auditado", "analisado", "erro_auditoria", "erro_llm"];
@@ -304,9 +304,9 @@ export default function Companies() {
                   {/* Technical signals */}
                   <td className="px-2 py-2 hidden xl:table-cell">
                     <div className="flex items-center gap-1 justify-center">
-                      {c.has_https ? null : <ShieldOff size={10} className="text-red-500" title="Sem HTTPS" />}
-                      {c.has_mobile_meta ? null : <Smartphone size={10} className="text-yellow-500" title="Sem meta viewport mobile" />}
-                      {c.has_analytics ? <span className="text-xs text-blue-400" title="Google Analytics activo">GA</span> : null}
+                      {c.has_https ? null : <ShieldOff size={10} className="text-red-500" aria-label="Sem HTTPS" />}
+                      {c.has_mobile_meta ? null : <Smartphone size={10} className="text-yellow-500" aria-label="Sem meta viewport mobile" />}
+                      {c.has_analytics ? <span className="text-xs text-blue-400" aria-label="Google Analytics activo">GA</span> : null}
                       {(c.website && !c.has_https && !c.has_mobile_meta && !c.has_analytics) ? (
                         <span className="text-gray-700 text-xs">—</span>
                       ) : null}

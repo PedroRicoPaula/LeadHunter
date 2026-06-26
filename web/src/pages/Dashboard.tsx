@@ -175,7 +175,7 @@ export default function Dashboard() {
                     <p className="text-gray-600 text-xs truncate">{c.nicho}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    {c.emails?.length > 0 && <Mail size={10} className="text-green-500" title="Email capturado" />}
+                    {c.emails?.length > 0 && <Mail size={10} className="text-green-500" aria-label="Email capturado" />}
                     <ScoreBadge score={c.score} />
                     <ArrowRight size={12} className="text-gray-700 group-hover:text-gray-500" />
                   </div>
