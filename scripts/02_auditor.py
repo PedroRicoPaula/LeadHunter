@@ -541,40 +541,41 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
         else:
             return await _audit_page_httpx(lead["website"], timeout)
 
+    sem = asyncio.Semaphore(5)
+    done_count = 0
+
+    async def _audit_with_sem(lead: dict, idx_in_batch: int) -> tuple[dict, int]:
+        async with sem:
+            audit = await _audit_one(lead)
+            lead.update(audit)
+            lead["status"] = "auditado" if not audit["erro"] else "erro_auditoria"
+            nome = (lead.get("nome") or lead.get("website") or "")[:40]
+            status_icon = "[green]✓[/]" if not audit["erro"] else "[red]✗[/]"
+            console.print(f"  {status_icon} {nome}")
+            if progress_callback:
+                progress_callback(idx_in_batch + 1, total)
+            return lead, idx_in_batch
+
     try:
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            TaskProgressColumn(),
-            console=console,
-        ) as progress:
-            task = progress.add_task("Auditando...", total=total)
+        tasks = [_audit_with_sem(lead, i) for i, lead in enumerate(to_audit)]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
 
-            for i, lead in enumerate(to_audit):
-                nome = lead["nome"] or lead["website"]
-                progress.update(task, description=f"[cyan]{nome[:40]}[/]")
-
-                audit = await _audit_one(lead)
-
-                lead.update(audit)
-                lead["status"] = "auditado" if not audit["erro"] else "erro_auditoria"
-
-                progress.advance(task)
-
-                if progress_callback:
-                    progress_callback(i + 1, total)
-
-                # Incremental save every 10 sites — avoid losing all work on crash
-                if (i + 1) % 10 == 0:
-                    try:
-                        with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                            json.dump(leads, f, ensure_ascii=False, indent=2)
-                    except Exception:
-                        pass
-
-                if i < total - 1:
-                    await asyncio.sleep(random.uniform(delay_min, delay_max))
+        for result in results:
+            if isinstance(result, Exception):
+                continue
+            audited_lead, i = result
+            pid = audited_lead.get("place_id")
+            idx = next((j for j, l in enumerate(leads) if l.get("place_id") == pid), None)
+            if idx is not None:
+                leads[idx] = audited_lead
+            done_count += 1
+            # Incremental save every 10 — avoid losing work on crash
+            if done_count % 10 == 0:
+                try:
+                    with open(LEADS_FILE, "w", encoding="utf-8") as f:
+                        json.dump(leads, f, ensure_ascii=False, indent=2)
+                except Exception:
+                    pass
     finally:
         if browser:
             try:

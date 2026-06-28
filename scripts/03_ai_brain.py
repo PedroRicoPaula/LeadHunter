@@ -2,6 +2,7 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
+import asyncio
 import json
 import re
 import unicodedata
@@ -592,30 +593,69 @@ def analyze_all(max_leads: int | None = None, reprocessar: bool = False, progres
         return
 
     total = len(targets)
-    erros = 0
-    for i, lead in enumerate(track(targets, description="Analisando...")):
-        nome = lead.get("nome", "")[:40]
-        try:
-            if not ollama_online and provider not in ("anthropic", "nvidia_nim"):
-                analise = _rule_based_analysis(lead)
-            else:
-                analise = _call_llm(lead)
-            lead["score"] = analise.score
-            lead["tags"] = analise.tags
-            lead["problemas"] = analise.problemas
-            lead["impacto"] = analise.impacto
-            lead["email_assunto"] = analise.email_assunto
-            lead["email_mensagem"] = analise.email_mensagem
-            lead["status"] = "analisado"
-            path = _lead_to_path(lead)
-            _write_markdown(lead, analise, path)
-            console.print(f"  [green]{nome}[/] score={analise.score}")
-        except Exception as e:
-            console.print(f"  [red]ERRO {nome}:[/] {e}")
-            lead["status"] = "erro_llm"
-            erros += 1
-        if progress_callback:
-            progress_callback(i + 1, total)
+    use_rule_based = not ollama_online and provider not in ("anthropic", "nvidia_nim")
+
+    async def _run_parallel() -> int:
+        _erros = 0
+
+        async def _analyze_one(lead: dict, i: int) -> tuple[dict, bool]:
+            nome = lead.get("nome", "")[:40]
+            try:
+                loop = asyncio.get_event_loop()
+                if use_rule_based:
+                    analise = _rule_based_analysis(lead)
+                else:
+                    analise = await loop.run_in_executor(None, lambda l=lead: _call_llm(l))
+                lead["score"] = analise.score
+                lead["tags"] = analise.tags
+                lead["problemas"] = analise.problemas
+                lead["impacto"] = analise.impacto
+                lead["email_assunto"] = analise.email_assunto
+                lead["email_mensagem"] = analise.email_mensagem
+                lead["status"] = "analisado"
+                path = _lead_to_path(lead)
+                _write_markdown(lead, analise, path)
+                console.print(f"  [green]✓[/] {nome} score={analise.score}")
+                if progress_callback:
+                    progress_callback(i + 1, total)
+                return lead, False
+            except Exception as e:
+                console.print(f"  [red]ERRO[/] {nome}: {e}")
+                lead["status"] = "erro_llm"
+                if progress_callback:
+                    progress_callback(i + 1, total)
+                return lead, True
+
+        # NIM rate-limiter serialises LLM calls; Semaphore(3) overlaps file I/O only
+        sem = asyncio.Semaphore(3)
+
+        async def _analyze_sem(lead: dict, i: int) -> tuple[dict, bool]:
+            async with sem:
+                return await _analyze_one(lead, i)
+
+        results = await asyncio.gather(
+            *[_analyze_sem(lead, i) for i, lead in enumerate(targets)],
+            return_exceptions=True,
+        )
+
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                _erros += 1
+                continue
+            lead, is_err = result
+            if is_err:
+                _erros += 1
+            pid = lead.get("place_id")
+            idx = next((j for j, l in enumerate(leads) if l.get("place_id") == pid), None)
+            if idx is not None:
+                leads[idx] = lead
+            if (i + 1) % 10 == 0:
+                with open(LEADS_FILE, "w", encoding="utf-8") as f:
+                    json.dump(leads, f, ensure_ascii=False, indent=2)
+
+        return _erros
+
+    erros = asyncio.run(_run_parallel())
 
     with open(LEADS_FILE, "w", encoding="utf-8") as f:
         json.dump(leads, f, ensure_ascii=False, indent=2)

@@ -207,6 +207,87 @@ def _name_to_slug(name: str) -> tuple[str, str]:
 
 # ── Domain guessing with HTTP verification ────────────────────────────────────
 
+async def _nim_batch_predict(batch: list[dict]) -> dict[str, str]:
+    """Ask NIM LLM to predict the most likely website URL for each company in a batch (≤10).
+    Returns {place_id: verified_url} — only URLs that resolve via HEAD check."""
+    try:
+        from nim_client import nim
+        if not nim.enabled:
+            return {}
+    except ImportError:
+        return {}
+
+    lines = "\n".join(
+        f"{i+1}. \"{l.get('nome','')}\" ({l.get('nicho','serviço')}) em "
+        f"{(l.get('regiao') or 'Açores').split(',')[0].strip()}"
+        for i, l in enumerate(batch)
+    )
+    prompt = (
+        "Empresas locais dos Açores, Portugal. Para cada empresa prevê o URL de website mais "
+        "provável (domínio .pt ou .com baseado no nome). Se não tiveres a certeza usa o slug "
+        "do nome com .pt.\n"
+        "Responde APENAS com JSON: {\"1\": \"https://...\", \"2\": \"https://...\", ...}\n\n"
+        + lines
+    )
+
+    loop = asyncio.get_event_loop()
+    raw = await loop.run_in_executor(
+        None,
+        lambda: nim.chat(
+            [{"role": "user", "content": prompt}],
+            temperature=0.1,
+            max_tokens=400,
+        ),
+    )
+    if not raw:
+        return {}
+
+    m = re.search(r"\{[^{}]+\}", raw, re.DOTALL)
+    if not m:
+        return {}
+
+    try:
+        predictions = json.loads(m.group(0))
+    except Exception:
+        return {}
+
+    # Verify predicted URLs via HEAD
+    to_verify: list[tuple[str, str]] = []
+    for idx_str, url in predictions.items():
+        try:
+            i = int(idx_str) - 1
+            if 0 <= i < len(batch) and isinstance(url, str) and url.startswith("http"):
+                if _valid_candidate(url):
+                    to_verify.append((batch[i].get("place_id", ""), url))
+        except (ValueError, IndexError):
+            continue
+
+    if not to_verify:
+        return {}
+
+    result: dict[str, str] = {}
+    async with httpx.AsyncClient(
+        follow_redirects=True, timeout=6, verify=False, headers=_HTTPX_HEADERS
+    ) as client:
+        async def _head(place_id: str, url: str) -> tuple[str, str | None]:
+            try:
+                r = await client.head(url)
+                if r.status_code < 400:
+                    final = str(r.url)
+                    if _valid_candidate(final):
+                        return place_id, final
+            except Exception:
+                pass
+            return place_id, None
+
+        checks = await asyncio.gather(*[_head(p, u) for p, u in to_verify])
+        for place_id, verified in checks:
+            if verified:
+                result[place_id] = verified
+
+    return result
+
+
 async def _verify_domain_guesses(name: str) -> list[str]:
     """
     Generate common PT domain patterns and HEAD-check each one.
@@ -905,6 +986,27 @@ async def _enrich_one(lead: dict, browser) -> dict:
     return lead
 
 
+def _apply_candidate(lead: dict, candidates: list[str], leads: list[dict]) -> bool:
+    """Validate candidates, set website on lead + parent leads list. Returns True if found."""
+    result = _validate_with_llm(lead, candidates)
+    if result is None:
+        result = _heuristic_best_url(lead, candidates)
+    min_conf = 0.30 if candidates and any(p[0] in candidates[0] for p in _PLATFORM_PROBES) else 0.40
+    if result and result.get("url") and result["confidence"] >= min_conf:
+        pct = int(result["confidence"] * 100)
+        lead["website"] = result["url"]
+        lead["source"] = "openstreetmap+enriched"
+        console.print(f"  [green]✓[/] {lead.get('nome','')[:40]} → {result['url'][:55]} ({pct}%)")
+        idx = next((j for j, l in enumerate(leads) if l.get("place_id") == lead.get("place_id")), None)
+        if idx is not None:
+            leads[idx] = lead
+        return True
+    else:
+        pct = int((result["confidence"] if result else 0) * 100)
+        console.print(f"  [dim]✗[/] {lead.get('nome','')[:40]} — confiança {pct}%")
+        return False
+
+
 async def _run_enrichment(
     leads: list[dict],
     max_companies: int | None,
@@ -912,7 +1014,6 @@ async def _run_enrichment(
 ) -> list[dict]:
     cfg = CONFIG["scraper"]
 
-    # Include leads with social URL as website — they need rescue + real-site search
     to_enrich = [
         l for l in leads
         if l.get("status") == "pendente" and (not l.get("website") or _is_social_url(l.get("website")))
@@ -927,6 +1028,11 @@ async def _run_enrichment(
     total = len(to_enrich)
     console.print(f"[cyan]A enriquecer {total} empresas...[/]\n")
 
+    # Rescue social URLs from website field first
+    for lead in to_enrich:
+        _rescue_social_website(lead)
+
+    # ── Launch browser ────────────────────────────────────────────────────────────
     import subprocess as _sp
     _vm = _sp.run(["vm_stat"], capture_output=True, text=True).stdout
     _free_mb = sum(
@@ -960,27 +1066,152 @@ async def _run_enrichment(
             browser = None
             _cleanup_playwright_procs()
     else:
-        console.print(f"[yellow]RAM livre: {_free_mb}MB (<80MB) — modo sem browser (probes + domain-guess).[/]")
+        console.print(f"[yellow]RAM livre: {_free_mb}MB (<80MB) — modo sem browser.[/]")
 
     try:
-        for i, lead in enumerate(to_enrich):
-            if progress_callback:
-                progress_callback(i, total)
+        # ── FASE A: OSM tags + platform probes + domain guessing (paralelo, sem browser) ─
+        console.print(f"\n[bold cyan]▶ Fase A:[/] OSM + platform probes + domain guessing ({total} paralelo)...")
+        sem_fast = asyncio.Semaphore(20)
 
-            enriched = await _enrich_one(lead, browser)
+        async def _discover_fast(lead: dict) -> tuple[str, list[str], bool]:
+            async with sem_fast:
+                pid = lead.get("place_id", "")
+                name = lead.get("nome", "")
 
-            idx = next(
-                (j for j, l in enumerate(leads) if l.get("place_id") == lead.get("place_id")),
-                None,
+                # OSM raw tags — highest confidence
+                osm = lead.get("osm_tags") or {}
+                for k in ("website", "contact:website", "url", "contact:url"):
+                    u = osm.get(k, "")
+                    if u and u.startswith("http") and _valid_candidate(u):
+                        return pid, [u], True  # high_conf=True → skip validation
+
+                plat, domain = await asyncio.gather(
+                    _probe_platform_subdomains(name),
+                    _verify_domain_guesses(name),
+                )
+                cands = list(dict.fromkeys(plat + domain))
+                return pid, cands, False
+
+        phase_a = await asyncio.gather(*[_discover_fast(l) for l in to_enrich], return_exceptions=True)
+
+        cands_map: dict[str, tuple[list[str], bool]] = {}
+        for r in phase_a:
+            if isinstance(r, Exception):
+                continue
+            pid, cands, hc = r
+            if cands:
+                cands_map[pid] = (cands, hc)
+
+        console.print(f"  Fase A: [green]{len(cands_map)}[/]/{total} com candidatos\n")
+
+        # ── FASE B: NIM batch domain prediction para empresas ainda sem candidatos ──
+        still_empty = [l for l in to_enrich if l.get("place_id") not in cands_map]
+        if still_empty:
+            try:
+                from nim_client import nim as _nim
+                nim_ok = _nim.enabled
+            except ImportError:
+                nim_ok = False
+
+            if nim_ok:
+                console.print(f"[bold cyan]▶ Fase B:[/] NIM domain prediction para {len(still_empty)} empresas...")
+                BATCH = 10
+                nim_found = 0
+                for i in range(0, len(still_empty), BATCH):
+                    batch = still_empty[i:i + BATCH]
+                    preds = await _nim_batch_predict(batch)
+                    for pid, url in preds.items():
+                        if url:
+                            cands_map[pid] = ([url], False)
+                            nim_found += 1
+                console.print(f"  Fase B: [green]{nim_found}[/] predições NIM verificadas\n")
+
+        # ── Validate phases A+B candidates → set website ──────────────────────────
+        for lead in to_enrich:
+            pid = lead.get("place_id")
+            entry = cands_map.get(pid)
+            if not entry:
+                continue
+            cands, high_conf = entry
+            if high_conf:
+                # OSM direct hit — use as-is
+                lead["website"] = cands[0]
+                lead["source"] = "openstreetmap"
+                console.print(f"  [green]✓ OSM:[/] {lead.get('nome','')[:40]} → {cands[0][:55]}")
+                idx = next((j for j, l in enumerate(leads) if l.get("place_id") == pid), None)
+                if idx is not None:
+                    leads[idx] = lead
+            else:
+                _apply_candidate(lead, cands, leads)
+
+        # Incremental save after phases A+B
+        with open(LEADS_FILE, "w", encoding="utf-8") as _f:
+            json.dump(leads, _f, ensure_ascii=False, indent=2)
+
+        # ── FASE C: Browser search para restantes (sem DDG, paralelo-3) ───────────
+        still_no_site = [l for l in to_enrich if not l.get("website")]
+
+        if still_no_site and browser:
+            console.print(f"\n[bold cyan]▶ Fase C:[/] Browser search para {len(still_no_site)} restantes (Google + Bing, paralelo-3)...")
+            sem_browser = asyncio.Semaphore(3)
+
+            async def _browser_search(lead: dict) -> dict:
+                async with sem_browser:
+                    name = lead.get("nome", "")
+                    regiao = lead.get("regiao", "Açores")
+                    city = regiao.split(",")[0].strip()
+                    nicho = (lead.get("nicho") or "").lower()
+                    lat = lead.get("lat")
+                    lon = lead.get("lon")
+
+                    cands: list[str] = []
+
+                    def _add(urls):
+                        for u in (urls if isinstance(urls, list) else [urls]):
+                            if u and u not in cands:
+                                cands.append(u)
+
+                    # Google first, Bing fallback, Google Maps for precision — NO DDG
+                    _add(await _search_google(browser, name, city, nicho))
+                    if len(cands) < 3:
+                        _add(await _search_bing(browser, name, city, nicho))
+                    if len(cands) < 2:
+                        gm = await _search_google_maps(browser, name, lat, lon, city)
+                        if gm:
+                            cands.insert(0, gm)
+
+                    # TripAdvisor → booking_hints only, never website
+                    if nicho in _TA_NICHOS and not lead.get("booking_hints"):
+                        ta = await _search_tripadvisor(browser, name, city)
+                        if ta:
+                            lead["booking_hints"] = [ta]
+
+                    if not cands:
+                        console.print(f"  [dim]✗[/] {name[:40]} — sem candidatos")
+                    else:
+                        _apply_candidate(lead, cands, leads)
+
+                    await asyncio.sleep(random.uniform(0.5, 1.0))
+                    return lead
+
+            browser_results = await asyncio.gather(
+                *[_browser_search(l) for l in still_no_site], return_exceptions=True
             )
-            if idx is not None:
-                leads[idx] = enriched
 
-            if progress_callback:
-                progress_callback(i + 1, total)
+            for i, r in enumerate(browser_results):
+                if isinstance(r, Exception):
+                    continue
+                pid = r.get("place_id")
+                idx = next((j for j, l in enumerate(leads) if l.get("place_id") == pid), None)
+                if idx is not None:
+                    leads[idx] = r
+                if (i + 1) % 10 == 0:
+                    with open(LEADS_FILE, "w", encoding="utf-8") as _f:
+                        json.dump(leads, _f, ensure_ascii=False, indent=2)
 
-            if i < total - 1:
-                await asyncio.sleep(random.uniform(2.5, 4.0))
+        elif still_no_site and not browser:
+            console.print(f"  [dim]Fase C ignorada — browser não disponível. {len(still_no_site)} empresas sem website.[/]")
+
     finally:
         if browser:
             try:
