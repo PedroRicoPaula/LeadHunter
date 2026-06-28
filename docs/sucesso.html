@@ -56,7 +56,7 @@
           </svg>
         </div>
         <h1 class="fade-up-1 text-[28px] font-black mb-2">Pagamento confirmado!</h1>
-        <p class="fade-up-2 text-gray-400 text-[15px]">Os teus PDFs estao prontos a descarregar abaixo.</p>
+        <p class="fade-up-2 text-gray-400 text-[15px]">Os teus leads estao prontos a descarregar abaixo.</p>
       </div>
 
       <!-- State: loading -->
@@ -78,12 +78,12 @@
         <div class="rounded-2xl border border-[#10f5a0]/15 bg-[#10f5a0]/[.03] p-5 mb-6">
           <div class="text-[#10f5a0] text-[11px] font-semibold uppercase tracking-wider mb-1">Negocios no teu pack</div>
           <div id="business-count" class="text-[28px] font-black text-white"></div>
-          <div class="text-gray-500 text-[12px]">clica em cada PDF para descarregar</div>
+          <div class="text-gray-500 text-[12px]">PDF combinado ou individual por empresa</div>
         </div>
 
         <!-- Download all -->
         <button id="btn-all" onclick="downloadAll()" class="btn-dl w-full py-3.5 rounded-xl text-[14px] mb-4">
-          Descarregar todos os PDFs
+          Descarregar PDF completo (todas as empresas)
         </button>
 
         <!-- Individual list -->
@@ -188,7 +188,7 @@ function show(state) {
 
 // ── LIST ─────────────────────────────────────────────────────────
 function scoreColor(s) {
-  return s >= 86 ? '#ef4444' : s >= 71 ? '#f97316' : s >= 51 ? '#eab308' : '#6b7280';
+  return s >= 65 ? '#ef4444' : s >= 45 ? '#f97316' : s >= 25 ? '#eab308' : '#6b7280';
 }
 
 function esc(s) {
@@ -220,7 +220,7 @@ function generatePDF(b) {
   const W = 210, H = 297;
 
   const sc = b.score;
-  const sRGB = sc >= 86 ? [239,68,68] : sc >= 71 ? [249,115,22] : sc >= 51 ? [234,179,8] : [107,114,128];
+  const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
 
   // ── HEADER ──
   doc.setFillColor(6, 10, 16);
@@ -257,7 +257,7 @@ function generatePDF(b) {
   doc.setTextColor(75, 85, 99);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text((CAT_NAMES[b.category] || b.category) + '  ·  ' + b.municipality + ', Sao Miguel, Acores', 14, 68);
+  doc.text((CAT_NAMES[b.category] || b.category) + '  ·  ' + b.municipality, 14, 68);
 
   // Divider
   doc.setDrawColor(220, 224, 230);
@@ -335,9 +335,9 @@ function generatePDF(b) {
   doc.text('INTERPRETACAO DO SCORE', 14, y);
   y += 9;
 
-  const tier = sc >= 86
+  const tier = sc >= 65
     ? 'OPORTUNIDADE CRITICA — Alta probabilidade de conversao'
-    : sc >= 71
+    : sc >= 45
     ? 'OPORTUNIDADE ALTA — Bons indicadores de interesse'
     : 'OPORTUNIDADE MEDIA — Verificar antes de contactar';
 
@@ -374,17 +374,152 @@ function downloadOne(index) {
 async function downloadAll() {
   const btn = document.getElementById('btn-all');
   btn.disabled = true;
-  btn.textContent = 'A gerar PDFs...';
+  btn.textContent = 'A gerar PDF...';
 
-  for (let i = 0; i < businesses.length; i++) {
+  await new Promise(r => setTimeout(r, 30));
+
+  const { jsPDF } = window.jspdf;
+  // Generate first business as base doc, then add pages for the rest
+  const first = generatePDF(businesses[0]);
+  const combined = first;
+
+  for (let i = 1; i < businesses.length; i++) {
     btn.textContent = `A gerar ${i + 1}/${businesses.length}...`;
-    await new Promise(r => setTimeout(r, 80));
-    downloadOne(i);
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 10));
+    const pageDoc = generatePDF(businesses[i]);
+    // Copy page from pageDoc into combined
+    combined.addPage();
+    const pageData = pageDoc.output('arraybuffer');
+    // Re-render business directly onto new page
+    renderBusinessPage(combined, businesses[i]);
   }
 
+  combined.save('ledhunter_leads.pdf');
+
   btn.disabled = false;
-  btn.textContent = 'Descarregar todos os PDFs';
+  btn.textContent = 'Descarregar PDF completo (todas as empresas)';
+}
+
+function renderBusinessPage(doc, b) {
+  const W = 210, H = 297;
+  const sc = b.score;
+  const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
+
+  doc.setFillColor(6, 10, 16);
+  doc.rect(0, 0, W, 42, 'F');
+  doc.setTextColor(16, 245, 160);
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('LeadHunter', 14, 17);
+  doc.setTextColor(75, 85, 99);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.text('leadhunter.pedropaula.com', 14, 24);
+  doc.text('Gerado em ' + new Date().toLocaleDateString('pt-PT'), 14, 30);
+  doc.setFillColor(...sRGB);
+  doc.circle(189, 21, 13, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(13);
+  doc.setFont('helvetica', 'bold');
+  doc.text(String(sc), 189, 25, { align: 'center' });
+  doc.setFontSize(6);
+  doc.setFont('helvetica', 'normal');
+  doc.text('SCORE', 189, 30, { align: 'center' });
+
+  doc.setFillColor(255, 255, 255);
+  doc.setTextColor(10, 12, 20);
+  doc.setFontSize(20);
+  doc.setFont('helvetica', 'bold');
+  doc.text(b.name, 14, 58);
+  doc.setTextColor(75, 85, 99);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text((CAT_NAMES[b.category] || b.category) + '  ·  ' + b.municipality, 14, 68);
+  doc.setDrawColor(220, 224, 230);
+  doc.line(14, 74, W - 14, 74);
+
+  let y = 84;
+  doc.setTextColor(10, 12, 20);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text('CONTACTO', 14, y);
+  y += 9;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  const rows = [
+    b.phone   ? ['Telefone', b.phone] : null,
+    b.email   ? ['Email', b.email] : null,
+    b.website ? ['Website', b.website] : ['Website', 'SEM WEBSITE'],
+    b.address ? ['Morada', b.address] : null
+  ].filter(Boolean);
+  rows.forEach(([label, val]) => {
+    doc.setTextColor(120, 130, 145);
+    doc.text(label + ':', 14, y);
+    doc.setTextColor(val === 'SEM WEBSITE' ? 200 : 10, val === 'SEM WEBSITE' ? 60 : 12, val === 'SEM WEBSITE' ? 60 : 20);
+    doc.text(val, 55, y);
+    y += 9;
+  });
+  if (b.whatsapp) {
+    y += 3;
+    doc.setFillColor(22, 163, 74);
+    doc.roundedRect(14, y - 5, 80, 9, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('WhatsApp: wa.me/' + b.whatsapp, 18, y);
+    y += 12;
+  }
+  y += 4;
+  doc.setDrawColor(220, 224, 230);
+  doc.line(14, y, W - 14, y);
+  y += 10;
+
+  doc.setTextColor(10, 12, 20);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text('GAPS IDENTIFICADOS (' + b.gaps.length + ')', 14, y);
+  y += 10;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  b.gaps.forEach(gap => {
+    const desc = GAP_DESC[gap] || gap;
+    doc.setFillColor(...sRGB);
+    doc.circle(17, y - 1.5, 1.8, 'F');
+    doc.setTextColor(40, 45, 55);
+    doc.text(desc, 22, y);
+    y += 8;
+  });
+  y += 4;
+  doc.setDrawColor(220, 224, 230);
+  doc.line(14, y, W - 14, y);
+  y += 10;
+
+  doc.setTextColor(10, 12, 20);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text('INTERPRETACAO DO SCORE', 14, y);
+  y += 9;
+  const tier = sc >= 65
+    ? 'OPORTUNIDADE CRITICA — Alta probabilidade de conversao'
+    : sc >= 45
+    ? 'OPORTUNIDADE ALTA — Bons indicadores de interesse'
+    : 'OPORTUNIDADE MEDIA — Verificar antes de contactar';
+  doc.setFillColor(...sRGB.map(v => Math.min(v + 180, 255)));
+  doc.roundedRect(14, y - 5, W - 28, 11, 2, 2, 'F');
+  doc.setTextColor(...sRGB);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'bold');
+  doc.text(tier, 18, y + 1);
+
+  doc.setFillColor(6, 10, 16);
+  doc.rect(0, H - 22, W, 22, 'F');
+  doc.setTextColor(75, 85, 99);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.text('LeadHunter · Pedro Paula Labs · leadhunter.pedropaula.com', 14, H - 13);
+  doc.text('Dados de fontes publicas. Verificar antes de contactar.', 14, H - 7);
+  doc.setTextColor(16, 245, 160);
+  doc.text('pedroricopaula@gmail.com', W - 14, H - 7, { align: 'right' });
 }
 </script>
 </body>
