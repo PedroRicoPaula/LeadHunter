@@ -3,6 +3,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
 import asyncio
+import base64
 import json
 import random
 import re
@@ -420,6 +421,50 @@ async def _audit_page(page: Page, url: str, timeout: int) -> dict:
     return result
 
 
+async def _visual_audit_nim(page: Page, url: str) -> dict:
+    """
+    Tira screenshot e envia ao NIM vision para análise visual do site.
+    Só corre se nvidia_nim.features.vision = true no settings.yaml.
+    Retorna campos visual_* ou {} se falhar/desligado.
+    """
+    try:
+        from nim_client import nim
+        if not nim.enabled:
+            return {}
+        screenshot = await page.screenshot(type="jpeg", quality=65, full_page=False,
+                                           clip={"x": 0, "y": 0, "width": 1280, "height": 800})
+        img_b64 = base64.b64encode(screenshot).decode()
+        prompt = (
+            "Analisa este website de uma pequena empresa portuguesa. "
+            "Responde APENAS com JSON válido (sem markdown, sem texto antes/depois):\n"
+            '{"visual_score": <0-10, qualidade visual geral>, '
+            '"profissionalismo": <0-10>, '
+            '"tem_booking_visivel": <true/false>, '
+            '"menu_com_fotos": <true/false>, '
+            '"mobile_amigavel": <true/false>, '
+            '"notas": "<1 frase sobre o site>"}'
+        )
+        raw = nim.vision(img_b64, prompt)
+        if not raw:
+            return {}
+        raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+        m = re.search(r"\{.*\}", raw, re.DOTALL)
+        if not m:
+            return {}
+        data = json.loads(m.group(0))
+        return {
+            "visual_score":            data.get("visual_score"),
+            "visual_profissionalismo": data.get("profissionalismo"),
+            "visual_booking_visivel":  data.get("tem_booking_visivel"),
+            "visual_menu_com_fotos":   data.get("menu_com_fotos"),
+            "visual_mobile_amigavel":  data.get("mobile_amigavel"),
+            "visual_notas":            data.get("notas"),
+        }
+    except Exception as e:
+        console.print(f"    [dim]Vision: {e}[/]")
+        return {}
+
+
 async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback=None) -> list[dict]:
     cfg_scraper = CONFIG["scraper"]
     delay_min = cfg_scraper["delay_min"]
@@ -476,6 +521,8 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
     else:
         console.print(f"[yellow]RAM livre: {_free_mb}MB (<80MB) — modo httpx (sem browser).[/]")
 
+    do_vision = CONFIG.get("nvidia_nim", {}).get("features", {}).get("vision", False)
+
     async def _audit_one(lead: dict) -> dict:
         if browser is not None:
             context = await browser.new_context(
@@ -484,7 +531,11 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
             )
             page = await context.new_page()
             try:
-                return await _audit_page(page, lead["website"], timeout)
+                result = await _audit_page(page, lead["website"], timeout)
+                if do_vision and not result.get("erro"):
+                    visual = await _visual_audit_nim(page, lead["website"])
+                    result.update(visual)
+                return result
             finally:
                 await context.close()
         else:

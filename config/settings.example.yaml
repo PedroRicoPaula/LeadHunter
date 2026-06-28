@@ -2,7 +2,7 @@
 # Copia este ficheiro para config/settings.yaml e edita conforme necessário.
 
 llm:
-  provider: "ollama"       # anthropic | ollama
+  provider: "nvidia_nim"   # nvidia_nim | anthropic | ollama
   model: "qwen3:8b"        # modelo local — alternativa mais rápida: gemma3:4b
   api_key: ""              # só necessário para provider: anthropic
   max_tokens: 1500
@@ -10,6 +10,27 @@ llm:
 
 ollama:
   base_url: "http://localhost:11434"
+
+# ── NVIDIA NIM ────────────────────────────────────────────────────────────────
+# API key em .env como NVIDIA_API_KEY (não colocar aqui).
+# Uma chave funciona para todos os modelos abaixo.
+# Free tier disponível em build.nvidia.com (sem cartão de crédito).
+
+nvidia_nim:
+  enabled: true
+
+  models:
+    llm:    "meta/llama-3.3-70b-instruct"          # análise de leads
+    rerank: "nvidia/nv-rerankqa-mistral-4b-v3"     # validação de URLs
+    embed:  "nvidia/nv-embed-v2"                   # deduplicação semântica
+    vision: "meta/llama-3.2-90b-vision-instruct"   # análise visual de sites
+
+  features:
+    llm:         true    # usa NIM como provider principal de LLM
+    reranking:   true    # reranking de candidatos de URL no enrichment
+    embeddings:  true    # deduplicação semântica de leads
+    vision:      false   # análise visual de screenshots (opt-in — consome quota)
+    pdf_parsing: false   # extracção de dados de PDFs (opt-in — futuro)
 
 scraper:
   user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"

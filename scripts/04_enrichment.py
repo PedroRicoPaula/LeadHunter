@@ -563,13 +563,65 @@ async def _search_google_maps(browser: Browser, name: str, lat: float | None, lo
     return None
 
 
-# ── LLM validation ────────────────────────────────────────────────────────────
+# ── URL validation ────────────────────────────────────────────────────────────
+
+def _url_to_passage(url: str) -> str:
+    """Converte URL em texto legível para o reranker."""
+    try:
+        from urllib.parse import urlparse as _up
+        p = _up(url)
+        domain = p.netloc.lower().replace("www.", "").replace(".", " ")
+        path = p.path.strip("/").replace("/", " ").replace("-", " ").replace("_", " ")
+        return f"{domain} {path}".strip() or url
+    except Exception:
+        return url
+
+
+def _validate_with_nim_reranker(lead: dict, candidates: list[str]) -> dict | None:
+    """Usa NIM reranker para seleccionar a melhor URL. Mais rápido e preciso que LLM."""
+    if not candidates:
+        return None
+    try:
+        from nim_client import nim
+        if not nim.enabled:
+            return None
+        nome  = lead.get("nome", "")
+        nicho = lead.get("nicho", "")
+        regiao = lead.get("regiao", "Açores")
+        city  = regiao.split(",")[0].strip()
+        query = f"site oficial de {nome}, {nicho} em {city}, Portugal"
+        passages = [_url_to_passage(u) for u in candidates]
+        rankings = nim.rerank(query, passages)
+        if not rankings:
+            return None
+        best_idx, best_score = rankings[0]
+        # Normaliza logit para confidence 0-1 (logit típico: -5 a +5)
+        import math as _math
+        confidence = 1.0 / (1.0 + _math.exp(-best_score * 0.5))
+        url = candidates[best_idx]
+        return {"url": url, "confidence": round(confidence, 3)}
+    except Exception as e:
+        console.print(f"    [dim]NIM reranker: {e}[/]")
+        return None
+
 
 def _validate_with_llm(lead: dict, candidates: list[str]) -> dict | None:
-    """Ask LLM which candidate URL belongs to this company. Falls back gracefully if Ollama offline."""
+    """
+    Validação de URL em cascata:
+      1. NIM reranker (cloud, sem Ollama)
+      2. Ollama LLM (local)
+      3. None → fallback heurístico no chamador
+    """
     if not candidates:
         return None
 
+    # ── 1. NIM reranker ───────────────────────────────────────────────────────
+    nim_result = _validate_with_nim_reranker(lead, candidates)
+    if nim_result and nim_result.get("url"):
+        console.print(f"    [dim]NIM rerank: {nim_result['confidence']:.0%}[/]")
+        return nim_result
+
+    # ── 2. Ollama LLM ─────────────────────────────────────────────────────────
     base_url = CONFIG.get("ollama", {}).get("base_url", "http://localhost:11434")
     model = CONFIG["llm"]["model"]
 
@@ -616,10 +668,9 @@ Sem texto adicional."""
             if url.startswith("http") and confidence >= 0.90:
                 return {"url": url, "confidence": confidence * 0.8}
     except (httpx.ConnectError, httpx.ConnectTimeout, httpx.RemoteProtocolError):
-        # Ollama offline — use heuristic scoring instead
         pass
     except Exception as e:
-        console.print(f"    [dim]LLM: {e}[/]")
+        console.print(f"    [dim]Ollama LLM: {e}[/]")
     return None
 
 

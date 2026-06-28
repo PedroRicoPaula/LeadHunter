@@ -278,6 +278,13 @@ Tags válidas: sem_booking, site_lento, sem_whatsapp, sem_redes_sociais, sem_ema
 
 # ── LLM backends ─────────────────────────────────────────────────────────────
 
+_NIM_SYSTEM = (
+    "És um consultor de marketing digital especializado em PMEs portuguesas. "
+    "Respondes SEMPRE com JSON válido e nada mais. "
+    "Não adicionas markdown, explicações ou texto antes/depois do JSON."
+)
+
+
 def _parse_llm_json(raw: str) -> AuditoriaLLM:
     raw = raw.strip()
     # Strip <think>...</think> blocks (qwen3 thinking mode)
@@ -328,6 +335,19 @@ def _call_ollama(lead: dict) -> AuditoriaLLM:
     )
     resp.raise_for_status()
     raw = resp.json()["message"]["content"]
+    return _parse_llm_json(raw)
+
+
+def _call_nvidia_nim(lead: dict) -> AuditoriaLLM:
+    from nim_client import nim
+    raw = nim.chat(
+        messages=[{"role": "user", "content": _build_prompt(lead)}],
+        system=_NIM_SYSTEM,
+        temperature=CONFIG["llm"]["temperature"],
+        max_tokens=CONFIG["llm"]["max_tokens"],
+    )
+    if raw is None:
+        raise RuntimeError("NIM: sem resposta")
     return _parse_llm_json(raw)
 
 
@@ -428,13 +448,35 @@ def _rule_based_analysis(lead: dict) -> AuditoriaLLM:
 
 
 def _call_llm(lead: dict) -> AuditoriaLLM:
+    """Provider cascade: nvidia_nim → ollama → anthropic → rule_based."""
     provider = CONFIG["llm"].get("provider", "ollama")
+
     if provider == "anthropic":
         return _call_anthropic(lead)
+
+    if provider == "nvidia_nim":
+        try:
+            return _call_nvidia_nim(lead)
+        except Exception as e:
+            console.print(f"  [yellow]NIM falhou ({e.__class__.__name__}) — fallback Ollama[/]")
+            try:
+                return _call_ollama(lead)
+            except (httpx.ConnectError, httpx.ConnectTimeout, httpx.RemoteProtocolError):
+                console.print("  [yellow]Ollama offline — usando scoring automático[/]")
+                return _rule_based_analysis(lead)
+
+    # provider == "ollama" — usa NIM como cloud fallback se Ollama cair
     try:
         return _call_ollama(lead)
     except (httpx.ConnectError, httpx.ConnectTimeout, httpx.RemoteProtocolError):
-        console.print("  [yellow]Ollama offline — usando scoring automático[/]")
+        from nim_client import nim
+        if nim.enabled:
+            console.print("  [yellow]Ollama offline — fallback NIM cloud[/]")
+            try:
+                return _call_nvidia_nim(lead)
+            except Exception:
+                pass
+        console.print("  [yellow]Ollama offline, NIM indisponível — scoring automático[/]")
         return _rule_based_analysis(lead)
 
 
@@ -506,6 +548,12 @@ def analyze_all(max_leads: int | None = None, reprocessar: bool = False, progres
         if not api_key:
             console.print("[red]ERRO:[/] ANTHROPIC_API_KEY nao configurada.")
             return
+    elif provider == "nvidia_nim":
+        from nim_client import nim
+        if not nim.enabled:
+            console.print("[red]ERRO:[/] NVIDIA_API_KEY nao configurada ou NIM desactivado.")
+            return
+        console.print("[dim]NIM disponível — análise via cloud NVIDIA.[/]")
     else:
         try:
             httpx.get(f"{CONFIG.get('ollama', {}).get('base_url', 'http://localhost:11434')}/api/tags", timeout=3)
@@ -548,7 +596,7 @@ def analyze_all(max_leads: int | None = None, reprocessar: bool = False, progres
     for i, lead in enumerate(track(targets, description="Analisando...")):
         nome = lead.get("nome", "")[:40]
         try:
-            if not ollama_online and provider != "anthropic":
+            if not ollama_online and provider not in ("anthropic", "nvidia_nim"):
                 analise = _rule_based_analysis(lead)
             else:
                 analise = _call_llm(lead)
@@ -592,8 +640,13 @@ def run(
         if not api_key:
             console.print("[red]ERRO:[/] ANTHROPIC_API_KEY nao configurada no .env")
             raise typer.Exit(1)
+    elif provider == "nvidia_nim":
+        from nim_client import nim
+        if not nim.enabled:
+            console.print("[red]ERRO:[/] NVIDIA_API_KEY nao configurada ou NIM desactivado.")
+            raise typer.Exit(1)
+        console.print("[dim]NIM disponível — análise via cloud NVIDIA.[/]")
     else:
-        # Verify Ollama is running
         try:
             httpx.get(f"{CONFIG.get('ollama', {}).get('base_url', 'http://localhost:11434')}/api/tags", timeout=3)
         except Exception:

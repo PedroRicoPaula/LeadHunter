@@ -239,6 +239,33 @@ def status():
 
 
 @app.command()
+def dedup(
+    threshold: float = typer.Option(0.92, "--threshold", "-t",
+                                    help="Limiar de similaridade (0-1). Default=0.92"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Mostra duplicados sem remover"),
+):
+    """Deduplicação semântica de leads via NIM Embeddings."""
+    _banner()
+    deduplicator = _load("06_semantic_dedup")
+    if dry_run:
+        # dry-run: mostra duplicados sem modificar o ficheiro
+        import json
+        if LEADS_FILE.exists():
+            with open(LEADS_FILE, "r", encoding="utf-8-sig") as f:
+                leads = json.load(f)
+            deduplicator.embed_all_pending(leads)
+            dups = deduplicator.find_duplicates(leads, threshold)
+            console.print(f"\n[yellow]dry-run:[/] {len(dups)} pares duplicados detectados (sem remoções).\n")
+            for la, lb, sim in dups[:20]:
+                console.print(f"  {sim:.3f}  [cyan]{la.get('nome','?')}[/] ↔ [yellow]{lb.get('nome','?')}[/]")
+    else:
+        stats = deduplicator.run_dedup()
+        console.print(f"\n[green]OK[/] {stats['embedded']} embeddados | "
+                      f"{stats['duplicates_found']} duplicados | "
+                      f"{stats['removed']} removidos\n")
+
+
+@app.command()
 def export(
     min_score: int = typer.Option(0, "--min-score", "-s", help="Score minimo (0-100)"),
     regiao: str = typer.Option(None, "--regiao", "-r", help="Filtrar por regiao (texto parcial)"),

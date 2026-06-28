@@ -23,6 +23,9 @@ def load_config() -> dict:
     llm = cfg.setdefault("llm", {})
     llm["api_key"] = os.getenv("ANTHROPIC_API_KEY") or llm.get("api_key", "")
 
+    nvidia_nim = cfg.setdefault("nvidia_nim", {})
+    nvidia_nim["api_key"] = os.getenv("NVIDIA_API_KEY") or nvidia_nim.get("api_key", "")
+
     return cfg
 
 
