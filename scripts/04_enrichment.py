@@ -849,7 +849,7 @@ async def _run_enrichment(
     )
     browser = None
     pw_ctx = None
-    if _free_mb >= 200:
+    if _free_mb >= 80:
         try:
             pw_ctx = await asyncio.wait_for(async_playwright().__aenter__(), timeout=30)
             browser = await asyncio.wait_for(
@@ -873,7 +873,7 @@ async def _run_enrichment(
             browser = None
             _cleanup_playwright_procs()
     else:
-        console.print(f"[yellow]RAM livre: {_free_mb}MB (<200MB) — modo sem browser (probes + domain-guess).[/]")
+        console.print(f"[yellow]RAM livre: {_free_mb}MB (<80MB) — modo sem browser (probes + domain-guess).[/]")
 
     try:
         for i, lead in enumerate(to_enrich):

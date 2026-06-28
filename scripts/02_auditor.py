@@ -440,7 +440,7 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
     total = len(to_audit)
     console.print(f"[cyan]A auditar {total} sites...[/]\n")
 
-    # Check free RAM — fork() for Node.js/Chromium needs ~200MB; use httpx mode if low
+    # Check free RAM — fork() for Node.js/Chromium needs ~80MB minimum; use httpx mode if critically low
     import subprocess as _sp
     _vm = _sp.run(["vm_stat"], capture_output=True, text=True).stdout
     _free_mb = sum(
@@ -450,7 +450,7 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
     )
     browser = None
     pw_ctx = None
-    if _free_mb >= 200:
+    if _free_mb >= 80:
         try:
             pw_ctx = await asyncio.wait_for(async_playwright().__aenter__(), timeout=30)
             browser = await asyncio.wait_for(
@@ -474,7 +474,7 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
             console.print(f"[yellow]Browser falhou ({launch_err.__class__.__name__}) — modo httpx.[/]")
             _cleanup_playwright_procs()
     else:
-        console.print(f"[yellow]RAM livre: {_free_mb}MB (<200MB) — modo httpx (sem browser).[/]")
+        console.print(f"[yellow]RAM livre: {_free_mb}MB (<80MB) — modo httpx (sem browser).[/]")
 
     async def _audit_one(lead: dict) -> dict:
         if browser is not None:

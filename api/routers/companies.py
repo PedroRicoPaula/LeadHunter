@@ -92,7 +92,7 @@ def get_stats():
         total = conn.execute("SELECT COUNT(*) FROM companies").fetchone()[0]
         com_website = conn.execute("SELECT COUNT(*) FROM companies WHERE website IS NOT NULL AND website != ''").fetchone()[0]
         analisados = conn.execute("SELECT COUNT(*) FROM companies WHERE status = 'analisado'").fetchone()[0]
-        avg_score = conn.execute("SELECT AVG(score) FROM companies WHERE score IS NOT NULL").fetchone()[0]
+        avg_score = conn.execute("SELECT AVG(score) FROM companies WHERE score IS NOT NULL AND status='analisado'").fetchone()[0]
 
         nichos = conn.execute(
             "SELECT nicho, COUNT(*) as c FROM companies WHERE nicho IS NOT NULL GROUP BY nicho ORDER BY c DESC LIMIT 10"
@@ -105,7 +105,7 @@ def get_stats():
               SUM(CASE WHEN score BETWEEN 40 AND 59  THEN 1 ELSE 0 END) as s40,
               SUM(CASE WHEN score BETWEEN 60 AND 79  THEN 1 ELSE 0 END) as s60,
               SUM(CASE WHEN score BETWEEN 80 AND 100 THEN 1 ELSE 0 END) as s80
-            FROM companies WHERE score IS NOT NULL
+            FROM companies WHERE score IS NOT NULL AND status='analisado'
         """).fetchone()
 
         status_counts = conn.execute(
@@ -113,7 +113,7 @@ def get_stats():
         ).fetchall()
 
         top5 = conn.execute(
-            "SELECT id,nome,nicho,score,website,favicon_url,status,emails FROM companies WHERE score IS NOT NULL ORDER BY score DESC LIMIT 5"
+            "SELECT id,nome,nicho,score,website,favicon_url,status,emails FROM companies WHERE score IS NOT NULL AND status='analisado' ORDER BY score DESC LIMIT 5"
         ).fetchall()
 
     return {
