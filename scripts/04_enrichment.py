@@ -65,6 +65,28 @@ _SKIP_DOMAINS = {
     "youtube.com", "youtu.be",
     "tiktok.com",
     "pinterest.com",
+    # Aggregators / OTAs — listings, not business websites
+    "tripadvisor.com", "tripadvisor.pt", "tripadvisor.co.uk",
+    "booking.com",
+    "airbnb.com", "airbnb.pt",
+    "expedia.com", "expedia.pt",
+    "decolar.com", "despegar.com",
+    "lastminute.com",
+    "thefork.pt", "thefork.com",
+    "zomato.com",
+    "yelp.com", "yelp.pt",
+    "foursquare.com",
+}
+
+# Foreign ccTLD suffixes that are almost certainly wrong for an Açores business
+_FOREIGN_CCTLDS = {
+    ".com.br", ".net.br", ".org.br",  # Brazil
+    ".com.ar", ".net.ar",             # Argentina
+    ".com.mx", ".net.mx",             # Mexico
+    ".co.uk", ".org.uk",              # UK (unlikely for PT business)
+    ".com.co",                        # Colombia
+    ".com.uy",                        # Uruguay
+    ".com.ve",                        # Venezuela
 }
 
 # Nichos where TripAdvisor has good coverage
@@ -156,8 +178,17 @@ def _valid_candidate(url: str) -> bool:
     if not url or not url.startswith("http"):
         return False
     try:
-        domain = urlparse(url).netloc.lower().replace("www.", "")
-        return domain not in _SKIP_DOMAINS
+        netloc = urlparse(url).netloc.lower()
+        domain = netloc.replace("www.", "").replace("m.", "")
+        if domain in _SKIP_DOMAINS:
+            return False
+        # Reject if any skip domain appears as a suffix (e.g. pt.tripadvisor.com)
+        if any(domain == d or domain.endswith("." + d) for d in _SKIP_DOMAINS):
+            return False
+        # Reject foreign country-code TLDs — Açores businesses use .pt / .com / .eu
+        if any(domain.endswith(ccTLD) for ccTLD in _FOREIGN_CCTLDS):
+            return False
+        return True
     except Exception:
         return False
 
@@ -818,9 +849,14 @@ async def _enrich_one(lead: dict, browser) -> dict:
             gm = await _search_google_maps(browser, name, lat, lon, city)
             _add(gm, prepend=bool(gm))  # Prepend — Maps result is usually the real site
 
-        # ── Source 6: TripAdvisor (food/tourism only) ─────────────────────────────────
-        if nicho in _TA_NICHOS and len(candidates) < 4:
-            _add(await _search_tripadvisor(browser, name, city))
+        # ── Source 6: TripAdvisor (food/tourism only) — save to booking_hints, never website ──
+        if nicho in _TA_NICHOS and not lead.get("booking_hints"):
+            ta_url = await _search_tripadvisor(browser, name, city)
+            if ta_url:
+                hints = lead.get("booking_hints") or []
+                if ta_url not in hints:
+                    hints.append(ta_url)
+                lead["booking_hints"] = hints
     else:
         # ── Httpx fallbacks when browser unavailable ──────────────────────────────────
         if len(candidates) < 3:
