@@ -94,23 +94,39 @@
     </button>
     <button onclick="filterCategory('restaurantes')" data-cat="restaurantes"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
-      Restaurantes
-    </button>
-    <button onclick="filterCategory('ginasios')" data-cat="ginasios"
-      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
-      Ginasios
+      🍽️ Restaurantes
     </button>
     <button onclick="filterCategory('alojamento')" data-cat="alojamento"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
-      Alojamento
+      🏨 Alojamento
     </button>
-    <button onclick="filterCategory('saloes')" data-cat="saloes"
+    <button onclick="filterCategory('saude')" data-cat="saude"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
-      Saloes
+      🏥 Saúde
     </button>
-    <button onclick="filterCategory('servicos')" data-cat="servicos"
+    <button onclick="filterCategory('beleza')" data-cat="beleza"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
-      Servicos
+      💈 Beleza
+    </button>
+    <button onclick="filterCategory('ginasios')" data-cat="ginasios"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      💪 Ginásios
+    </button>
+    <button onclick="filterCategory('comercio')" data-cat="comercio"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      🛒 Comércio
+    </button>
+    <button onclick="filterCategory('automovel')" data-cat="automovel"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      🔧 Automóvel
+    </button>
+    <button onclick="filterCategory('servicos_prof')" data-cat="servicos_prof"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      📋 Serviços Prof.
+    </button>
+    <button onclick="filterCategory('turismo')" data-cat="turismo"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      🎭 Turismo
     </button>
   </div>
   <div class="absolute right-0 top-0 bottom-0 w-10 pointer-events-none md:hidden" style="background:linear-gradient(to right, transparent, rgba(6,10,16,.95))"></div>
@@ -180,21 +196,35 @@ const STRIPE_STARTER = 'https://buy.stripe.com/dRm00jgvj4h461C6FtdUY00';
 const STRIPE_HUNTER  = 'https://buy.stripe.com/bJe4gzbaZcNAey86FtdUY01';
 
 const CAT_COLORS = {
-  restaurantes: '#f97316',
-  clinicas:     '#3b82f6',
-  ginasios:     '#8b5cf6',
-  alojamento:   '#14b8a6',
-  saloes:       '#ec4899',
-  servicos:     '#6b7280'
+  restaurantes:  '#f97316',
+  alojamento:    '#14b8a6',
+  saude:         '#3b82f6',
+  beleza:        '#ec4899',
+  ginasios:      '#8b5cf6',
+  comercio:      '#eab308',
+  automovel:     '#64748b',
+  servicos_prof: '#6366f1',
+  turismo:       '#10b981',
+  // legacy aliases kept for backwards compat with old businesses.json
+  clinicas:      '#3b82f6',
+  saloes:        '#ec4899',
+  servicos:      '#64748b'
 };
 
 const CAT_NAMES = {
-  restaurantes: 'Restaurante',
-  clinicas:     'Clinica',
-  ginasios:     'Ginasio / Fitness',
-  alojamento:   'Alojamento',
-  saloes:       'Salao / Beleza',
-  servicos:     'Servico Local'
+  restaurantes:  'Restauração',
+  alojamento:    'Alojamento',
+  saude:         'Saúde',
+  beleza:        'Beleza & Estética',
+  ginasios:      'Ginásio / Fitness',
+  comercio:      'Comércio',
+  automovel:     'Automóvel',
+  servicos_prof: 'Serviços Prof.',
+  turismo:       'Turismo & Lazer',
+  // legacy
+  clinicas:      'Saúde',
+  saloes:        'Beleza & Estética',
+  servicos:      'Serviços'
 };
 
 const GAP_LABELS = {
