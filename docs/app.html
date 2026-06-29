@@ -330,7 +330,7 @@ function buildPopupHTML(b) {
     ? 'background:#0f2a1a;color:#10f5a0;border:1px solid rgba(16,245,160,.4)'
     : 'background:linear-gradient(135deg,#10f5a0,#06d6a0);color:#060a10';
 
-  const canSelect = !isSelected && selectedIds.size >= 30;
+  const canSelect = !isSelected && selectedIds.size >= 20;
 
   return `
     <div style="font-family:Inter,sans-serif">
@@ -375,7 +375,7 @@ function buildPopupHTML(b) {
       <div style="padding:0 12px 14px">
         <button id="select-btn-${b.id}" ${canSelect ? 'disabled' : ''}
           style="width:100%;padding:10px;border-radius:10px;font-weight:700;font-size:13px;cursor:${canSelect ? 'not-allowed' : 'pointer'};border:none;${btnStyle};opacity:${canSelect ? '.4' : '1'};transition:all .2s">
-          ${isSelected ? '&#10003; Selecionado — clica para remover' : canSelect ? 'Limite atingido (30)' : 'Selecionar — ver PDF apos pagamento'}
+          ${isSelected ? '&#10003; Selecionado — clica para remover' : canSelect ? 'Limite atingido (20)' : 'Selecionar — ver PDF apos pagamento'}
         </button>
       </div>
     </div>`;
@@ -386,7 +386,7 @@ function toggleSelect(id) {
   if (selectedIds.has(id)) {
     selectedIds.delete(id);
   } else {
-    if (selectedIds.size >= 30) return;
+    if (selectedIds.size >= 20) return;
     selectedIds.add(id);
   }
   refreshMarkerIcon(id);
@@ -400,7 +400,7 @@ function updateUI() {
     ? 'Seleciona ate 5 por €5'
     : count <= 5
     ? `Pack Starter — ate 5 negocios por €5`
-    : `Pack Hunter — ate 30 negocios por €12`;
+    : `Pack Hunter — ate 20 negocios por €12`;
 
   // Bottom bar + map resize
   const bar = document.getElementById('bottom-bar');
@@ -454,16 +454,10 @@ function filterCategory(cat) {
 function handlePayment() {
   if (selectedIds.size === 0) return;
 
-  // Store selected IDs and plan tier
-  const ids = Array.from(selectedIds);
+  const ids = Array.from(selectedIds).join('-');
   const plan = selectedIds.size <= 5 ? 'starter' : 'hunter';
-  localStorage.setItem('lh_selected', JSON.stringify(ids));
-  localStorage.setItem('lh_plan', plan);
-  localStorage.setItem('lh_ts', Date.now().toString());
-
-  // Choose payment link
-  const link = plan === 'starter' ? STRIPE_STARTER : STRIPE_HUNTER;
-  window.location.href = link;
+  const base = plan === 'starter' ? STRIPE_STARTER : STRIPE_HUNTER;
+  window.location.href = `${base}?client_reference_id=${ids}`;
 }
 </script>
 </body>

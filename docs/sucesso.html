@@ -68,7 +68,7 @@
 
       <!-- State: no data -->
       <div id="state-nodata" class="hidden fade-up-3 text-center py-8">
-        <p class="text-gray-400 text-[14px] mb-4">Nao encontramos os teus negocios selecionados.<br/>Isso pode acontecer se abriste este link noutra janela.</p>
+        <p class="text-gray-400 text-[14px] mb-4">Nao foi possivel verificar o pagamento.<br/>Se acabaste de pagar, aguarda alguns segundos e actualiza a pagina.</p>
         <a href="app.html" class="inline-block px-6 py-3 rounded-xl btn-dl text-sm">
           Voltar ao mapa
         </a>
@@ -127,58 +127,34 @@ const CAT_NAMES = {
 
 let businesses = [];
 
-// ── INIT ─────────────────────────────────────────────────────────
+// ── INIT — verifica pagamento via Netlify Function ───────────────
 window.addEventListener('DOMContentLoaded', async () => {
-  const raw = localStorage.getItem('lh_selected');
-  const ts  = localStorage.getItem('lh_ts');
+  const params = new URLSearchParams(window.location.search);
+  const session_id = params.get('session_id');
 
-  // Expire after 4 hours
-  if (!raw || !ts || (Date.now() - parseInt(ts)) > 4 * 3600 * 1000) {
+  if (!session_id || !session_id.startsWith('cs_')) {
     show('nodata');
     return;
   }
 
-  const ids = JSON.parse(raw);
-  if (!ids || ids.length === 0) { show('nodata'); return; }
-
-  // Enforce plan limits — starter: ≤5, hunter: ≤30
-  const plan = localStorage.getItem('lh_plan') || 'hunter';
-  const maxAllowed = plan === 'starter' ? 5 : 30;
-  if (ids.length > maxAllowed) { show('nodata'); return; }
-
   try {
-    const res = await fetch('data/businesses.json');
-    const all = await res.json();
+    const res = await fetch('/api/get-leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id })
+    });
 
-    // Attach computed gaps
-    businesses = all
-      .filter(b => ids.includes(b.id))
-      .map(b => ({ ...b, gaps: (b.gaps && b.gaps.length) ? b.gaps : computeGaps(b) }));
+    if (!res.ok) { show('nodata'); return; }
 
-    if (businesses.length === 0) { show('nodata'); return; }
+    businesses = await res.json();
+    if (!businesses || businesses.length === 0) { show('nodata'); return; }
 
     renderList();
     show('list');
-
-    // Clear localStorage
-    localStorage.removeItem('lh_selected');
-    localStorage.removeItem('lh_ts');
   } catch {
     show('nodata');
   }
 });
-
-function computeGaps(b) {
-  const g = [];
-  if (!b.has_website)        g.push('sem_website');
-  if (!b.has_booking)        g.push('sem_reservas');
-  if (!b.whatsapp)           g.push('sem_whatsapp');
-  if (!b.has_analytics)      g.push('sem_analytics');
-  if (!b.has_facebook_pixel) g.push('sem_facebook_pixel');
-  if (b.has_website && !b.has_ssl)            g.push('sem_ssl');
-  if (b.has_website && !b.is_mobile_friendly) g.push('sem_mobile');
-  return g;
-}
 
 function show(state) {
   document.getElementById('state-loading').classList.add('hidden');
@@ -202,43 +178,38 @@ function renderList() {
   const container = document.getElementById('business-list');
   container.innerHTML = businesses.map((b, i) => `
     <div class="rounded-2xl border border-white/[.06] p-4 flex items-center gap-4" style="background:rgba(255,255,255,.02)">
-      <div style="width:40px;height:40px;border-radius:50%;background:${scoreColor(b.score)};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;shrink:0;flex-shrink:0">${esc(b.score)}</div>
+      <div style="width:40px;height:40px;border-radius:50%;background:${scoreColor(b.score)};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:white;flex-shrink:0">${esc(b.score)}</div>
       <div class="flex-1 min-w-0">
         <div class="font-semibold text-[13px] truncate">${esc(b.name)}</div>
-        <div class="text-gray-500 text-[11px]">${esc(b.municipality)} · ${b.gaps.length} gaps</div>
+        <div class="text-gray-500 text-[11px]">${esc(b.municipality)} · ${(b.gaps||[]).length} gaps</div>
       </div>
-      <button onclick="downloadOne(${i})" class="btn-dl shrink-0 px-4 py-2 rounded-lg text-[12px]">
-        PDF
-      </button>
+      <button onclick="downloadOne(${i})" class="btn-dl shrink-0 px-4 py-2 rounded-lg text-[12px]">PDF</button>
     </div>
   `).join('');
 }
 
-// ── PDF GENERATION ───────────────────────────────────────────────
-function generatePDF(b) {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+// ── PDF — funcao unica de rendering ─────────────────────────────
+function renderPageContent(doc, b) {
   const W = 210, H = 297;
-
   const sc = b.score;
   const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
+
+  const isFacebook  = (b.website || '').includes('facebook.com');
+  const isInstagram = (b.website || '').includes('instagram.com');
 
   // ── HEADER ──
   doc.setFillColor(6, 10, 16);
   doc.rect(0, 0, W, 42, 'F');
-
   doc.setTextColor(16, 245, 160);
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
   doc.text('LeadHunter', 14, 17);
-
   doc.setTextColor(75, 85, 99);
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.text('leadhunter.pedropaula.com', 14, 24);
   doc.text('Gerado em ' + new Date().toLocaleDateString('pt-PT'), 14, 30);
 
-  // Score circle
   doc.setFillColor(...sRGB);
   doc.circle(189, 21, 13, 'F');
   doc.setTextColor(255, 255, 255);
@@ -249,51 +220,60 @@ function generatePDF(b) {
   doc.setFont('helvetica', 'normal');
   doc.text('SCORE', 189, 30, { align: 'center' });
 
-  // ── BUSINESS NAME ──
+  // ── NOME ──
+  doc.setFillColor(255, 255, 255);
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.text(b.name, 14, 58);
-
+  doc.text(b.name || '', 14, 58);
   doc.setTextColor(75, 85, 99);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text((CAT_NAMES[b.category] || b.category) + '  ·  ' + b.municipality, 14, 68);
-
-  // Divider
+  doc.text((CAT_NAMES[b.category] || b.category || '') + '  ·  ' + (b.municipality || ''), 14, 68);
   doc.setDrawColor(220, 224, 230);
   doc.line(14, 74, W - 14, 74);
 
-  // ── CONTACT ──
+  // ── CONTACTO ──
   let y = 84;
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.text('CONTACTO', 14, y);
   y += 9;
-
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
 
-  const rows = [
-    b.phone   ? ['Telefone', b.phone] : null,
-    b.email   ? ['Email', b.email] : null,
-    b.website ? ['Website', b.website] : ['Website', 'SEM WEBSITE'],
-    b.address ? ['Morada', b.address] : null
-  ].filter(Boolean);
+  const rows = [];
+  if (b.phone && b.phone !== '-') rows.push(['Telefone', b.phone, false]);
+  if (b.email)                    rows.push(['Email', b.email, false]);
+  if (isFacebook)                 rows.push(['Facebook', b.website, false]);
+  else if (isInstagram)           rows.push(['Instagram', b.website, false]);
+  else if (b.website)             rows.push(['Website', b.website, false]);
+  else                            rows.push(['Website', 'SEM WEBSITE', true]);
+  if (b.address)                  rows.push(['Morada', b.address, false]);
 
-  rows.forEach(([label, val]) => {
-    doc.setTextColor(120, 130, 145);
-    doc.text(label + ':', 14, y);
-    doc.setTextColor(val === 'SEM WEBSITE' ? 200 : 10, val === 'SEM WEBSITE' ? 60 : 12, val === 'SEM WEBSITE' ? 60 : 20);
-    doc.text(val, 55, y);
+  if (rows.length === 1 && rows[0][2] && !b.whatsapp) {
+    // Only "SEM WEBSITE" and no phone/email/WA — warn
+    doc.setTextColor(180, 60, 60);
+    doc.setFontSize(9);
+    doc.text('Nenhum contacto encontrado — verificar Google Maps', 14, y);
     y += 9;
-  });
+  } else {
+    rows.forEach(([label, val, isAbsent]) => {
+      // Truncate long URLs to avoid overflow
+      const display = val.length > 55 ? val.substring(0, 52) + '...' : val;
+      doc.setTextColor(120, 130, 145);
+      doc.text(label + ':', 14, y);
+      doc.setTextColor(isAbsent ? 200 : 10, isAbsent ? 60 : 12, isAbsent ? 60 : 20);
+      doc.text(display, 55, y);
+      y += 9;
+    });
+  }
 
   if (b.whatsapp) {
     y += 3;
     doc.setFillColor(22, 163, 74);
-    doc.roundedRect(14, y - 5, 80, 9, 2, 2, 'F');
+    doc.roundedRect(14, y - 5, 90, 9, 2, 2, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
@@ -307,48 +287,58 @@ function generatePDF(b) {
   y += 10;
 
   // ── GAPS ──
+  const gaps = b.gaps || [];
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.text('GAPS IDENTIFICADOS (' + b.gaps.length + ')', 14, y);
+  doc.text('GAPS IDENTIFICADOS (' + gaps.length + ')', 14, y);
   y += 10;
-
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  b.gaps.forEach(gap => {
-    const desc = GAP_DESC[gap] || gap;
+  gaps.forEach(gap => {
+    // Overflow guard: new page if too close to footer
+    if (y > 258) {
+      doc.addPage();
+      doc.setFillColor(6, 10, 16);
+      doc.rect(0, 0, W, 12, 'F');
+      y = 20;
+    }
     doc.setFillColor(...sRGB);
     doc.circle(17, y - 1.5, 1.8, 'F');
     doc.setTextColor(40, 45, 55);
-    doc.text(desc, 22, y);
+    doc.text(GAP_DESC[gap] || gap, 22, y);
     y += 8;
   });
 
   y += 4;
+  // Guard before divider + score section (~30mm needed)
+  if (y > 245) {
+    doc.addPage();
+    doc.setFillColor(6, 10, 16);
+    doc.rect(0, 0, W, 12, 'F');
+    y = 20;
+  }
   doc.setDrawColor(220, 224, 230);
   doc.line(14, y, W - 14, y);
   y += 10;
 
-  // ── SCORE EXPLANATION ──
+  // ── SCORE INTERPRETATION ──
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.text('INTERPRETACAO DO SCORE', 14, y);
   y += 9;
-
   const tier = sc >= 65
     ? 'OPORTUNIDADE CRITICA — Alta probabilidade de conversao'
     : sc >= 45
     ? 'OPORTUNIDADE ALTA — Bons indicadores de interesse'
     : 'OPORTUNIDADE MEDIA — Verificar antes de contactar';
-
   doc.setFillColor(...sRGB.map(v => Math.min(v + 180, 255)));
   doc.roundedRect(14, y - 5, W - 28, 11, 2, 2, 'F');
   doc.setTextColor(...sRGB);
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.text(tier, 18, y + 1);
-  y += 18;
 
   // ── FOOTER ──
   doc.setFillColor(6, 10, 16);
@@ -360,16 +350,16 @@ function generatePDF(b) {
   doc.text('Dados de fontes publicas. Verificar antes de contactar.', 14, H - 7);
   doc.setTextColor(16, 245, 160);
   doc.text('pedroricopaula@gmail.com', W - 14, H - 7, { align: 'right' });
-
-  return doc;
 }
 
 // ── DOWNLOAD ─────────────────────────────────────────────────────
 function downloadOne(index) {
+  const { jsPDF } = window.jspdf;
   const b = businesses[index];
-  const doc = generatePDF(b);
-  const filename = 'lead_' + b.name.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_') + '.pdf';
-  doc.save(filename);
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  renderPageContent(doc, b);
+  const slug = b.name.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_');
+  doc.save('lead_' + slug + '.pdf');
 }
 
 async function downloadAll() {
@@ -380,147 +370,18 @@ async function downloadAll() {
   await new Promise(r => setTimeout(r, 30));
 
   const { jsPDF } = window.jspdf;
-  // Generate first business as base doc, then add pages for the rest
-  const first = generatePDF(businesses[0]);
-  const combined = first;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-  for (let i = 1; i < businesses.length; i++) {
+  for (let i = 0; i < businesses.length; i++) {
+    if (i > 0) doc.addPage();
     btn.textContent = `A gerar ${i + 1}/${businesses.length}...`;
     await new Promise(r => setTimeout(r, 10));
-    const pageDoc = generatePDF(businesses[i]);
-    // Copy page from pageDoc into combined
-    combined.addPage();
-    const pageData = pageDoc.output('arraybuffer');
-    // Re-render business directly onto new page
-    renderBusinessPage(combined, businesses[i]);
+    renderPageContent(doc, businesses[i]);
   }
 
-  combined.save('ledhunter_leads.pdf');
-
+  doc.save('leadhunter_leads.pdf');
   btn.disabled = false;
   btn.textContent = 'Descarregar PDF completo (todas as empresas)';
-}
-
-function renderBusinessPage(doc, b) {
-  const W = 210, H = 297;
-  const sc = b.score;
-  const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
-
-  doc.setFillColor(6, 10, 16);
-  doc.rect(0, 0, W, 42, 'F');
-  doc.setTextColor(16, 245, 160);
-  doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
-  doc.text('LeadHunter', 14, 17);
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.text('leadhunter.pedropaula.com', 14, 24);
-  doc.text('Gerado em ' + new Date().toLocaleDateString('pt-PT'), 14, 30);
-  doc.setFillColor(...sRGB);
-  doc.circle(189, 21, 13, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(13);
-  doc.setFont('helvetica', 'bold');
-  doc.text(String(sc), 189, 25, { align: 'center' });
-  doc.setFontSize(6);
-  doc.setFont('helvetica', 'normal');
-  doc.text('SCORE', 189, 30, { align: 'center' });
-
-  doc.setFillColor(255, 255, 255);
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(20);
-  doc.setFont('helvetica', 'bold');
-  doc.text(b.name, 14, 58);
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  doc.text((CAT_NAMES[b.category] || b.category) + '  ·  ' + b.municipality, 14, 68);
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, 74, W - 14, 74);
-
-  let y = 84;
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('CONTACTO', 14, y);
-  y += 9;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  const rows = [
-    b.phone   ? ['Telefone', b.phone] : null,
-    b.email   ? ['Email', b.email] : null,
-    b.website ? ['Website', b.website] : ['Website', 'SEM WEBSITE'],
-    b.address ? ['Morada', b.address] : null
-  ].filter(Boolean);
-  rows.forEach(([label, val]) => {
-    doc.setTextColor(120, 130, 145);
-    doc.text(label + ':', 14, y);
-    doc.setTextColor(val === 'SEM WEBSITE' ? 200 : 10, val === 'SEM WEBSITE' ? 60 : 12, val === 'SEM WEBSITE' ? 60 : 20);
-    doc.text(val, 55, y);
-    y += 9;
-  });
-  if (b.whatsapp) {
-    y += 3;
-    doc.setFillColor(22, 163, 74);
-    doc.roundedRect(14, y - 5, 80, 9, 2, 2, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    doc.text('WhatsApp: wa.me/' + b.whatsapp, 18, y);
-    y += 12;
-  }
-  y += 4;
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, y, W - 14, y);
-  y += 10;
-
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('GAPS IDENTIFICADOS (' + b.gaps.length + ')', 14, y);
-  y += 10;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  b.gaps.forEach(gap => {
-    const desc = GAP_DESC[gap] || gap;
-    doc.setFillColor(...sRGB);
-    doc.circle(17, y - 1.5, 1.8, 'F');
-    doc.setTextColor(40, 45, 55);
-    doc.text(desc, 22, y);
-    y += 8;
-  });
-  y += 4;
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, y, W - 14, y);
-  y += 10;
-
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('INTERPRETACAO DO SCORE', 14, y);
-  y += 9;
-  const tier = sc >= 65
-    ? 'OPORTUNIDADE CRITICA — Alta probabilidade de conversao'
-    : sc >= 45
-    ? 'OPORTUNIDADE ALTA — Bons indicadores de interesse'
-    : 'OPORTUNIDADE MEDIA — Verificar antes de contactar';
-  doc.setFillColor(...sRGB.map(v => Math.min(v + 180, 255)));
-  doc.roundedRect(14, y - 5, W - 28, 11, 2, 2, 'F');
-  doc.setTextColor(...sRGB);
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'bold');
-  doc.text(tier, 18, y + 1);
-
-  doc.setFillColor(6, 10, 16);
-  doc.rect(0, H - 22, W, 22, 'F');
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.text('LeadHunter · Pedro Paula Labs · leadhunter.pedropaula.com', 14, H - 13);
-  doc.text('Dados de fontes publicas. Verificar antes de contactar.', 14, H - 7);
-  doc.setTextColor(16, 245, 160);
-  doc.text('pedroricopaula@gmail.com', W - 14, H - 7, { align: 'right' });
 }
 </script>
 </body>
