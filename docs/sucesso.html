@@ -165,7 +165,7 @@ function show(state) {
 
 // ── LIST ─────────────────────────────────────────────────────────
 function scoreColor(s) {
-  return s >= 65 ? '#ef4444' : s >= 45 ? '#f97316' : s >= 25 ? '#eab308' : '#6b7280';
+  return s >= 60 ? '#ef4444' : s >= 40 ? '#f97316' : s >= 20 ? '#eab308' : '#6b7280';
 }
 
 function esc(s) {
@@ -192,7 +192,7 @@ function renderList() {
 function renderPageContent(doc, b) {
   const W = 210, H = 297;
   const sc = Number(b.score) || 0;
-  const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
+  const sRGB = sc >= 60 ? [239,68,68] : sc >= 40 ? [249,115,22] : sc >= 20 ? [234,179,8] : [107,114,128];
 
   const isFacebook  = (b.website || '').includes('facebook.com');
   const isInstagram = (b.website || '').includes('instagram.com');
@@ -229,12 +229,33 @@ function renderPageContent(doc, b) {
   doc.setTextColor(75, 85, 99);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text((CAT_NAMES[b.category] || b.category || '') + '  ·  ' + (b.municipality || ''), 14, 68);
+  // Show category + island (municipality is always the same — removed)
+  doc.text(CAT_NAMES[b.category] || b.category || '', 14, 68);
   doc.setDrawColor(220, 224, 230);
   doc.line(14, 74, W - 14, 74);
 
+  // ── CONTACTABILIDADE BADGE ──
+  const hasPhone = b.phone && b.phone !== '-';
+  const hasEmail = !!b.email;
+  const hasWA    = !!b.whatsapp;
+  const contactScore = (hasPhone ? 1 : 0) + (hasEmail ? 1 : 0) + (hasWA ? 1 : 0);
+  const contactLabel = contactScore >= 2 ? 'CONTACTO COMPLETO'
+                     : contactScore === 1 ? 'CONTACTO PARCIAL'
+                     : 'SEM CONTACTO DIRECTO';
+  const contactRGB   = contactScore >= 2 ? [22, 163, 74]
+                     : contactScore === 1 ? [234, 179, 8]
+                     : [180, 60, 60];
+
+  let y = 80;
+  doc.setFillColor(...contactRGB.map(v => Math.min(v + 170, 255)));
+  doc.roundedRect(14, y - 4, 80, 9, 2, 2, 'F');
+  doc.setTextColor(...contactRGB);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.text(contactLabel, 18, y + 1);
+  y += 12;
+
   // ── CONTACTO ──
-  let y = 84;
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
@@ -244,16 +265,19 @@ function renderPageContent(doc, b) {
   doc.setFontSize(10);
 
   const rows = [];
-  if (b.phone && b.phone !== '-') rows.push(['Telefone', b.phone, false]);
-  if (b.email)                    rows.push(['Email', b.email, false]);
-  if (isFacebook)                 rows.push(['Facebook', b.website, false]);
-  else if (isInstagram)           rows.push(['Instagram', b.website, false]);
-  else if (b.website)             rows.push(['Website', b.website, false]);
-  else                            rows.push(['Website', 'SEM WEBSITE', true]);
-  if (b.address)                  rows.push(['Morada', b.address, false]);
+  if (hasPhone)    rows.push(['Telefone', b.phone, false]);
+  if (hasEmail)    rows.push(['Email', b.email, false]);
+  if (isFacebook)  rows.push(['Facebook', b.website, false]);
+  else if (isInstagram) rows.push(['Instagram', b.website, false]);
+  else if (b.website)   rows.push(['Website', b.website, false]);
+  else                  rows.push(['Website', 'SEM WEBSITE', true]);
+  if (b.address) {
+    const mapsUrl = 'maps.google.com/?q=' + encodeURIComponent(b.address);
+    rows.push(['Morada', b.address, false]);
+    rows.push(['Google Maps', mapsUrl.length > 55 ? mapsUrl.substring(0,52)+'...' : mapsUrl, false]);
+  }
 
-  if (rows.length === 1 && rows[0][2] && !b.whatsapp) {
-    // Only "SEM WEBSITE" and no phone/email/WA — warn
+  if (contactScore === 0 && !b.website) {
     doc.setTextColor(180, 60, 60);
     doc.setFontSize(9);
     doc.text('Nenhum contacto encontrado — verificar Google Maps', 14, y);
@@ -328,11 +352,11 @@ function renderPageContent(doc, b) {
   doc.setFont('helvetica', 'bold');
   doc.text('INTERPRETACAO DO SCORE', 14, y);
   y += 9;
-  const tier = sc >= 65
-    ? 'OPORTUNIDADE CRITICA — Alta probabilidade de conversao'
-    : sc >= 45
-    ? 'OPORTUNIDADE ALTA — Bons indicadores de interesse'
-    : 'OPORTUNIDADE MEDIA — Verificar antes de contactar';
+  const tier = sc >= 60
+    ? 'OPORTUNIDADE CRITICA — Multiplos gaps digitais + score elevado'
+    : sc >= 40
+    ? 'OPORTUNIDADE ALTA — Bons indicadores de necessidade digital'
+    : 'OPORTUNIDADE MEDIA — Verificar perfil antes de contactar';
   doc.setFillColor(...sRGB.map(v => Math.min(v + 180, 255)));
   doc.roundedRect(14, y - 5, W - 28, 11, 2, 2, 'F');
   doc.setTextColor(...sRGB);
