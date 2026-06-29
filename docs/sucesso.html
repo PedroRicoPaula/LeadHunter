@@ -109,7 +109,8 @@
 
 <script>
 const GAP_DESC = {
-  sem_website:        'Sem website real — oportunidade critica para criar presenca online',
+  sem_website_real:   'Sem website real — apenas presença em redes sociais (Facebook/Instagram)',
+  sem_website:        'Sem website — nenhuma presença digital própria detectada',
   sem_reservas:       'Sem reservas online — TheFork, Calendly, Booksy ou similar',
   sem_whatsapp:       'Sem WhatsApp Business — canal de contacto directo em falta',
   sem_redes_sociais:  'Sem redes sociais detectadas — presenca digital zero',
@@ -126,9 +127,27 @@ const CAT_NAMES = {
 };
 
 let businesses = [];
+let logoPngDataUrl = null;
+
+// ── PRÉ-RENDER LOGO → PNG para jsPDF ─────────────────────────────
+function preloadLogo() {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 210; canvas.height = 48;
+      canvas.getContext('2d').drawImage(img, 0, 0, 210, 48);
+      logoPngDataUrl = canvas.toDataURL('image/png');
+      resolve();
+    };
+    img.onerror = () => resolve(); // falha silenciosa — usa texto
+    img.src = 'logo.svg';
+  });
+}
 
 // ── INIT — verifica pagamento via Netlify Function ───────────────
 window.addEventListener('DOMContentLoaded', async () => {
+  await preloadLogo();
   const params = new URLSearchParams(window.location.search);
   const session_id = params.get('session_id');
 
@@ -194,16 +213,25 @@ function renderPageContent(doc, b) {
   const sc = Number(b.score) || 0;
   const sRGB = sc >= 60 ? [239,68,68] : sc >= 40 ? [249,115,22] : sc >= 20 ? [234,179,8] : [107,114,128];
 
-  const isFacebook  = (b.website || '').includes('facebook.com');
-  const isInstagram = (b.website || '').includes('instagram.com');
+  const isFacebook   = (b.website || '').includes('facebook.com');
+  const isInstagram  = (b.website || '').includes('instagram.com');
+  const isSocialOnly = (isFacebook || isInstagram) && !(b.gaps || []).includes('sem_website');
 
   // ── HEADER ──
   doc.setFillColor(6, 10, 16);
   doc.rect(0, 0, W, 42, 'F');
-  doc.setTextColor(16, 245, 160);
-  doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
-  doc.text('LeadHunter', 14, 17);
+
+  if (logoPngDataUrl) {
+    // Logo SVG pré-renderizado como PNG — preserva crosshair + tipografia
+    doc.addImage(logoPngDataUrl, 'PNG', 12, 7, 52.5, 12);
+  } else {
+    // Fallback: texto simples
+    doc.setTextColor(16, 245, 160);
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text('LeadHunter', 14, 17);
+  }
+
   doc.setTextColor(75, 85, 99);
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
@@ -265,16 +293,26 @@ function renderPageContent(doc, b) {
   doc.setFontSize(10);
 
   const rows = [];
-  if (hasPhone)    rows.push(['Telefone', b.phone, false]);
-  if (hasEmail)    rows.push(['Email', b.email, false]);
-  if (isFacebook)  rows.push(['Facebook', b.website, false]);
-  else if (isInstagram) rows.push(['Instagram', b.website, false]);
-  else if (b.website)   rows.push(['Website', b.website, false]);
-  else                  rows.push(['Website', 'SEM WEBSITE', true]);
+  if (hasPhone)   rows.push(['Telefone', b.phone, false, false]);
+  if (hasEmail)   rows.push(['Email', b.email, false, false]);
+
+  // Website / redes sociais
+  if (isFacebook) {
+    rows.push(['Facebook', b.website, false, false]);
+    rows.push(['Website', 'Sem website real', true, true]); // aviso explícito
+  } else if (isInstagram) {
+    rows.push(['Instagram', b.website, false, false]);
+    rows.push(['Website', 'Sem website real', true, true]); // aviso explícito
+  } else if (b.website) {
+    rows.push(['Website', b.website, false, false]);
+  } else {
+    rows.push(['Website', 'Sem website', true, true]);
+  }
+
   if (b.address) {
     const mapsUrl = 'maps.google.com/?q=' + encodeURIComponent(b.address);
-    rows.push(['Morada', b.address, false]);
-    rows.push(['Google Maps', mapsUrl.length > 55 ? mapsUrl.substring(0,52)+'...' : mapsUrl, false]);
+    rows.push(['Morada', b.address, false, false]);
+    rows.push(['Google Maps', mapsUrl.length > 55 ? mapsUrl.substring(0,52)+'...' : mapsUrl, false, false]);
   }
 
   if (contactScore === 0 && !b.website) {
@@ -283,13 +321,16 @@ function renderPageContent(doc, b) {
     doc.text('Nenhum contacto encontrado — verificar Google Maps', 14, y);
     y += 9;
   } else {
-    rows.forEach(([label, val, isAbsent]) => {
-      // Truncate long URLs to avoid overflow
+    rows.forEach(([label, val, isAbsent, isWarning]) => {
       const display = val.length > 55 ? val.substring(0, 52) + '...' : val;
       doc.setTextColor(120, 130, 145);
+      doc.setFontSize(isWarning ? 8.5 : 10);
+      doc.setFont('helvetica', isWarning ? 'bold' : 'normal');
       doc.text(label + ':', 14, y);
       doc.setTextColor(isAbsent ? 200 : 10, isAbsent ? 60 : 12, isAbsent ? 60 : 20);
       doc.text(display, 55, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
       y += 9;
     });
   }
@@ -311,7 +352,9 @@ function renderPageContent(doc, b) {
   y += 10;
 
   // ── GAPS ──
-  const gaps = b.gaps || [];
+  // Se o único "website" é uma rede social, adiciona gap que a pipeline omitiu
+  const extraGaps = isSocialOnly ? ['sem_website_real'] : [];
+  const gaps = [...extraGaps, ...(b.gaps || [])];
   doc.setTextColor(10, 12, 20);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
