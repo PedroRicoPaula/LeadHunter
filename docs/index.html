@@ -1003,6 +1003,7 @@
       <div class="stat reveal d1">
         <div class="stat-val" data-target="901" data-suffix="">0</div>
         <div class="stat-lbl">negócios mapeados<br/>nos Açores</div>
+        <div id="idx-freshness" class="stat-lbl" style="font-size:10px;opacity:.5;margin-top:4px"></div>
       </div>
       <div class="stat reveal d2">
         <div class="stat-val accent" data-prefix="€" data-target="5" data-suffix="">€0</div>
@@ -1496,6 +1497,23 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-target]').forEach(function (el) { countObs.observe(el); });
+
+  /* ── Data freshness from meta.json ── */
+  fetch('data/meta.json')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (meta) {
+      if (!meta || !meta.last_updated) return;
+      var d = new Date(meta.last_updated + 'T00:00:00');
+      var label = d.toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' });
+      var el = document.getElementById('idx-freshness');
+      if (el) el.textContent = 'Actualizados em ' + label;
+      // Also update stat counter target if total changed
+      var statEl = document.querySelector('[data-target="901"]');
+      if (statEl && meta.total && meta.total !== 901) {
+        statEl.dataset.target = meta.total;
+      }
+    })
+    .catch(function () {});
 
   /* ── Card mouse-follow glow ── */
   document.querySelectorAll('.card').forEach(function (card) {

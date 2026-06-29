@@ -83,8 +83,11 @@
         </div>
 
         <!-- Download all -->
-        <button id="btn-all" onclick="downloadAll()" class="btn-dl w-full py-3.5 rounded-xl text-[14px] mb-4">
+        <button id="btn-all" onclick="downloadAll()" class="btn-dl w-full py-3.5 rounded-xl text-[14px] mb-3">
           Descarregar PDF completo (todas as empresas)
+        </button>
+        <button onclick="downloadCSV()" class="w-full py-2.5 rounded-xl text-[13px] mb-4 border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-colors">
+          Exportar CSV (Google Sheets / Notion)
         </button>
 
         <!-- Individual list -->
@@ -407,6 +410,72 @@ function renderPageContent(doc, b) {
   doc.setFont('helvetica', 'bold');
   doc.text(tier, 18, y + 1);
 
+  // ── ABORDAGEM SUGERIDA (AI-generated) ──
+  const hasAI = b.email_assunto && b.email_mensagem;
+  if (hasAI) {
+    y += 4;
+    // Guard: need ~60mm for this section
+    if (y > 220) {
+      doc.addPage();
+      doc.setFillColor(6, 10, 16);
+      doc.rect(0, 0, W, 12, 'F');
+      y = 20;
+    }
+    doc.setDrawColor(220, 224, 230);
+    doc.line(14, y, W - 14, y);
+    y += 10;
+
+    doc.setTextColor(10, 12, 20);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('ABORDAGEM SUGERIDA', 14, y);
+    y += 3;
+
+    // AI badge
+    doc.setFillColor(16, 90, 60);
+    doc.roundedRect(14, y, 28, 6, 1.5, 1.5, 'F');
+    doc.setTextColor(16, 245, 160);
+    doc.setFontSize(6);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Gerado por IA', 16, y + 4);
+    y += 12;
+
+    // Subject
+    doc.setTextColor(120, 130, 145);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Assunto:', 14, y);
+    doc.setTextColor(10, 12, 20);
+    doc.setFont('helvetica', 'normal');
+    const subjectLines = doc.splitTextToSize(b.email_assunto, W - 70);
+    doc.text(subjectLines, 55, y);
+    y += Math.max(subjectLines.length * 5, 7) + 4;
+
+    // Message body
+    doc.setTextColor(120, 130, 145);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Mensagem:', 14, y);
+    y += 7;
+
+    doc.setTextColor(40, 45, 55);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    const msgLines = doc.splitTextToSize(b.email_mensagem, W - 28);
+    msgLines.forEach(line => {
+      if (y > 262) {
+        doc.addPage();
+        doc.setFillColor(6, 10, 16);
+        doc.rect(0, 0, W, 12, 'F');
+        y = 20;
+        doc.setTextColor(40, 45, 55);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+      }
+      doc.text(line, 14, y);
+      y += 6;
+    });
+  }
+
   // ── FOOTER ──
   doc.setFillColor(6, 10, 16);
   doc.rect(0, H - 22, W, 22, 'F');
@@ -418,6 +487,39 @@ function renderPageContent(doc, b) {
 }
 
 // ── DOWNLOAD ─────────────────────────────────────────────────────
+function downloadCSV() {
+  const headers = ['Nome','Categoria','Score','Telefone','Email','Website','WhatsApp','Morada','Gaps','Email Assunto','Email Mensagem'];
+  const rows = businesses.map(b => [
+    b.name || '',
+    CAT_NAMES[b.category] || b.category || '',
+    b.score || 0,
+    b.phone || '',
+    b.email || '',
+    b.website || '',
+    b.whatsapp ? 'wa.me/' + b.whatsapp : '',
+    b.address || '',
+    (b.gaps || []).join('; '),
+    b.email_assunto || '',
+    b.email_mensagem || '',
+  ]);
+
+  const csvEsc = v => {
+    const s = String(v);
+    return s.includes(',') || s.includes('"') || s.includes('\n')
+      ? '"' + s.replace(/"/g, '""') + '"'
+      : s;
+  };
+
+  const csv = [headers, ...rows].map(r => r.map(csvEsc).join(',')).join('\r\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = 'leadhunter_leads.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function downloadOne(index) {
   const { jsPDF } = window.jspdf;
   const b = businesses[index];

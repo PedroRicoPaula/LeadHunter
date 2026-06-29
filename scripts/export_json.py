@@ -14,6 +14,7 @@ Fluxo completo antes de exportar:
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -199,6 +200,10 @@ def export():
             "has_ssl":      bool(lead.get("has_https")),
             "is_mobile_friendly": bool(lead.get("has_mobile_meta")),
             "gaps":         compute_gaps(lead),
+            "email_assunto":   lead.get("email_assunto") or None,
+            "email_mensagem":  lead.get("email_mensagem") or None,
+            "problemas":       lead.get("problemas") or [],
+            "impacto":         lead.get("impacto") or None,
         })
 
     # Sort by score descending
@@ -214,12 +219,23 @@ def export():
     with_website = sum(1 for b in businesses if b["website"])
     avg_score    = round(sum(b["score"] for b in businesses) / len(businesses), 1) if businesses else 0
 
+    # Write meta.json so UI always shows correct last_updated date
+    meta_path = OUT.parent / "meta.json"
+    meta = {
+        "last_updated": date.today().isoformat(),
+        "total": len(businesses),
+        "with_phone": with_phone,
+        "with_email": with_email,
+    }
+    meta_path.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+
     print(f"[ok] {len(businesses)} negocios exportados -> {OUT}")
     print(f"     Categorias: {dict(cats)}")
     print(f"     Com telefone: {with_phone} | email: {with_email} | website: {with_website}")
     print(f"     Score medio: {avg_score}")
     print(f"     Ignorados: {skipped_no_coords} sem coords, {skipped_no_nicho} sem nicho")
-    print(f"     Faz 'git add docs/data/businesses.json && git push'")
+    print(f"     meta.json actualizado: {meta['last_updated']}")
+    print(f"     Faz 'git add docs/data/ && git push'")
 
 
 if __name__ == "__main__":

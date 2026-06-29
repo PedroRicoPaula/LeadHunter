@@ -8,11 +8,13 @@ Usage:
 import json
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 PRIVATE_JSON = ROOT / "private" / "businesses_private.json"
 OUTPUT_JS    = ROOT / "functions" / "api" / "get-leads.js"
+META_JSON    = ROOT / "docs" / "data" / "meta.json"
 
 FUNCTION_TEMPLATE = """\
 // Cloudflare Pages Function — /api/get-leads
@@ -100,9 +102,22 @@ def main():
     with open(OUTPUT_JS, "w", encoding="utf-8") as f:
         f.write(FUNCTION_TEMPLATE.format(data=inline))
 
+    # Update meta.json with today's date so the UI reflects the actual refresh date
+    with_phone = sum(1 for b in data if b.get("phone"))
+    with_email = sum(1 for b in data if b.get("email"))
+    meta = {
+        "last_updated": date.today().isoformat(),
+        "total": len(data),
+        "with_phone": with_phone,
+        "with_email": with_email,
+    }
+    META_JSON.parent.mkdir(parents=True, exist_ok=True)
+    META_JSON.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+
     print(f"Generated: {OUTPUT_JS}")
     print(f"Businesses: {len(data)} | JS size: {OUTPUT_JS.stat().st_size / 1024:.0f}KB")
-    print("Next: git commit + push → Cloudflare Pages deploys automatically.")
+    print(f"meta.json updated: last_updated={meta['last_updated']} total={meta['total']}")
+    print("Next: git commit + push -> Cloudflare Pages deploys automatically.")
 
 
 if __name__ == "__main__":

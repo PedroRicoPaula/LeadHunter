@@ -87,7 +87,7 @@
   </div>
   <!-- Category tabs -->
   <div class="relative">
-  <div class="cat-scroll overflow-x-auto flex gap-2 px-4 py-2.5 pr-10">
+  <div class="cat-scroll overflow-x-auto flex gap-2 px-4 py-2 pr-10">
     <button onclick="filterCategory('all')" data-cat="all"
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/10 bg-white/[.06] text-white transition-all">
       Todos
@@ -113,8 +113,21 @@
       Servicos
     </button>
   </div>
-  <!-- Fade gradient to indicate more tabs on mobile -->
   <div class="absolute right-0 top-0 bottom-0 w-10 pointer-events-none md:hidden" style="background:linear-gradient(to right, transparent, rgba(6,10,16,.95))"></div>
+  </div>
+  <!-- Contact filter row + data freshness -->
+  <div class="flex items-center justify-between px-4 pb-2 gap-3">
+    <div class="flex gap-2">
+      <button onclick="toggleContactFilter('phone')" id="cf-phone"
+        class="cf-btn shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold border border-white/[.06] text-gray-500 transition-all hover:text-white">
+        Tem Telefone
+      </button>
+      <button onclick="toggleContactFilter('email')" id="cf-email"
+        class="cf-btn shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold border border-white/[.06] text-gray-500 transition-all hover:text-white">
+        Tem Email
+      </button>
+    </div>
+    <div id="data-freshness" class="text-[10px] text-gray-700 shrink-0"></div>
   </div>
 </div>
 
@@ -125,13 +138,13 @@
 <div class="fixed top-[118px] right-3 z-20 rounded-xl border border-white/[.06] p-3 space-y-1.5" style="background:rgba(6,10,16,.85);backdrop-filter:blur(8px)">
   <div class="text-[9px] text-gray-600 font-semibold uppercase tracking-widest mb-2">Score</div>
   <div class="flex items-center gap-2 text-[10px] text-gray-400">
-    <div class="w-3 h-3 rounded-full bg-red-500 shrink-0"></div> 65-82
+    <div class="w-3 h-3 rounded-full bg-red-500 shrink-0"></div> ≥60
   </div>
   <div class="flex items-center gap-2 text-[10px] text-gray-400">
-    <div class="w-3 h-3 rounded-full bg-orange-500 shrink-0"></div> 45-64
+    <div class="w-3 h-3 rounded-full bg-orange-500 shrink-0"></div> 40-59
   </div>
   <div class="flex items-center gap-2 text-[10px] text-gray-400">
-    <div class="w-3 h-3 rounded-full bg-yellow-500 shrink-0"></div> 25-44
+    <div class="w-3 h-3 rounded-full bg-yellow-500 shrink-0"></div> 20-39
   </div>
 </div>
 
@@ -145,6 +158,7 @@
         <span class="text-gray-500 text-[12px]">negocio(s) selecionado(s)</span>
       </div>
       <div class="text-[11px] text-gray-600 mt-0.5" id="bar-tier">Seleciona ate 5 por €5</div>
+      <div class="text-[10px] text-gray-700 mt-0.5" id="bar-quality"></div>
     </div>
     <div class="text-right mr-2">
       <div id="bar-price" class="text-[24px] font-black text-white leading-none">€0</div>
@@ -200,14 +214,27 @@ let allBusinesses = [];
 let visibleMarkers = {};
 let selectedIds = new Set();
 let currentCategory = 'all';
+let contactFilter = { phone: false, email: false };
 let map;
 let openPopupId = null;
 
 // ── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  // Load data
-  const res = await fetch('data/businesses.json');
+  // Load data + meta in parallel
+  const [res, metaRes] = await Promise.all([
+    fetch('data/businesses.json'),
+    fetch('data/meta.json').catch(() => null)
+  ]);
   allBusinesses = await res.json();
+
+  if (metaRes && metaRes.ok) {
+    const meta = await metaRes.json();
+    if (meta.last_updated) {
+      const d = new Date(meta.last_updated + 'T00:00:00');
+      const label = d.toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' });
+      document.getElementById('data-freshness').textContent = 'Dados de ' + label;
+    }
+  }
 
   // Use pre-computed gaps from JSON, fall back to local computation
   allBusinesses.forEach(b => {
@@ -245,9 +272,9 @@ function computeGaps(b) {
 
 // ── MARKERS ──────────────────────────────────────────────────────
 function scoreColor(score) {
-  if (score >= 65) return '#ef4444';
-  if (score >= 45) return '#f97316';
-  if (score >= 25) return '#eab308';
+  if (score >= 60) return '#ef4444';
+  if (score >= 40) return '#f97316';
+  if (score >= 20) return '#eab308';
   return '#6b7280';
 }
 
@@ -269,9 +296,12 @@ function renderMarkers() {
   Object.values(visibleMarkers).forEach(m => map.removeLayer(m));
   visibleMarkers = {};
 
-  const filtered = currentCategory === 'all'
+  let filtered = currentCategory === 'all'
     ? allBusinesses
     : allBusinesses.filter(b => b.category === currentCategory);
+
+  if (contactFilter.phone) filtered = filtered.filter(b => b.phone && b.phone !== '-');
+  if (contactFilter.email) filtered = filtered.filter(b => b.email);
 
   filtered.forEach(b => {
     const marker = L.marker([b.lat, b.lng], {
@@ -320,9 +350,9 @@ function buildPopupHTML(b) {
   const isSelected = selectedIds.has(b.id);
   const gapCount = b.gaps.length;
 
-  const scoreTier = b.score >= 65
+  const scoreTier = b.score >= 60
     ? { label: 'Oportunidade critica', color: '#ef4444', bg: 'rgba(239,68,68,.08)' }
-    : b.score >= 45
+    : b.score >= 40
     ? { label: 'Oportunidade alta', color: '#f97316', bg: 'rgba(249,115,22,.08)' }
     : { label: 'Oportunidade media', color: '#eab308', bg: 'rgba(234,179,8,.08)' };
 
@@ -356,6 +386,22 @@ function buildPopupHTML(b) {
       <div style="margin:0 12px 12px;padding:8px 12px;border-radius:10px;background:${scoreTier.bg};border:1px solid ${scoreTier.color}22">
         <div style="font-size:10px;font-weight:700;color:${scoreTier.color};letter-spacing:.02em">${scoreTier.label}</div>
       </div>
+
+      <!-- Contactability badge -->
+      ${(() => {
+        const hasPhone = b.phone && b.phone !== '-';
+        const hasEmail = !!b.email;
+        const hasWA    = !!b.whatsapp;
+        const cs = (hasPhone ? 1 : 0) + (hasEmail ? 1 : 0) + (hasWA ? 1 : 0);
+        const clabel = cs >= 2 ? 'Contacto completo' : cs === 1 ? 'Contacto parcial' : 'Sem contacto directo';
+        const ccol   = cs >= 2 ? '#16a34a' : cs === 1 ? '#ca8a04' : '#b44040';
+        const cbg    = cs >= 2 ? 'rgba(22,163,74,.08)' : cs === 1 ? 'rgba(202,138,4,.08)' : 'rgba(180,64,64,.08)';
+        const icons  = [hasPhone ? '📞' : '', hasEmail ? '✉️' : '', hasWA ? '💬' : ''].filter(Boolean).join(' ');
+        return `<div style="margin:0 12px 10px;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:${cbg};border:1px solid ${ccol}22">
+          <div style="font-size:10px;font-weight:700;color:${ccol}">${clabel}</div>
+          ${icons ? `<div style="font-size:10px;margin-left:auto">${icons}</div>` : ''}
+        </div>`;
+      })()}
 
       <!-- Gaps teaser — count only, details locked -->
       <div style="margin:0 12px 12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">
@@ -413,6 +459,17 @@ function updateUI() {
     mapEl.classList.remove('bar-open');
   }
 
+  // Pack quality stats
+  const selArr = Array.from(selectedIds).map(id => allBusinesses.find(b => b.id === id)).filter(Boolean);
+  const withPhone = selArr.filter(b => b.phone && b.phone !== '-').length;
+  const withEmail = selArr.filter(b => b.email).length;
+  const qualEl = document.getElementById('bar-quality');
+  if (count > 0) {
+    qualEl.textContent = `${withPhone} com tel · ${withEmail} com email`;
+  } else {
+    qualEl.textContent = '';
+  }
+
   document.getElementById('bar-count').textContent = count;
   document.getElementById('bar-price').textContent = price > 0 ? `€${price}` : '€0';
   document.getElementById('bar-tier').textContent = tier;
@@ -434,6 +491,22 @@ function updateUI() {
   el.classList.remove('pop');
   void el.offsetWidth;
   el.classList.add('pop');
+}
+
+// ── CONTACT FILTER ───────────────────────────────────────────────
+function toggleContactFilter(type) {
+  contactFilter[type] = !contactFilter[type];
+  const btn = document.getElementById('cf-' + type);
+  if (contactFilter[type]) {
+    btn.style.background = '#10f5a0';
+    btn.style.color = '#060a10';
+    btn.style.borderColor = '#10f5a0';
+  } else {
+    btn.style.background = 'rgba(255,255,255,.04)';
+    btn.style.color = '#6b7280';
+    btn.style.borderColor = 'rgba(255,255,255,.06)';
+  }
+  renderMarkers();
 }
 
 // ── CATEGORY FILTER ──────────────────────────────────────────────
