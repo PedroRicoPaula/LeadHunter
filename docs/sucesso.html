@@ -191,7 +191,7 @@ function renderList() {
 // ── PDF — funcao unica de rendering ─────────────────────────────
 function renderPageContent(doc, b) {
   const W = 210, H = 297;
-  const sc = b.score;
+  const sc = Number(b.score) || 0;
   const sRGB = sc >= 65 ? [239,68,68] : sc >= 45 ? [249,115,22] : sc >= 25 ? [234,179,8] : [107,114,128];
 
   const isFacebook  = (b.website || '').includes('facebook.com');
@@ -358,7 +358,7 @@ function downloadOne(index) {
   const b = businesses[index];
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   renderPageContent(doc, b);
-  const slug = b.name.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_');
+  const slug = (b.name || 'lead').toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_');
   doc.save('lead_' + slug + '.pdf');
 }
 

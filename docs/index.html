@@ -1,294 +1,938 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lead Hunter — Leads B2B nos Açores com Gaps Digitais | A partir de €5</title>
+  <title>LeadHunter — Leads B2B nos Açores com Gaps Digitais | A partir de €5</title>
   <meta name="description" content="Explora o mapa, selecciona empresas dos Açores sem presença digital e descarrega um PDF com score, gaps, email e telefone. Download imediato. A partir de €5." />
   <link rel="canonical" href="https://leadhunter.pedropaula.com/" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Lead Hunter — Leads B2B nos Açores com Gaps Digitais" />
-  <meta property="og:description" content="1300+ empresas dos Açores mapeadas com score de oportunidade digital. Selecciona no mapa e descarrega PDF na hora. A partir de €5." />
+  <meta property="og:title" content="LeadHunter — Leads B2B nos Açores com Gaps Digitais" />
+  <meta property="og:description" content="901 empresas dos Açores mapeadas com score de oportunidade digital. Selecciona no mapa e descarrega PDF na hora. A partir de €5." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://leadhunter.pedropaula.com/" />
   <meta property="og:locale" content="pt_PT" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lead Hunter — Leads B2B nos Açores" />
-  <meta name="twitter:description" content="1300+ empresas mapeadas com score de oportunidade digital. PDF na hora. A partir de €5." />
+  <meta name="twitter:title" content="LeadHunter — Leads B2B nos Açores" />
+  <meta name="twitter:description" content="901 empresas mapeadas com score de oportunidade digital. PDF na hora. A partir de €5." />
 
-  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Lead Hunter",
+    "name": "LeadHunter",
     "url": "https://leadhunter.pedropaula.com/",
-    "description": "Ferramenta de prospeção B2B para os Açores. Mapa interativo com 1300+ empresas pontuadas por gaps digitais. Download de PDF com contactos na hora.",
+    "description": "Ferramenta de prospeção B2B para os Açores. Mapa interativo com 901 empresas pontuadas por gaps digitais. Download de PDF com contactos na hora.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "offers": [
-      {
-        "@type": "Offer",
-        "name": "Starter",
-        "price": "5.00",
-        "priceCurrency": "EUR",
-        "description": "Até 5 empresas em PDF"
-      },
-      {
-        "@type": "Offer",
-        "name": "Hunter",
-        "price": "12.00",
-        "priceCurrency": "EUR",
-        "description": "Até 20 empresas em PDF"
-      }
+      { "@type": "Offer", "name": "Starter", "price": "5.00", "priceCurrency": "EUR", "description": "Até 5 empresas em PDF" },
+      { "@type": "Offer", "name": "Hunter",  "price": "12.00", "priceCurrency": "EUR", "description": "Até 20 empresas em PDF" }
     ],
-    "author": {
-      "@type": "Person",
-      "name": "Pedro Paula",
-      "email": "pedroricopaula@gmail.com"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Açores, Portugal"
-    }
+    "author": { "@type": "Person", "name": "Pedro Paula", "email": "pedroricopaula@gmail.com" },
+    "areaServed": { "@type": "Place", "name": "Açores, Portugal" }
   }
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:          #070e1b;
+      --bg-alt:      #0c1628;
+      --surface:     rgba(255,255,255,.04);
+      --surface-2:   rgba(255,255,255,.08);
+      --border:      rgba(255,255,255,.08);
+      --border-hi:   rgba(16,245,160,.28);
+      --text:        #dde5f0;
+      --text-2:      #6a7f96;
+      --text-3:      #374f65;
+      --accent:      #10f5a0;
+      --accent-rgb:  16,245,160;
+      --accent-faint:rgba(16,245,160,.08);
+      --accent-glow: 0 0 48px rgba(16,245,160,.22);
+      --nav-bg:      rgba(7,14,27,.9);
+      --shadow:      0 24px 64px rgba(0,0,0,.45);
+      --or:          #f97316;
+      --re:          #ef4444;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg:          #f7f9fd;
+      --bg-alt:      #edf2f9;
+      --surface:     rgba(0,0,0,.03);
+      --surface-2:   rgba(0,0,0,.06);
+      --border:      rgba(15,23,42,.09);
+      --border-hi:   rgba(5,150,105,.28);
+      --text:        #0f172a;
+      --text-2:      #475569;
+      --text-3:      #94a3b8;
+      --accent:      #059669;
+      --accent-rgb:  5,150,105;
+      --accent-faint:rgba(5,150,105,.08);
+      --accent-glow: 0 0 48px rgba(5,150,105,.15);
+      --nav-bg:      rgba(247,249,253,.92);
+      --shadow:      0 24px 64px rgba(0,0,0,.07);
+      --or:          #c2410c;
+      --re:          #b91c1c;
+      color-scheme: light;
+    }
+
+    /* ─── GLOBAL TRANSITION (theme switch) ──────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+    }
+    /* but NOT transform/opacity (breaks animations) */
+
+    /* ─── RESET & BASE ───────────────────────────────────────────── */
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-
-    /* ── Grid background ── */
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(16,245,160,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16,245,160,.06) 1px, transparent 1px);
-      background-size: 48px 48px;
+    body {
+      margin: 0;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-
-    /* ── Glow text ── */
-    .glow { text-shadow: 0 0 60px rgba(16,245,160,.55); }
-
-    /* ── Cards ── */
-    .card {
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.11);
-      transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+    h1,h2,h3,h4 {
+      font-family: 'Sora', system-ui, sans-serif;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      color: var(--text);
+      margin: 0;
     }
-    .card:hover {
-      border-color: rgba(16,245,160,.35);
-      transform: translateY(-3px);
-      box-shadow: 0 24px 64px rgba(0,0,0,.35), 0 0 0 1px rgba(16,245,160,.14);
-    }
-    .card-featured {
-      background: linear-gradient(145deg, rgba(16,245,160,.11), rgba(99,102,241,.07));
-      border: 1px solid rgba(16,245,160,.3);
-      box-shadow: 0 0 0 1px rgba(16,245,160,.1), 0 32px 80px rgba(0,0,0,.4);
-    }
+    p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    button { font-family: inherit; }
 
-    /* ── Buttons ── */
-    .btn-primary {
-      background: linear-gradient(135deg, #10f5a0 0%, #06d6a0 100%);
-      color: #060a0f;
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    .container     { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container--sm { max-width: 780px;  margin: 0 auto; padding: 0 24px; }
+    section { padding: 96px 0; }
+    .section-alt { background: var(--bg-alt); }
+
+    .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+    /* ─── TYPOGRAPHY HELPERS ─────────────────────────────────────── */
+    .label {
+      display: block;
+      font-size: 11px;
       font-weight: 700;
-      transition: all .25s cubic-bezier(.4,0,.2,1);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .section-title { font-size: clamp(28px,4vw,42px); }
+    .section-sub   { font-size: 16px; color: var(--text-2); margin-top: 14px; max-width: 520px; }
+    em { font-style: normal; color: var(--accent); }
+
+    /* ─── CARD ────────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       position: relative;
       overflow: hidden;
     }
-    .btn-primary::after {
+    .card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.15), transparent);
+      background: radial-gradient(
+        circle at var(--mx,50%) var(--my,50%),
+        rgba(var(--accent-rgb),.07) 0%,
+        transparent 65%
+      );
       opacity: 0;
-      transition: opacity .25s ease;
+      transition: opacity .3s ease;
+      pointer-events: none;
     }
-    .btn-primary:hover::after { opacity: 1; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,245,160,.35); }
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.8);
-      transition: all .25s ease;
-    }
-    .btn-secondary:hover { border-color: rgba(255,255,255,.35); color: white; background: rgba(255,255,255,.07); }
+    .card:hover { border-color: var(--border-hi); transform: translateY(-4px); box-shadow: var(--shadow), 0 0 0 1px var(--border-hi); }
+    .card:hover::before { opacity: 1; }
+    /* prevent transition glitch from global rule */
+    .card { transition: border-color .25s ease, transform .3s ease, box-shadow .3s ease; }
 
-    /* ── Pulse badge ── */
-    .pulse-ring {
-      position: absolute;
-      inset: -4px;
-      border-radius: 9999px;
-      background: rgba(239,68,68,.2);
-      animation: pulse 1.8s ease-out infinite;
+    /* ─── BUTTONS ─────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
     }
-    @keyframes pulse {
-      0%   { transform: scale(1); opacity: .8; }
-      100% { transform: scale(2.4); opacity: 0; }
-    }
+    .btn:active { transform: scale(.97) !important; }
+    .btn-primary { background: var(--accent); color: #060a10; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--accent-glow), 0 8px 20px rgba(0,0,0,.2); }
+    .btn-ghost  { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--border-hi); }
 
-    /* ── Float ── */
+    /* ─── DIVIDER ─────────────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); }
+
+    /* ─── REVEAL ──────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .65s cubic-bezier(.25,.46,.45,.94), transform .65s cubic-bezier(.25,.46,.45,.94) !important;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s !important; }
+    .d2 { transition-delay: .2s !important; }
+    .d3 { transition-delay: .3s !important; }
+    .d4 { transition-delay: .4s !important; }
+    .d5 { transition-delay: .5s !important; }
+
+    /* ─── KEYFRAMES ───────────────────────────────────────────────── */
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-9px); }
     }
-    .float { animation: float 5s ease-in-out infinite; }
-
-    /* ── Shimmer line ── */
-    @keyframes shimmer {
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(.75); }
+    }
+    @keyframes blob-drift {
+      0%,100% { opacity:.65; }
+      50%      { opacity:1; }
+    }
+    @keyframes shimmer-line {
       0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
+      100% { background-position:  200% center; }
     }
-    .shimmer-line {
-      background: linear-gradient(90deg, transparent, rgba(16,245,160,.6), transparent);
-      background-size: 200% auto;
-      animation: shimmer 3s linear infinite;
+    @keyframes spin-icon {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
-    /* ── Scroll reveal ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1); }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay-1 { transition-delay: .1s; }
-    .reveal-delay-2 { transition-delay: .2s; }
-    .reveal-delay-3 { transition-delay: .3s; }
-
-    /* ── Gap tags ── */
-    .gtag { display: inline-flex; align-items: center; gap: 3px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .02em; }
-
-    /* ── Details toggle ── */
-    details summary { list-style: none; }
-    details summary::-webkit-details-marker { display: none; }
-    details[open] .faq-icon { transform: rotate(45deg); }
-    .faq-icon { transition: transform .25s ease; }
-
-    /* ── Divider gradient ── */
-    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); }
-
-    /* ── Noise overlay ── */
-    body::before {
-      content: '';
+    /* ─── NAV ─────────────────────────────────────────────────────── */
+    nav {
       position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s ease, background .3s ease !important;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo img { height: 30px; width: auto; display: block; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-2);
+      position: relative;
+      transition: color .2s ease !important;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--accent);
+      transition: width .25s ease !important;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    .theme-btn {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, border-color .2s ease, transform .3s ease !important;
+      padding: 0;
+    }
+    .theme-btn:hover { background: var(--surface-2); border-color: var(--border-hi); transform: rotate(18deg); }
+    .theme-btn svg { width: 16px; height: 16px; color: var(--text-2); flex-shrink: 0; transition: color .2s ease !important; }
+    .theme-btn:hover svg { color: var(--accent); }
+    .icon-sun, .icon-moon { display: none; }
+    [data-theme="dark"]  .icon-moon { display: block; }
+    [data-theme="light"] .icon-sun  { display: block; }
+
+    .nav-cta { padding: 8px 18px; font-size: 13px; border-radius: 10px; }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    .hero {
+      padding: 144px 0 104px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-      opacity: .010;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 128px;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      animation: blob-drift 7s ease-in-out infinite;
+    }
+    .blob-1 { width: 480px; height: 480px; background: rgba(var(--accent-rgb),.07); top: -80px; left: 18%; }
+    .blob-2 { width: 380px; height: 380px; background: rgba(99,102,241,.06); bottom: -60px; right: 8%; animation-delay: 3.5s; }
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 75%);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-faint);
+      border: 1px solid rgba(var(--accent-rgb),.2);
+      color: var(--accent);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      margin-bottom: 28px;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .hero-title {
+      font-size: clamp(38px, 4.8vw, 60px);
+      margin-bottom: 22px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 430px;
+      margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-note { margin-top: 18px; font-size: 12px; color: var(--text-3); }
+
+    /* Lead card (hero mockup) */
+    .hero-card-wrap { display: flex; justify-content: center; }
+    .hero-card-anim {
+      animation: float 5s ease-in-out infinite;
+      will-change: transform;
+    }
+    .lead-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 340px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      /* no hover transform — it floats already */
+      transition: border-color .25s ease, box-shadow .25s ease !important;
+    }
+    .lc-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .lc-avatar {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(249,115,22,.16);
+      color: var(--or);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .lc-meta { flex: 1; min-width: 0; }
+    .lc-name { font-weight: 700; font-size: 13.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lc-loc  { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+    .lc-score {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--or);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(249,115,22,.35);
+    }
+    .lc-tier {
+      padding: 8px 16px;
+      background: rgba(249,115,22,.07);
+      border-bottom: 1px solid rgba(249,115,22,.12);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--or);
+      letter-spacing: .03em;
+    }
+    .lc-gaps {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .gtag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      border: 1px solid transparent;
+    }
+    .gtag-red    { background: rgba(239,68,68,.10);  color: #ef4444; border-color: rgba(239,68,68,.18); }
+    .gtag-orange { background: rgba(249,115,22,.10); color: #f97316; border-color: rgba(249,115,22,.18); }
+    .gtag-blue   { background: rgba(59,130,246,.10); color: #60a5fa; border-color: rgba(59,130,246,.18); }
+    .gtag-yellow { background: rgba(234,179,8,.10);  color: #facc15; border-color: rgba(234,179,8,.18); }
+    [data-theme="light"] .gtag-blue   { color: #2563eb; border-color: rgba(37,99,235,.25); }
+    [data-theme="light"] .gtag-yellow { color: #92400e; background: rgba(234,179,8,.15); border-color: rgba(180,130,0,.25); }
+
+    .lc-locked {
+      padding: 14px 16px;
+    }
+    .lc-locked-label { font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 10px; }
+    .lc-locked-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .lc-locked-row svg { color: var(--text-3); flex-shrink: 0; }
+    .lc-locked-row span { font-size: 12px; color: var(--text-3); }
+    .lc-footer {
+      padding: 10px 16px;
+      background: var(--accent-faint);
+      border-top: 1px solid rgba(var(--accent-rgb),.12);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ─── STATS STRIP ─────────────────────────────────────────────── */
+    .stats-section { padding: 0; background: var(--bg-alt); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 0;
+    }
+    .stat {
+      padding: 36px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .stat-val.accent { color: var(--accent); }
+    .stat-lbl { font-size: 12.5px; color: var(--text-2); margin-top: 8px; line-height: 1.5; }
+
+    /* ─── SECTION HEADER ──────────────────────────────────────────── */
+    .sh { margin-bottom: 56px; }
+    .sh.center { text-align: center; }
+    .sh.center .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* ─── PROBLEM ─────────────────────────────────────────────────── */
+    .prob-card { padding: 30px; }
+    .prob-icon {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-3);
+      margin-bottom: 20px;
+      transition: border-color .3s ease, color .3s ease !important;
+    }
+    .card:hover .prob-icon { border-color: var(--border-hi); color: var(--accent); }
+    .prob-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+    .prob-body  { font-size: 13.5px; color: var(--text-2); line-height: 1.65; }
+
+    /* ─── HOW IT WORKS ────────────────────────────────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 34px;
+      left: calc(16.6% + 16px);
+      right: calc(16.6% + 16px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+      background-size: 200% auto;
+      animation: shimmer-line 4s linear infinite;
+    }
+    .step { padding: 0 28px; text-align: center; }
+    .step-num {
+      width: 68px; height: 68px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 1;
+      transition: background .3s ease, border-color .3s ease, transform .3s ease !important;
+    }
+    .step:hover .step-num { background: var(--accent-faint); border-color: var(--border-hi); transform: scale(1.07); }
+    .step-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .step-body  { font-size: 13.5px; color: var(--text-2); line-height: 1.65; }
+
+    /* ─── SAMPLE TABLE ────────────────────────────────────────────── */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: border-color .25s ease !important;
+    }
+    .table-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mac { display: flex; gap: 6px; }
+    .mac span { width: 10px; height: 10px; border-radius: 50%; }
+    .mac .r { background: rgba(239,68,68,.45); }
+    .mac .y { background: rgba(234,179,8,.45); }
+    .mac .g { background: rgba(16,245,160,.45); }
+    .tbl-name { font-size: 11px; font-family: monospace; color: var(--text-3); margin-left: 6px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left;
+      padding: 9px 18px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    td { padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--text-2); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface); color: var(--text); transition: background .15s ease !important; }
+    .sc-badge {
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'Sora', sans-serif;
+      border: 1px solid transparent;
+    }
+    .sc-hi  { background: rgba(249,115,22,.12); color: var(--or); border-color: rgba(249,115,22,.2); }
+    .sc-med { background: rgba(234,179,8,.12);  color: #eab308; border-color: rgba(234,179,8,.2); }
+    .td-name { font-weight: 600; color: var(--text); }
+    .td-loc  { font-size: 11px; color: var(--text-3); }
+    .site-y { color: var(--accent); font-size: 12px; }
+    .site-n { color: var(--re);     font-size: 12px; }
+
+    .feat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .feat-card { padding: 22px; text-align: center; }
+    .feat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin: 0 auto 14px;
+      transition: border-color .3s ease, background .3s ease !important;
+    }
+    .card:hover .feat-icon { border-color: var(--border-hi); background: var(--accent-faint); }
+    .feat-title { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .feat-body  { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+
+    /* ─── PRICING ─────────────────────────────────────────────────── */
+    .plans { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; max-width: 660px; margin: 0 auto; }
+    .plan { padding: 32px; display: flex; flex-direction: column; }
+    .plan-name { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+    .plan-feat .plan-name { color: var(--accent); }
+    .plan-price {
+      font-family: 'Sora', sans-serif;
+      font-size: 50px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      color: var(--text);
+      line-height: 1;
+    }
+    .plan-cycle { font-size: 12px; color: var(--text-3); margin-top: 4px; margin-bottom: 28px; }
+    .plan-feat {
+      background: linear-gradient(145deg, rgba(var(--accent-rgb),.07), rgba(99,102,241,.05));
+      border-color: rgba(var(--accent-rgb),.25);
+      box-shadow: 0 0 0 1px rgba(var(--accent-rgb),.06), var(--shadow);
+    }
+    .plan-pill {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #060a10;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .plan-feats { flex: 1; margin-bottom: 28px; }
+    .plan-feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--text-2);
+      padding: 5px 0;
+    }
+    .plan-feat-item .ck { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .plan-foot { text-align: center; font-size: 11px; color: var(--text-3); margin-top: 10px; }
+
+    .pay-methods {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 36px;
+      opacity: .35;
+      flex-wrap: wrap;
+    }
+    .pm { padding: 5px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 11px; font-weight: 700; color: var(--text-2); background: var(--surface); }
+
+    .after-box {
+      margin-top: 36px;
+      border: 1px solid rgba(var(--accent-rgb),.12);
+      background: var(--accent-faint);
+      border-radius: 16px;
+      padding: 26px;
+    }
+    .after-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .after-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .after-step { display: flex; gap: 12px; align-items: flex-start; }
+    .after-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--accent-rgb),.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .after-step p { font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+
+    .disclaimer {
+      margin-top: 14px;
+      border: 1px solid rgba(234,179,8,.15);
+      background: rgba(234,179,8,.03);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .disclaimer-icon { color: #facc15; flex-shrink: 0; margin-top: 2px; }
+    .disclaimer-body { font-size: 12.5px; color: var(--text-2); line-height: 1.65; }
+
+    /* ─── WHO ──────────────────────────────────────────────────────── */
+    .who-card { padding: 24px; }
+    .who-label { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .who-body  { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+    /* ─── FAQ ──────────────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color .2s ease !important; }
+    .faq-item:hover { border-color: var(--border-hi); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: color .2s ease !important;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-icon-wrap {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-3);
+      transition: transform .28s ease, border-color .28s ease, background .28s ease, color .28s ease !important;
+    }
+    .faq-item.open .faq-icon-wrap {
+      transform: rotate(45deg);
+      border-color: var(--border-hi);
+      background: var(--accent-faint);
+      color: var(--accent);
+    }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 24px;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1), padding .35s ease !important;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+    .faq-a p {
+      font-size: 13.5px;
+      color: var(--text-2);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    /* ─── FINAL CTA ────────────────────────────────────────────────── */
+    .cta-section { text-align: center; position: relative; overflow: hidden; }
+    .cta-blob {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(var(--accent-rgb),.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-title { font-size: clamp(34px,5vw,54px); margin-bottom: 20px; }
+    .cta-sub   { font-size: 16px; color: var(--text-2); margin-bottom: 40px; }
+    .cta-meta  {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    .cta-meta-sep { color: var(--border); }
+
+    /* ─── FOOTER ────────────────────────────────────────────────────── */
+    footer { padding: 30px 0; }
+    .foot-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .foot-brand { font-size: 13px; color: var(--text-3); }
+    .foot-brand strong { color: var(--accent); }
+    .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .foot-links a { font-size: 12.5px; color: var(--text-3); transition: color .2s ease !important; }
+    .foot-links a:hover { color: var(--accent); }
+    .foot-copy { font-size: 12px; color: var(--text-3); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-card-anim { animation: none; }
+      .lead-card { margin: 0 auto; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
+      .g3 { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 32px; }
+      .steps::before { display: none; }
+      .step { padding: 0; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .plans { grid-template-columns: 1fr; max-width: 400px; }
+      .after-steps { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 72px 0; }
+      .hero { padding: 114px 0 72px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .g2 { grid-template-columns: 1fr; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .g3 { grid-template-columns: 1fr; }
+      .foot-inner { flex-direction: column; text-align: center; }
+      .nav-cta { display: none; }
     }
   </style>
 </head>
-<body class="bg-[#060e18] text-white overflow-x-hidden">
+<body>
 
 <!-- ═══ NAV ═══ -->
-<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/[.08] bg-[#060e18]/90 backdrop-blur-xl">
-  <div class="max-w-6xl mx-auto px-5 h-[60px] flex items-center justify-between">
-    <a href="#" class="flex items-center" aria-label="LeadHunter">
-      <img src="logo.svg" alt="LeadHunter" width="140" height="32" style="height:32px;width:auto;" />
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" aria-label="LeadHunter">
+      <img src="logo.svg" alt="LeadHunter" width="140" height="32" />
     </a>
-    <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500">
-      <a href="#como-funciona" class="hover:text-white transition-colors duration-200">Como funciona</a>
-      <a href="#planos" class="hover:text-white transition-colors duration-200">Planos</a>
-      <a href="#faq" class="hover:text-white transition-colors duration-200">FAQ</a>
+    <ul class="nav-links">
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Alternar tema">
+        <!-- Moon icon (shown in dark mode) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+        <!-- Sun icon (shown in light mode) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <a href="#planos" class="btn btn-primary nav-cta">Ver planos</a>
     </div>
-    <a href="#planos" class="btn-primary px-4 py-2 rounded-lg text-[13px] hidden sm:block">
-      Ver planos
-    </a>
-    <a href="#planos" class="sm:hidden text-[#10f5a0] text-[13px] font-semibold">Planos →</a>
   </div>
 </nav>
 
 <!-- ═══ HERO ═══ -->
-<section class="relative grid-bg pt-32 pb-24 md:pt-40 md:pb-32 px-5 overflow-hidden">
-  <!-- ambient blobs -->
-  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#10f5a0]/[.09] rounded-full blur-[120px] pointer-events-none"></div>
-  <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-500/[.08] rounded-full blur-[100px] pointer-events-none"></div>
-
-  <div class="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-
+<section class="hero">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="container hero-inner">
     <!-- Copy -->
     <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#10f5a0]/20 bg-[#10f5a0]/[.06] text-[#10f5a0] text-[11px] font-semibold tracking-wider uppercase mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#10f5a0] animate-pulse"></span>
+      <div class="badge">
+        <span class="badge-dot"></span>
         Leads B2B qualificados para os Açores
       </div>
-      <h1 class="text-[42px] md:text-[54px] lg:text-[62px] font-black leading-[1.05] tracking-tight mb-7">
+      <h1 class="hero-title">
         O teu próximo<br/>
         cliente ainda<br/>
-        <span class="text-[#10f5a0] glow">não sabe<br/>que precisa de ti.</span>
+        <em>não sabe</em><br/>
+        que precisa de ti.
       </h1>
-      <p class="text-gray-400 text-[17px] leading-[1.7] mb-9 max-w-[440px]">
+      <p class="hero-sub">
         Explora o mapa, selecciona os negócios que te interessam e descarrega um PDF com tudo o que precisas para fazer a proposta certa — score, gaps digitais, contacto directo.
       </p>
-      <div class="flex flex-col sm:flex-row gap-3">
-        <a href="app.html" class="btn-primary px-7 py-3.5 rounded-xl text-[15px] text-center">
-          Comecar a pesquisar
-        </a>
-        <a href="#como-funciona" class="btn-secondary px-7 py-3.5 rounded-xl text-[15px] text-center">
-          Ver exemplo
-        </a>
+      <div class="hero-actions">
+        <a href="app.html" class="btn btn-primary">Começar a pesquisar</a>
+        <a href="#como-funciona" class="btn btn-ghost">Ver exemplo</a>
       </div>
-      <p class="mt-5 text-gray-600 text-xs">Download imediato · Dados de fontes públicas · Sem subscrição</p>
+      <p class="hero-note">Download imediato &middot; Dados de fontes públicas &middot; Sem subscrição</p>
     </div>
 
-    <!-- Lead card mock -->
-    <div class="float">
-      <div class="card rounded-2xl overflow-hidden max-w-[360px] mx-auto shadow-2xl">
-        <!-- Card header -->
-        <div class="px-5 pt-5 pb-4 border-b border-white/[.05] flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 font-black text-[15px] shrink-0">P</div>
-          <div class="flex-1 min-w-0">
-            <div class="font-semibold text-[13px] truncate">Pizzaria Bellavista</div>
-            <div class="text-gray-400 text-[11px]">Ponta Delgada, S. Miguel</div>
+    <!-- Card mockup -->
+    <div class="hero-card-wrap">
+      <div class="hero-card-anim">
+        <div class="lead-card">
+          <div class="lc-head">
+            <div class="lc-avatar">R</div>
+            <div class="lc-meta">
+              <div class="lc-name">Restaurante do Mar</div>
+              <div class="lc-loc">Ponta Delgada, S. Miguel</div>
+            </div>
+            <div class="lc-score">78</div>
           </div>
-          <div class="relative shrink-0">
-            <div class="pulse-ring"></div>
-            <span class="relative z-10 px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-black border border-orange-500/25">82</span>
+          <div class="lc-tier">Alta oportunidade — múltiplos gaps detectados</div>
+          <div class="lc-gaps">
+            <span class="gtag gtag-red">sem reservas online</span>
+            <span class="gtag gtag-orange">sem WhatsApp</span>
+            <span class="gtag gtag-blue">sem analytics</span>
+            <span class="gtag gtag-yellow">sem pixel FB</span>
           </div>
-        </div>
-
-        <!-- Score label -->
-        <div class="px-5 py-2 bg-orange-500/[.06] border-b border-orange-500/10">
-          <span class="text-orange-400 text-[11px] font-semibold tracking-wide">Alta oportunidade — múltiplos gaps digitais detectados</span>
-        </div>
-
-        <!-- Gaps -->
-        <div class="px-5 py-4 border-b border-white/[.05]">
-          <div class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold mb-3">Gaps identificados</div>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="gtag bg-red-500/10 text-red-400 border border-red-500/15">sem website</span>
-            <span class="gtag bg-orange-500/10 text-orange-400 border border-orange-500/15">sem reservas online</span>
-            <span class="gtag bg-yellow-500/10 text-yellow-400 border border-yellow-500/15">sem WhatsApp</span>
-            <span class="gtag bg-blue-500/10 text-blue-400 border border-blue-500/15">sem analytics</span>
+          <div class="lc-locked">
+            <div class="lc-locked-label">Contacto directo</div>
+            <div class="lc-locked-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span>Telefone, email e morada no PDF</span>
+            </div>
           </div>
-        </div>
-
-        <!-- Contact -->
-        <div class="px-5 py-4 space-y-2.5">
-          <div class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold mb-3">Contacto</div>
-          <div class="flex items-center gap-2.5 text-[13px]">
-            <svg class="w-3.5 h-3.5 text-[#10f5a0] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <span class="text-gray-300 truncate">geral@bellavista.pt</span>
-          </div>
-          <div class="flex items-center gap-2.5 text-[13px]">
-            <svg class="w-3.5 h-3.5 text-[#10f5a0] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            <span class="text-gray-300">+351 912 345 678</span>
-            <span class="text-[10px] bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded border border-green-500/15 font-semibold">WA</span>
-          </div>
-          <div class="flex items-start gap-2.5 text-[13px]">
-            <svg class="w-3.5 h-3.5 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span class="text-gray-300 text-[12px] leading-relaxed">R. da Boa Nova, 12 — 9500-xxx PDL</span>
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="px-5 py-3 bg-[#10f5a0]/[.04] border-t border-[#10f5a0]/10">
-          <span class="text-[#10f5a0] text-[11px] font-semibold">Contacto directo disponível no PDF</span>
+          <div class="lc-footer">Disponível após pagamento — a partir de €5</div>
         </div>
       </div>
     </div>
@@ -297,467 +941,431 @@
 
 <!-- ═══ STATS ═══ -->
 <div class="divider"></div>
-<section class="bg-[#0c1628] py-10">
-  <div class="max-w-6xl mx-auto px-5 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-    <div class="reveal">
-      <div class="text-[32px] font-black text-[#10f5a0] tracking-tight">78%</div>
-      <div class="text-gray-400 text-[12px] mt-1 leading-relaxed">das PMEs locais sem<br/>presença digital optimizada</div>
-    </div>
-    <div class="reveal reveal-delay-1">
-      <div class="text-[32px] font-black text-white tracking-tight">1300+</div>
-      <div class="text-gray-400 text-[12px] mt-1 leading-relaxed">negócios mapeados<br/>nos Açores agora</div>
-    </div>
-    <div class="reveal reveal-delay-2">
-      <div class="text-[32px] font-black text-[#10f5a0] tracking-tight">€5</div>
-      <div class="text-gray-400 text-[12px] mt-1 leading-relaxed">preço de entrada<br/>sem compromisso</div>
-    </div>
-    <div class="reveal reveal-delay-3">
-      <div class="text-[32px] font-black text-white tracking-tight">0€</div>
-      <div class="text-gray-400 text-[12px] mt-1 leading-relaxed">custo adicional para<br/>fechar o primeiro cliente</div>
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-val accent" data-target="78" data-suffix="%">0%</div>
+        <div class="stat-lbl">das PMEs locais sem<br/>presença digital optimizada</div>
+      </div>
+      <div class="stat reveal d1">
+        <div class="stat-val" data-target="901" data-suffix="">0</div>
+        <div class="stat-lbl">negócios mapeados<br/>nos Açores</div>
+      </div>
+      <div class="stat reveal d2">
+        <div class="stat-val accent" data-prefix="€" data-target="5" data-suffix="">€0</div>
+        <div class="stat-lbl">preço de entrada<br/>sem compromisso</div>
+      </div>
+      <div class="stat reveal d3">
+        <div class="stat-val" data-target="2" data-suffix=" min">&lt; 2 min</div>
+        <div class="stat-lbl">do pagamento<br/>ao PDF em mãos</div>
+      </div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
 <!-- ═══ PROBLEM ═══ -->
-<section class="py-28 px-5">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <div class="text-gray-600 text-[11px] font-semibold uppercase tracking-widest mb-4">O problema</div>
-      <h2 class="text-[32px] md:text-[40px] font-black leading-tight tracking-tight">
-        Encontrar clientes é<br/><span class="text-gray-500">o maior desperdício de tempo.</span>
-      </h2>
+<section>
+  <div class="container">
+    <div class="sh center">
+      <span class="label">O problema</span>
+      <h2 class="section-title">Encontrar clientes é<br/><span style="color:var(--text-2)">o maior desperdício de tempo.</span></h2>
     </div>
-    <div class="grid md:grid-cols-3 gap-5">
-
-      <div class="reveal card rounded-2xl p-7">
-        <div class="w-10 h-10 rounded-xl border border-white/8 flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <div class="g3">
+      <div class="reveal card prob-card">
+        <div class="prob-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <h3 class="font-bold text-[15px] mb-2.5">Horas de pesquisa manual</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Procuras no Google, no Instagram, por referências — sem critério, sem dados. No final não sabes se a empresa é uma boa oportunidade.</p>
+        <div class="prob-title">Horas de pesquisa manual</div>
+        <p class="prob-body">Procuras no Google, no Instagram, por referências — sem critério, sem dados. No final não sabes se a empresa é uma boa oportunidade.</p>
       </div>
-
-      <div class="reveal reveal-delay-1 card rounded-2xl p-7">
-        <div class="w-10 h-10 rounded-xl border border-white/8 flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <div class="reveal d1 card prob-card">
+        <div class="prob-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
-        <h3 class="font-bold text-[15px] mb-2.5">Leads frios sem contexto</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Contactas empresas sem saber o que precisam. A proposta é genérica, a taxa de resposta é baixa e o tempo foi desperdiçado.</p>
+        <div class="prob-title">Leads frios sem contexto</div>
+        <p class="prob-body">Contactas empresas sem saber o que precisam. A proposta é genérica, a taxa de resposta é baixa e o tempo foi desperdiçado.</p>
       </div>
-
-      <div class="reveal reveal-delay-2 card rounded-2xl p-7">
-        <div class="w-10 h-10 rounded-xl border border-white/8 flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <div class="reveal d2 card prob-card">
+        <div class="prob-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         </div>
-        <h3 class="font-bold text-[15px] mb-2.5">Concorrência na frente</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Outros freelancers e agências contactam as mesmas empresas. Quem chega primeiro com uma proposta relevante, ganha o cliente.</p>
+        <div class="prob-title">Concorrência na frente</div>
+        <p class="prob-body">Outros freelancers e agências contactam as mesmas empresas. Quem chega primeiro com uma proposta relevante, ganha o cliente.</p>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
-<section id="como-funciona" class="py-28 px-5 bg-[#0c1628] grid-bg">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16">
-      <div class="text-[#10f5a0] text-[11px] font-semibold uppercase tracking-widest mb-4">Como funciona</div>
-      <h2 class="text-[32px] md:text-[40px] font-black tracking-tight">Simples. Rápido. Pronto a usar.</h2>
+<section id="como-funciona" class="section-alt">
+  <div class="container">
+    <div class="sh center">
+      <span class="label">Como funciona</span>
+      <h2 class="section-title">Simples. Rápido. Pronto a usar.</h2>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-6 relative">
-      <!-- connecting line desktop -->
-      <div class="hidden md:block absolute top-[28px] left-[calc(33%+16px)] right-[calc(33%+16px)] h-px shimmer-line"></div>
-
-      <div class="reveal text-center">
-        <div class="w-14 h-14 rounded-2xl card flex items-center justify-center text-[#10f5a0] font-black text-[20px] mx-auto mb-6 relative z-10">1</div>
-        <h3 class="font-bold text-[16px] mb-3">Exploras o mapa</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Filtra por categoria — restaurantes, alojamento, salões, ginásios, serviços. O mapa mostra todos os negócios dos Açores com o seu score de oportunidade.</p>
+    <div class="steps">
+      <div class="reveal step">
+        <div class="step-num">1</div>
+        <div class="step-title">Exploras o mapa</div>
+        <p class="step-body">Filtra por categoria — restaurantes, alojamento, salões, ginásios, serviços. O mapa mostra todos os negócios dos Açores com o seu score de oportunidade.</p>
       </div>
-
-      <div class="reveal reveal-delay-1 text-center">
-        <div class="w-14 h-14 rounded-2xl card flex items-center justify-center text-[#10f5a0] font-black text-[20px] mx-auto mb-6 relative z-10">2</div>
-        <h3 class="font-bold text-[16px] mb-3">Seleccionas os que queres</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Clica nos marcadores que te interessam. O preço actualiza automaticamente — até 5 negócios por €5, até 20 por €12.</p>
+      <div class="reveal d1 step">
+        <div class="step-num">2</div>
+        <div class="step-title">Seleccionas os que queres</div>
+        <p class="step-body">Clica nos marcadores que te interessam. O preço actualiza automaticamente — até 5 negócios por €5, até 20 por €12.</p>
       </div>
-
-      <div class="reveal reveal-delay-2 text-center">
-        <div class="w-14 h-14 rounded-2xl card flex items-center justify-center text-[#10f5a0] font-black text-[20px] mx-auto mb-6 relative z-10">3</div>
-        <h3 class="font-bold text-[16px] mb-3">Pagas e descarregas</h3>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Pagamento via Stripe. Redireccionado de imediato para a página de download — um PDF por negócio, gerado no momento.</p>
+      <div class="reveal d2 step">
+        <div class="step-num">3</div>
+        <div class="step-title">Pagas e descarregas</div>
+        <p class="step-body">Pagamento via Stripe. Redireccionado de imediato para a página de download — um PDF por negócio, gerado na hora.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ SAMPLE OUTPUT ═══ -->
-<section class="py-28 px-5">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <div class="text-[#10f5a0] text-[11px] font-semibold uppercase tracking-widest mb-4">O que recebes</div>
-      <h2 class="text-[32px] md:text-[40px] font-black tracking-tight leading-tight">
-        Não são listas genéricas.<br/><span class="text-[#10f5a0]">São oportunidades pontuadas.</span>
-      </h2>
+<section>
+  <div class="container">
+    <div class="sh center">
+      <span class="label">O que recebes</span>
+      <h2 class="section-title">Não são listas genéricas.<br/><em>São oportunidades pontuadas.</em></h2>
     </div>
 
-    <!-- Table -->
-    <div class="reveal card rounded-2xl overflow-hidden mb-10">
-      <div class="px-5 py-3 border-b border-white/[.05] flex items-center gap-2">
-        <div class="flex gap-1.5">
-          <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+    <div class="reveal table-wrap">
+      <div class="table-header">
+        <div class="mac">
+          <span class="r"></span><span class="y"></span><span class="g"></span>
         </div>
-        <span class="ml-2 text-gray-600 text-[11px] font-mono">leads_restaurantes_sao_miguel.csv</span>
+        <span class="tbl-name">leads_restaurantes_sao_miguel.pdf</span>
       </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-[13px]">
+      <div style="overflow-x:auto;">
+        <table>
           <thead>
-            <tr class="border-b border-white/[.04] text-gray-600 text-[10px] uppercase tracking-widest">
-              <th class="text-left px-5 py-3 font-semibold">Score</th>
-              <th class="text-left px-5 py-3 font-semibold">Empresa</th>
-              <th class="text-left px-5 py-3 font-semibold hidden sm:table-cell">Gaps</th>
-              <th class="text-left px-5 py-3 font-semibold hidden md:table-cell">Contacto</th>
-              <th class="text-left px-5 py-3 font-semibold">Website</th>
+            <tr>
+              <th>Score</th>
+              <th>Empresa</th>
+              <th class="hide-sm">Gaps</th>
+              <th class="hide-md">Contacto</th>
+              <th>Website</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-white/[.03]">
-            <tr class="hover:bg-white/[.015] transition-colors">
-              <td class="px-5 py-3.5">
-                <div class="relative inline-flex">
-                  <div class="pulse-ring" style="inset:-3px;border-radius:9999px;background:rgba(249,115,22,.2)"></div>
-                  <span class="relative z-10 px-2.5 py-1 rounded-full bg-orange-500/15 text-orange-400 text-[11px] font-black border border-orange-500/20">82</span>
-                </div>
+          <tbody>
+            <tr>
+              <td><span class="sc-badge sc-hi">82</span></td>
+              <td><div class="td-name">Pizzaria Bellavista</div><div class="td-loc">Ponta Delgada</div></td>
+              <td class="hide-sm">
+                <span class="gtag gtag-red" style="font-size:10px;padding:2px 7px;">sem site</span>
+                <span class="gtag gtag-orange" style="font-size:10px;padding:2px 7px;">sem reservas</span>
+                <span class="gtag gtag-yellow" style="font-size:10px;padding:2px 7px;">sem WA</span>
               </td>
-              <td class="px-5 py-3.5">
-                <div class="font-semibold text-white text-[13px]">Pizzaria Bellavista</div>
-                <div class="text-gray-600 text-[11px]">Ponta Delgada</div>
-              </td>
-              <td class="px-5 py-3.5 hidden sm:table-cell">
-                <div class="flex flex-wrap gap-1">
-                  <span class="gtag bg-red-500/10 text-red-400 border border-red-500/12">sem site</span>
-                  <span class="gtag bg-orange-500/10 text-orange-400 border border-orange-500/12">sem reservas</span>
-                  <span class="gtag bg-yellow-500/10 text-yellow-400 border border-yellow-500/12">sem WA</span>
-                </div>
-              </td>
-              <td class="px-5 py-3.5 hidden md:table-cell text-gray-500 text-[12px]">geral@pizza… · +351 912…</td>
-              <td class="px-5 py-3.5"><span class="text-red-400 text-[12px]">ausente</span></td>
-            </tr>
-            <tr class="hover:bg-white/[.015] transition-colors">
-              <td class="px-5 py-3.5"><span class="px-2.5 py-1 rounded-full bg-orange-500/15 text-orange-400 text-[11px] font-black border border-orange-500/20">82</span></td>
-              <td class="px-5 py-3.5">
-                <div class="font-semibold text-white text-[13px]">Café Central</div>
-                <div class="text-gray-600 text-[11px]">Lagoa</div>
-              </td>
-              <td class="px-5 py-3.5 hidden sm:table-cell">
-                <div class="flex flex-wrap gap-1">
-                  <span class="gtag bg-orange-500/10 text-orange-400 border border-orange-500/12">sem reservas</span>
-                  <span class="gtag bg-blue-500/10 text-blue-400 border border-blue-500/12">sem analytics</span>
-                </div>
-              </td>
-              <td class="px-5 py-3.5 hidden md:table-cell text-gray-500 text-[12px]">cafe.central@… · +351 962…</td>
-              <td class="px-5 py-3.5"><span class="text-[#10f5a0] text-[12px]">cafecentral.pt</span></td>
-            </tr>
-            <tr class="hover:bg-white/[.015] transition-colors">
-              <td class="px-5 py-3.5"><span class="px-2.5 py-1 rounded-full bg-orange-500/15 text-orange-400 text-[11px] font-black border border-orange-500/20">76</span></td>
-              <td class="px-5 py-3.5">
-                <div class="font-semibold text-white text-[13px]">Restaurante O Cais</div>
-                <div class="text-gray-600 text-[11px]">Ribeira Grande</div>
-              </td>
-              <td class="px-5 py-3.5 hidden sm:table-cell">
-                <div class="flex flex-wrap gap-1">
-                  <span class="gtag bg-yellow-500/10 text-yellow-400 border border-yellow-500/12">sem WA</span>
-                  <span class="gtag bg-blue-500/10 text-blue-400 border border-blue-500/12">sem pixel FB</span>
-                </div>
-              </td>
-              <td class="px-5 py-3.5 hidden md:table-cell text-gray-500 text-[12px]">info@ocais… · +351 296…</td>
-              <td class="px-5 py-3.5"><span class="text-[#10f5a0] text-[12px]">restauranteocais.com</span></td>
+              <td class="hide-md" style="font-size:12px;color:var(--text-3)">geral@pizza… &middot; +351 912…</td>
+              <td><span class="site-n">ausente</span></td>
             </tr>
             <tr>
-              <td class="px-5 py-3 text-gray-700 text-[11px]" colspan="5">+ mais negócios disponíveis no mapa para seleccionar</td>
+              <td><span class="sc-badge sc-hi">79</span></td>
+              <td><div class="td-name">Café Central</div><div class="td-loc">Lagoa</div></td>
+              <td class="hide-sm">
+                <span class="gtag gtag-orange" style="font-size:10px;padding:2px 7px;">sem reservas</span>
+                <span class="gtag gtag-blue" style="font-size:10px;padding:2px 7px;">sem analytics</span>
+              </td>
+              <td class="hide-md" style="font-size:12px;color:var(--text-3)">cafe.central@… &middot; +351 962…</td>
+              <td><span class="site-y">cafecentral.pt</span></td>
+            </tr>
+            <tr>
+              <td><span class="sc-badge sc-med">76</span></td>
+              <td><div class="td-name">Restaurante O Cais</div><div class="td-loc">Ribeira Grande</div></td>
+              <td class="hide-sm">
+                <span class="gtag gtag-yellow" style="font-size:10px;padding:2px 7px;">sem WA</span>
+                <span class="gtag gtag-blue" style="font-size:10px;padding:2px 7px;">sem pixel FB</span>
+              </td>
+              <td class="hide-md" style="font-size:12px;color:var(--text-3)">info@ocais… &middot; +351 296…</td>
+              <td><span class="site-y">restauranteocais.com</span></td>
+            </tr>
+            <tr>
+              <td colspan="5" style="font-size:11px;color:var(--text-3);padding:10px 18px;">
+                + mais negócios disponíveis no mapa para seleccionar
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- What's included -->
-    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="reveal card rounded-xl p-5 text-center">
-        <div class="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center mx-auto mb-3">
-          <svg class="w-4 h-4 text-[#10f5a0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    <div class="feat-grid">
+      <div class="reveal card feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
         </div>
-        <div class="text-[13px] font-semibold mb-1">Score 0–100</div>
-        <div class="text-gray-400 text-[11px]">Prioriza por quem tem mais gaps</div>
+        <div class="feat-title">Score 0–100</div>
+        <p class="feat-body">Prioriza por quem tem mais gaps digitais</p>
       </div>
-      <div class="reveal reveal-delay-1 card rounded-xl p-5 text-center">
-        <div class="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center mx-auto mb-3">
-          <svg class="w-4 h-4 text-[#10f5a0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <div class="reveal d1 card feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
-        <div class="text-[13px] font-semibold mb-1">Email capturado</div>
-        <div class="text-gray-400 text-[11px]">Quando disponível publicamente</div>
+        <div class="feat-title">Email capturado</div>
+        <p class="feat-body">Quando disponível publicamente</p>
       </div>
-      <div class="reveal reveal-delay-2 card rounded-xl p-5 text-center">
-        <div class="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center mx-auto mb-3">
-          <svg class="w-4 h-4 text-[#10f5a0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      <div class="reveal d2 card feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
         </div>
-        <div class="text-[13px] font-semibold mb-1">Link WhatsApp</div>
-        <div class="text-gray-400 text-[11px]">Contacto directo com 1 clique</div>
+        <div class="feat-title">Link WhatsApp</div>
+        <p class="feat-body">Contacto directo com 1 clique</p>
       </div>
-      <div class="reveal reveal-delay-3 card rounded-xl p-5 text-center">
-        <div class="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center mx-auto mb-3">
-          <svg class="w-4 h-4 text-[#10f5a0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      <div class="reveal d3 card feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         </div>
-        <div class="text-[13px] font-semibold mb-1">Gaps identificados</div>
-        <div class="text-gray-400 text-[11px]">Sabes exactamente o que propor</div>
+        <div class="feat-title">Gaps identificados</div>
+        <p class="feat-body">Sabes exactamente o que propor</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section id="planos" class="py-28 px-5 bg-[#0c1628] grid-bg">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-6">
-      <div class="text-[#10f5a0] text-[11px] font-semibold uppercase tracking-widest mb-4">Planos</div>
-      <h2 class="text-[32px] md:text-[40px] font-black tracking-tight">Sem surpresas. Sem mensalidades.</h2>
-      <p class="text-gray-400 mt-3 text-[14px]">Pagas uma vez, recebes os teus leads. Simples.</p>
+<section id="planos" class="section-alt">
+  <div class="container">
+    <div class="sh center">
+      <span class="label">Planos</span>
+      <h2 class="section-title">Sem surpresas. Sem mensalidades.</h2>
+      <p class="section-sub" style="margin:12px auto 0;">Pagas uma vez, recebes os teus leads. Simples.</p>
     </div>
-    <div class="flex items-center justify-center gap-2 mb-14 text-gray-600 text-[11px]">
-      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:40px;font-size:11.5px;color:var(--text-3);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
       Pagamento seguro via Stripe — cartão, Multibanco ou Apple/Google Pay
     </div>
 
-    <div class="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
-
+    <div class="plans">
       <!-- Starter -->
-      <div class="reveal card rounded-2xl p-7 flex flex-col">
-        <div class="text-gray-500 text-[12px] font-semibold mb-3 uppercase tracking-wider">Starter</div>
-        <div class="text-[42px] font-black tracking-tight leading-none mb-1">€5</div>
-        <div class="text-gray-500 text-[12px] mb-7">pagamento único</div>
-        <ul class="space-y-3 mb-8 flex-1 text-[13px]">
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            <span>Até <strong class="text-white">5 negócios</strong> seleccionados no mapa</span>
+      <div class="reveal card plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">€5</div>
+        <div class="plan-cycle">pagamento único</div>
+        <ul class="plan-feats">
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <span>Até <strong>5 negócios</strong> seleccionados no mapa</span>
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             1 PDF por negócio
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             Score + gaps digitais
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             Email + telefone + WhatsApp
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            <strong class="text-white">Download imediato</strong>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <strong>Download imediato</strong>
           </li>
         </ul>
-        <a href="app.html" class="btn-secondary w-full py-3 rounded-xl text-[13px] font-semibold text-center">
-          Escolher no mapa
-        </a>
-        <p class="text-center text-gray-700 text-[11px] mt-2.5">Stripe · cartão · Multibanco</p>
+        <a href="app.html" class="btn btn-ghost" style="text-align:center;justify-content:center;">Escolher no mapa</a>
+        <p class="plan-foot">Stripe · cartão · Multibanco</p>
       </div>
 
       <!-- Hunter -->
-      <div class="reveal reveal-delay-1 card-featured rounded-2xl p-7 flex flex-col relative">
-        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-[#10f5a0] text-[#060a10] text-[10px] font-black tracking-wider uppercase">
-          Mais popular
-        </div>
-        <div class="text-[#10f5a0] text-[12px] font-semibold mb-3 uppercase tracking-wider">Hunter</div>
-        <div class="text-[42px] font-black tracking-tight leading-none mb-1">€12</div>
-        <div class="text-gray-500 text-[12px] mb-7">pagamento único</div>
-        <ul class="space-y-3 mb-8 flex-1 text-[13px]">
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            <span>Até <strong class="text-white">20 negócios</strong> seleccionados no mapa</span>
+      <div class="reveal d1 card plan plan-feat" style="position:relative;">
+        <div class="plan-pill">Mais popular</div>
+        <div class="plan-name">Hunter</div>
+        <div class="plan-price">€12</div>
+        <div class="plan-cycle">pagamento único</div>
+        <ul class="plan-feats">
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <span>Até <strong>20 negócios</strong> seleccionados no mapa</span>
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             1 PDF por negócio
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             Score + gaps digitais detalhados
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             Email + telefone + WhatsApp
           </li>
-          <li class="flex items-start gap-2.5 text-gray-300">
-            <svg class="w-4 h-4 text-[#10f5a0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            <strong class="text-white">Download imediato</strong>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <strong>Download imediato</strong>
           </li>
         </ul>
-        <a href="app.html" class="btn-primary w-full py-3 rounded-xl text-[13px] text-center">
-          Escolher no mapa
-        </a>
-        <p class="text-center text-gray-600 text-[11px] mt-2.5">Stripe · cartão · Multibanco · Apple Pay</p>
+        <a href="app.html" class="btn btn-primary" style="text-align:center;justify-content:center;">Escolher no mapa</a>
+        <p class="plan-foot">Stripe · cartão · Multibanco · Apple Pay</p>
       </div>
     </div>
 
-    <!-- Payment methods -->
-    <div class="mt-10 flex flex-wrap items-center justify-center gap-3 opacity-35">
-      <span class="text-[10px] text-gray-500 font-semibold uppercase tracking-widest mr-2">Aceite:</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white/[.04] border border-white/[.06] text-[11px] font-bold text-gray-400">VISA</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white/[.04] border border-white/[.06] text-[11px] font-bold text-gray-400">Mastercard</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white/[.04] border border-white/[.06] text-[11px] font-bold text-gray-400">Multibanco</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white/[.04] border border-white/[.06] text-[11px] font-bold text-gray-400">Apple Pay</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white/[.04] border border-white/[.06] text-[11px] font-bold text-gray-400">Google Pay</span>
+    <div class="pay-methods">
+      <span style="font-size:10px;color:var(--text-3);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:4px;">Aceite:</span>
+      <span class="pm">VISA</span>
+      <span class="pm">Mastercard</span>
+      <span class="pm">Multibanco</span>
+      <span class="pm">Apple Pay</span>
+      <span class="pm">Google Pay</span>
     </div>
 
-    <!-- Delivery process -->
-    <div class="mt-10 rounded-2xl border border-[#10f5a0]/12 bg-[#10f5a0]/[.03] p-6">
-      <div class="text-[#10f5a0] text-[12px] font-semibold mb-5 uppercase tracking-wider">O que acontece após o pagamento</div>
-      <div class="grid sm:grid-cols-3 gap-5">
-        <div class="flex gap-3 items-start">
-          <div class="w-6 h-6 rounded-full border border-[#10f5a0]/25 flex items-center justify-center text-[#10f5a0] text-[11px] font-black shrink-0 mt-0.5">1</div>
-          <p class="text-gray-400 text-[12px] leading-relaxed">Pagas via Stripe — cartão, Multibanco ou Apple Pay. Recebes recibo automático no email.</p>
+    <div class="after-box">
+      <div class="after-title">O que acontece após o pagamento</div>
+      <div class="after-steps">
+        <div class="after-step">
+          <div class="after-num">1</div>
+          <p>Pagas via Stripe — cartão, Multibanco ou Apple Pay. Recebes recibo automático no email.</p>
         </div>
-        <div class="flex gap-3 items-start">
-          <div class="w-6 h-6 rounded-full border border-[#10f5a0]/25 flex items-center justify-center text-[#10f5a0] text-[11px] font-black shrink-0 mt-0.5">2</div>
-          <p class="text-gray-400 text-[12px] leading-relaxed">Redireccionado de imediato para a página de download. Sem espera.</p>
+        <div class="after-step">
+          <div class="after-num">2</div>
+          <p>Redireccionado de imediato para a página de download. Sem espera, sem email.</p>
         </div>
-        <div class="flex gap-3 items-start">
-          <div class="w-6 h-6 rounded-full border border-[#10f5a0]/25 flex items-center justify-center text-[#10f5a0] text-[11px] font-black shrink-0 mt-0.5">3</div>
-          <p class="text-gray-400 text-[12px] leading-relaxed">Clicas em cada negócio e descarregas o PDF — gerado no momento, directamente no teu browser.</p>
+        <div class="after-step">
+          <div class="after-num">3</div>
+          <p>Clicas em cada negócio e descarregas o PDF — gerado no momento, directamente no teu browser.</p>
         </div>
       </div>
     </div>
 
-    <!-- Disclaimer -->
-    <div class="mt-5 rounded-2xl border border-yellow-500/12 bg-yellow-500/[.03] p-6 flex gap-4">
-      <div class="w-5 h-5 rounded-full border border-yellow-500/30 flex items-center justify-center shrink-0 mt-0.5">
-        <svg class="w-3 h-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-      </div>
-      <div>
-        <div class="text-yellow-400 text-[12px] font-semibold mb-1.5">Aviso sobre os dados</div>
-        <p class="text-gray-400 text-[12px] leading-relaxed">Os leads são recolhidos de fontes públicas (OpenStreetMap, Google Maps, websites das empresas). <strong class="text-gray-500">A exactidão não é garantida a 100%</strong> — emails e telefones podem estar desactualizados. Recomendamos verificar antes de contactar.</p>
+    <div class="disclaimer">
+      <svg class="disclaimer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div class="disclaimer-body">
+        Os leads são recolhidos de fontes públicas (OpenStreetMap, Google Maps, websites das empresas). <strong>A exactidão não é garantida a 100%</strong> — emails e telefones podem estar desactualizados. Recomendamos verificar antes de contactar.
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ FOR WHO ═══ -->
-<section class="py-28 px-5">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-[32px] md:text-[40px] font-black tracking-tight">Para quem é?</h2>
+<section>
+  <div class="container">
+    <div class="sh center">
+      <h2 class="section-title">Para quem é?</h2>
     </div>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="reveal card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Web designers & devs</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Encontra empresas sem website e chega primeiro com uma proposta concreta e personalizada.</p>
+    <div class="g2" style="grid-template-columns:repeat(3,1fr);">
+      <div class="reveal card who-card">
+        <div class="who-label">Web designers &amp; devs</div>
+        <p class="who-body">Encontra empresas sem website e chega primeiro com uma proposta concreta e personalizada.</p>
       </div>
-      <div class="reveal reveal-delay-1 card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Gestores de redes sociais</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Descobre PMEs sem Instagram ou Facebook e propõe a tua gestão de conteúdo.</p>
+      <div class="reveal d1 card who-card">
+        <div class="who-label">Gestores de redes sociais</div>
+        <p class="who-body">Descobre PMEs sem Instagram ou Facebook e propõe a tua gestão de conteúdo.</p>
       </div>
-      <div class="reveal reveal-delay-2 card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Agências de marketing</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Alimenta o teu pipeline com leads pré-analisados sem gastar tempo em pesquisa.</p>
+      <div class="reveal d2 card who-card">
+        <div class="who-label">Agências de marketing</div>
+        <p class="who-body">Alimenta o teu pipeline com leads pré-analisados sem gastar tempo em pesquisa.</p>
       </div>
-      <div class="reveal card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Consultores de SEO</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Encontra negócios sem analytics, sem meta tags, sem presença no Maps — os teus clientes ideais.</p>
+      <div class="reveal card who-card">
+        <div class="who-label">Consultores de SEO</div>
+        <p class="who-body">Encontra negócios sem analytics, sem meta tags, sem presença no Maps — os teus clientes ideais.</p>
       </div>
-      <div class="reveal reveal-delay-1 card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Vendedores B2B</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Substitui listas frias por leads inteligentes onde já sabes o problema antes de ligar.</p>
+      <div class="reveal d1 card who-card">
+        <div class="who-label">Vendedores B2B</div>
+        <p class="who-body">Substitui listas frias por leads inteligentes onde já sabes o problema antes de ligar.</p>
       </div>
-      <div class="reveal reveal-delay-2 card rounded-2xl p-6">
-        <div class="text-[#10f5a0] font-black text-[11px] uppercase tracking-widest mb-3">Qualquer freelancer</div>
-        <p class="text-gray-400 text-[13px] leading-relaxed">Seja qual for o teu serviço digital, chegares com dados concretos faz toda a diferença.</p>
+      <div class="reveal d2 card who-card">
+        <div class="who-label">Qualquer freelancer</div>
+        <p class="who-body">Seja qual for o teu serviço digital, chegares com dados concretos faz toda a diferença.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
-<section id="faq" class="py-28 px-5 bg-[#0c1628]">
-  <div class="max-w-3xl mx-auto">
-    <div class="text-center mb-16">
-      <div class="text-[#10f5a0] text-[11px] font-semibold uppercase tracking-widest mb-4">FAQ</div>
-      <h2 class="text-[32px] md:text-[40px] font-black tracking-tight">Perguntas frequentes</h2>
+<section id="faq" class="section-alt">
+  <div class="container--sm">
+    <div class="sh center">
+      <span class="label">FAQ</span>
+      <h2 class="section-title">Perguntas frequentes</h2>
     </div>
-    <div class="space-y-3">
+    <div class="faq-list">
 
-      <details class="group card rounded-2xl overflow-hidden">
-        <summary class="px-6 py-5 cursor-pointer font-semibold text-[14px] flex items-center justify-between select-none">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
           Os dados são actualizados e precisos?
-          <svg class="faq-icon w-4 h-4 text-gray-500 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </summary>
-        <div class="px-6 pb-6 text-gray-400 text-[13px] leading-relaxed border-t border-white/[.08] pt-4">
-          Os dados são recolhidos automaticamente de fontes públicas (OpenStreetMap, Google Maps, websites das empresas). São dados reais, mas podem ter imprecisões — um email pode estar desactualizado, um número pode ter mudado. <strong class="text-gray-300">Recomendamos sempre verificar antes de contactar.</strong>
+          <span class="faq-icon-wrap">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <p>Os dados são recolhidos automaticamente de fontes públicas (OpenStreetMap, Google Maps, websites das empresas). São dados reais, mas podem ter imprecisões — um email pode estar desactualizado, um número pode ter mudado. <strong>Recomendamos sempre verificar antes de contactar.</strong></p>
         </div>
-      </details>
+      </div>
 
-      <details class="group card rounded-2xl overflow-hidden">
-        <summary class="px-6 py-5 cursor-pointer font-semibold text-[14px] flex items-center justify-between select-none">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
           Como é entregue o pack depois de pagar?
-          <svg class="faq-icon w-4 h-4 text-gray-500 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </summary>
-        <div class="px-6 pb-6 text-gray-400 text-[13px] leading-relaxed border-t border-white/[.08] pt-4">
-          Após pagamento és redireccionado para a página de download. Os PDFs são gerados directamente no teu browser em segundos — <strong class="text-gray-300">sem esperar, sem email</strong>. Descarregas na hora.
+          <span class="faq-icon-wrap">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <p>Após pagamento és redireccionado para a página de download. Os PDFs são gerados directamente no teu browser em segundos — <strong>sem esperar, sem email</strong>. Descarregas na hora.</p>
         </div>
-      </details>
+      </div>
 
-      <details class="group card rounded-2xl overflow-hidden">
-        <summary class="px-6 py-5 cursor-pointer font-semibold text-[14px] flex items-center justify-between select-none">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
           Funciona fora dos Açores?
-          <svg class="faq-icon w-4 h-4 text-gray-500 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </summary>
-        <div class="px-6 pb-6 text-gray-400 text-[13px] leading-relaxed border-t border-white/[.08] pt-4">
-          Neste momento cobrimos os <strong class="text-gray-300">Açores</strong> com mais de 1300 negócios mapeados. Expansão para o resto de Portugal está planeada. Para pedidos especiais, entra em contacto.
+          <span class="faq-icon-wrap">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <p>Neste momento cobrimos os <strong>Açores</strong> com 901 negócios mapeados. Expansão para o resto de Portugal está planeada. Para pedidos especiais, entra em contacto.</p>
         </div>
-      </details>
+      </div>
 
-      <details class="group card rounded-2xl overflow-hidden">
-        <summary class="px-6 py-5 cursor-pointer font-semibold text-[14px] flex items-center justify-between select-none">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
           O que é o score de oportunidade?
-          <svg class="faq-icon w-4 h-4 text-gray-500 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </summary>
-        <div class="px-6 pb-6 text-gray-400 text-[13px] leading-relaxed border-t border-white/[.08] pt-4">
-          Uma pontuação de 0 a 100. Quanto mais alto, mais gaps digitais a empresa tem e maior a probabilidade de precisar dos teus serviços. Acima de 70 é considerado <strong class="text-gray-300">alta oportunidade</strong>. Quanto mais próximo de 100, mais urgente a necessidade digital.
+          <span class="faq-icon-wrap">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <p>Uma pontuação de 0 a 100. Quanto mais alto, mais gaps digitais a empresa tem e maior a probabilidade de precisar dos teus serviços. Acima de 70 é considerado <strong>alta oportunidade</strong>.</p>
         </div>
-      </details>
+      </div>
 
-      <details class="group card rounded-2xl overflow-hidden">
-        <summary class="px-6 py-5 cursor-pointer font-semibold text-[14px] flex items-center justify-between select-none">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
           Posso seleccionar negócios de vários nichos?
-          <svg class="faq-icon w-4 h-4 text-gray-500 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </summary>
-        <div class="px-6 pb-6 text-gray-400 text-[13px] leading-relaxed border-t border-white/[.08] pt-4">
-          Sim. No mapa podes seleccionar negócios de categorias diferentes na mesma compra — restaurantes, alojamento, salões, ginásios, o que precisares. A selecção é totalmente livre.
+          <span class="faq-icon-wrap">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <p>Sim. No mapa podes seleccionar negócios de categorias diferentes na mesma compra — restaurantes, alojamento, salões, ginásios, o que precisares. A selecção é totalmente livre.</p>
         </div>
-      </details>
+      </div>
 
     </div>
   </div>
 </section>
 
 <!-- ═══ FINAL CTA ═══ -->
-<section class="py-32 px-5 grid-bg relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-radial from-[#10f5a0]/[.05] to-transparent" style="background: radial-gradient(ellipse at center, rgba(16,245,160,.06) 0%, transparent 70%)"></div>
-  <div class="relative max-w-2xl mx-auto text-center">
-    <h2 class="text-[40px] md:text-[52px] font-black tracking-tight leading-[1.05] mb-6">
+<section class="cta-section">
+  <div class="cta-blob"></div>
+  <div class="container--sm" style="position:relative;">
+    <h2 class="cta-title">
       O teu próximo cliente<br/>está à espera.<br/>
-      <span class="text-[#10f5a0] glow">Por €5, vai buscá-lo.</span>
+      <em>Por €5, vai buscá-lo.</em>
     </h2>
-    <p class="text-gray-300 text-[15px] mb-10">Sem risco. Sem subscrição. PDF disponível na hora.</p>
-    <a href="app.html" class="btn-primary inline-block px-10 py-4 rounded-2xl text-[16px]">
+    <p class="cta-sub">Sem risco. Sem subscrição. PDF disponível na hora.</p>
+    <a href="app.html" class="btn btn-primary" style="font-size:16px;padding:16px 40px;border-radius:14px;">
       Começar a pesquisar
     </a>
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-gray-400 text-[12px]">
+    <div class="cta-meta">
       <span>Download imediato</span>
-      <span class="text-gray-800">·</span>
+      <span class="cta-meta-sep">&middot;</span>
       <span>Dados de fontes públicas</span>
-      <span class="text-gray-800">·</span>
+      <span class="cta-meta-sep">&middot;</span>
       <span>Suporte por email</span>
     </div>
   </div>
@@ -765,32 +1373,94 @@
 
 <!-- ═══ FOOTER ═══ -->
 <div class="divider"></div>
-<footer class="py-8 px-5">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 text-[12px] text-gray-600">
-    <div class="font-semibold text-gray-500">Lead<span class="text-[#10f5a0]">Hunter</span> — Pedro Paula Labs</div>
-    <div class="flex flex-wrap justify-center gap-6">
-      <a href="#como-funciona" class="hover:text-gray-400 transition-colors">Como funciona</a>
-      <a href="#planos" class="hover:text-gray-400 transition-colors">Planos</a>
-      <a href="#faq" class="hover:text-gray-400 transition-colors">FAQ</a>
-      <a href="mailto:pedroricopaula@gmail.com" class="hover:text-gray-400 transition-colors">Contacto</a>
-      <a href="privacidade.html" class="hover:text-gray-400 transition-colors">Privacidade</a>
+<footer>
+  <div class="container foot-inner">
+    <div class="foot-brand">Lead<strong>Hunter</strong> — Pedro Paula Labs</div>
+    <div class="foot-links">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#planos">Planos</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:pedroricopaula@gmail.com">Contacto</a>
+      <a href="privacidade.html">Privacidade</a>
     </div>
-    <div class="text-gray-700">© 2025–2026 Pedro Paula Labs</div>
+    <div class="foot-copy">&copy; 2025–2026 Pedro Paula Labs</div>
   </div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  /* ── Theme ── */
+  (function () {
+    var saved = localStorage.getItem('lh_theme');
+    var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', saved || sys);
+  })();
 
-  // FAQ toggle icon
-  document.querySelectorAll('details').forEach(d => {
-    d.addEventListener('toggle', () => {
-      const icon = d.querySelector('.faq-icon');
-      if (icon) icon.style.transform = d.open ? 'rotate(45deg)' : 'rotate(0deg)';
+  function toggleTheme() {
+    var cur = document.documentElement.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('lh_theme', next);
+  }
+
+  /* ── Nav border on scroll ── */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  /* ── Scroll reveal ── */
+  var revealObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -56px 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+  /* ── Stat counters ── */
+  function animateCount(el) {
+    var target   = parseFloat(el.dataset.target);
+    var suffix   = el.dataset.suffix  || '';
+    var prefix   = el.dataset.prefix  || '';
+    var duration = 1400;
+    var start    = Date.now();
+    function tick() {
+      var p    = Math.min((Date.now() - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - p, 4);
+      var val  = Math.round(ease * target);
+      el.textContent = prefix + val + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var countObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting && !e.target.dataset.counted) {
+        e.target.dataset.counted = '1';
+        animateCount(e.target);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(function (el) { countObs.observe(el); });
+
+  /* ── Card mouse-follow glow ── */
+  document.querySelectorAll('.card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+    });
+  });
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    item.querySelector('.faq-q').addEventListener('click', function () {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
     });
   });
 </script>
