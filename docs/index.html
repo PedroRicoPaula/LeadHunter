@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT" data-theme="dark">
+<html lang="pt-PT" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -285,6 +285,12 @@
     .icon-sun, .icon-moon { display: none; }
     [data-theme="dark"]  .icon-moon { display: block; }
     [data-theme="light"] .icon-sun  { display: block; }
+
+    /* ─── LOGO DARK / LIGHT ──────────────────────────────────────── */
+    [data-theme="dark"]  .logo-dark  { display: block; }
+    [data-theme="dark"]  .logo-light { display: none;  }
+    [data-theme="light"] .logo-dark  { display: none;  }
+    [data-theme="light"] .logo-light { display: block; }
 
     .nav-cta { padding: 8px 18px; font-size: 13px; border-radius: 10px; }
 
@@ -813,7 +819,45 @@
     .foot-links a:hover { color: var(--accent); }
     .foot-copy { font-size: 12px; color: var(--text-3); }
 
+    /* ─── 3D FLOATING SHAPES ────────────────────────────────────────── */
+    .shapes3d { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .s3 {
+      position: absolute;
+      opacity: .14;
+      transition: opacity .25s ease !important;
+    }
+    [data-theme="light"] .s3 { opacity: .08; }
+
+    .s3-cube {
+      width: 32px; height: 32px;
+      border: 1.5px solid var(--accent);
+      border-radius: 5px;
+      animation: spin3y 20s linear infinite;
+    }
+    .s3-ring {
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      animation: spin3yx 26s linear infinite;
+    }
+    .s3-dot {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      animation: spin3y 36s linear infinite;
+    }
+    @keyframes spin3y {
+      from { transform: perspective(260px) rotateY(0deg); }
+      to   { transform: perspective(260px) rotateY(360deg); }
+    }
+    @keyframes spin3yx {
+      from { transform: perspective(260px) rotateX(56deg) rotateY(0deg); }
+      to   { transform: perspective(260px) rotateX(56deg) rotateY(360deg); }
+    }
+
     /* ─── RESPONSIVE ────────────────────────────────────────────────── */
+    @media (max-width: 768px) { .hide-md { display: none !important; } }
+    @media (max-width: 540px) { .hide-sm { display: none !important; } }
+
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .hero-card-anim { animation: none; }
@@ -822,7 +866,7 @@
       .stat { border-right: none; border-bottom: 1px solid var(--border); }
       .stat:nth-child(odd) { border-right: 1px solid var(--border); }
       .stat:nth-last-child(-n+2) { border-bottom: none; }
-      .g3 { grid-template-columns: 1fr; }
+      .g3 { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr; gap: 32px; }
       .steps::before { display: none; }
       .step { padding: 0; }
@@ -835,11 +879,11 @@
       section { padding: 72px 0; }
       .hero { padding: 114px 0 72px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
-      .g2 { grid-template-columns: 1fr; }
+      .g2, .g3 { grid-template-columns: 1fr; }
       .feat-grid { grid-template-columns: 1fr 1fr; }
-      .g3 { grid-template-columns: 1fr; }
       .foot-inner { flex-direction: column; text-align: center; }
       .nav-cta { display: none; }
+      .shapes3d { display: none; }
     }
   </style>
 </head>
@@ -849,7 +893,8 @@
 <nav id="nav">
   <div class="container nav-inner">
     <a href="#" class="nav-logo" aria-label="LeadHunter">
-      <img src="logo.svg" alt="LeadHunter" width="140" height="32" />
+      <img class="logo-dark"  src="logo.svg"       alt="LeadHunter" width="140" height="32" />
+      <img class="logo-light" src="logo-light.svg" alt="LeadHunter" width="140" height="32" />
     </a>
     <ul class="nav-links">
       <li><a href="#como-funciona">Como funciona</a></li>
@@ -882,6 +927,13 @@
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="grid-overlay"></div>
+    <div class="shapes3d">
+      <div class="s3 s3-cube" style="top:13%;left:4.5%"></div>
+      <div class="s3 s3-ring" style="top:58%;left:2%;width:54px;height:54px;animation-delay:-8s"></div>
+      <div class="s3 s3-cube" style="top:9%;right:3.5%;width:22px;height:22px;animation-duration:28s;animation-delay:-5s"></div>
+      <div class="s3 s3-ring" style="bottom:16%;right:4.5%;width:44px;height:44px;animation-delay:-14s"></div>
+      <div class="s3 s3-dot" style="top:44%;right:2.5%;animation-delay:-20s"></div>
+    </div>
   </div>
   <div class="container hero-inner">
     <!-- Copy -->
@@ -1247,7 +1299,7 @@
     <div class="sh center">
       <h2 class="section-title">Para quem é?</h2>
     </div>
-    <div class="g2" style="grid-template-columns:repeat(3,1fr);">
+    <div class="g3">
       <div class="reveal card who-card">
         <div class="who-label">Web designers &amp; devs</div>
         <p class="who-body">Encontra empresas sem website e chega primeiro com uma proposta concreta e personalizada.</p>
@@ -1391,8 +1443,7 @@
   /* ── Theme ── */
   (function () {
     var saved = localStorage.getItem('lh_theme');
-    var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', saved || sys);
+    document.documentElement.setAttribute('data-theme', saved || 'light');
   })();
 
   function toggleTheme() {
@@ -1463,6 +1514,24 @@
       if (!isOpen) item.classList.add('open');
     });
   });
+
+  /* ── 3D hero card tilt (desktop pointer only) ── */
+  var lc = document.querySelector('.lead-card');
+  var heroSec = document.querySelector('.hero');
+  if (lc && heroSec && window.matchMedia('(pointer: fine)').matches) {
+    lc.style.willChange = 'transform';
+    lc.style.transition = 'transform .18s ease';
+    heroSec.addEventListener('mousemove', function (e) {
+      var r = lc.getBoundingClientRect();
+      if (!r.width) return;
+      var dx = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width  / 2) / 300));
+      var dy = Math.max(-1, Math.min(1, (e.clientY - r.top  - r.height / 2) / 300));
+      lc.style.transform = 'perspective(720px) rotateX(' + (-dy * 9) + 'deg) rotateY(' + (dx * 12) + 'deg)';
+    });
+    heroSec.addEventListener('mouseleave', function () {
+      lc.style.transform = 'perspective(720px) rotateX(0deg) rotateY(0deg)';
+    });
+  }
 </script>
 </body>
 </html>
