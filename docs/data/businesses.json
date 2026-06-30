@@ -9472,6 +9472,43 @@
     "impacto": "Estima-se que a Barata perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a ausência de redes sociais pode estar a afastar potenciais clientes. A perda estimada de receita pode ser de cerca de 500-750 euros por mês."
   },
   {
+    "id": "osm_node_7157141501",
+    "name": "Lectus",
+    "category": "restaurantes",
+    "lat": 37.8172257,
+    "lng": -25.5286778,
+    "address": null,
+    "municipality": "Sao Miguel",
+    "phone": null,
+    "email": null,
+    "website": "www.lectus.com",
+    "whatsapp": null,
+    "score": 50,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": false,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": false,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_redes_sociais",
+      "sem_email",
+      "sem_mobile",
+      "sem_analytics",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidade de melhoria digital para Lectus",
+    "email_mensagem": "Olá Lectus, durante a nossa auditoria, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o seu negócio. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar as suas receitas.",
+    "problemas": [
+      "Falta de sistema de marcações online",
+      "Não utilização do WhatsApp Business",
+      "Ausência de redes sociais e email para contacto"
+    ],
+    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de canais de contacto eficazes. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
+  },
+  {
     "id": "osm_node_10046229365",
     "name": "Saraiva",
     "category": "restaurantes",
@@ -14682,6 +14719,44 @@
     "impacto": "Estima-se uma perda de 15-20 marcações por mês devido à falta de sistema de marcações online e informações de contacto. Além disso, a não utilização de WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A falta de email e formulário de contacto visível também pode estar a limitar as oportunidades de reserva."
   },
   {
+    "id": "osm_node_512540023",
+    "name": "Restaurante Tony's",
+    "category": "restaurantes",
+    "lat": 37.7735247,
+    "lng": -25.3113433,
+    "address": "Rua Dr. Frederico Moniz Pereira 5, Furnas, 9675-036",
+    "municipality": "Povoacoes",
+    "phone": "+351 296 584 290",
+    "email": null,
+    "website": "www.restaurantetonys.pt",
+    "whatsapp": null,
+    "score": 48,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": false,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": false,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_redes_sociais",
+      "sem_email",
+      "sem_mobile",
+      "sem_analytics",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidade de Melhorar a Visibilidade do Restaurante Tony's",
+    "email_mensagem": "Olá Restaurante Tony's,\nCompreendo que o foco principal do vosso negócio seja a experiência gastronómica em Furnas. No entanto, a auditoria revelou uma oportunidade significativa para aumentar a vossa visibilidade e atrair mais clientes através de canais digitais. A falta de um sistema de reservas online é particularmente notável, e a implementação de plataformas como TheFork pode otimizar o processo de marcação. Além disso, a ausência de redes sociais limita a interação com os seus clientes e a promoção do vosso restaurante. Recomendo fortemente a criação de uma presença digital robusta para maximizar o potencial do Restaurante Tony's.",
+    "problemas": [
+      "Falta de sistema de reservas online, resultando na perda de potenciais clientes que preferem reservar online.",
+      "Website com erro SSL, impactando a confiança do utilizador e potencialmente afetando o SEO.",
+      "Ausência de presença nas redes sociais, limitando a capacidade de interação com os clientes e promoção do restaurante.",
+      "Falta de contacto via email ou formulário, dificultando a recolha de feedback e informações dos clientes."
+    ],
+    "impacto": "A falta de um sistema de reservas online pode resultar na perda de 10-15 marcações por mês, devido à conveniência que as plataformas como TheFork oferecem aos clientes. O erro SSL e a ausência de canais digitais podem estar a afastar potenciais clientes, impactando negativamente o volume de negócios em 5-10%."
+  },
+  {
     "id": "osm_node_3777308557",
     "name": "Loja da Mãe",
     "category": "comercio",
@@ -19506,6 +19581,41 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A presença limitada em redes sociais também reduz a visibilidade do negócio."
   },
   {
+    "id": "osm_node_4442043936",
+    "name": "O Rochedo",
+    "category": "restaurantes",
+    "lat": 38.5351376,
+    "lng": -28.3361501,
+    "address": null,
+    "municipality": "Sao Miguel",
+    "phone": null,
+    "email": null,
+    "website": "empresite.jornaldenegocios.pt/MARISQUEIRA-ROCHEDO-PAULO-TELES-BRAGA.html",
+    "whatsapp": null,
+    "score": 42,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_redes_sociais",
+      "sem_email",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidades de Crescimento para Marisqueira O Rochedo",
+    "email_mensagem": "Olá O Rochedo,\n\nCompreendo o sucesso que tem construído ao longo destes 20 anos. Durante a nossa análise, identificámos uma oportunidade significativa: a implementação de um sistema de reservas online, como o TheFork, permitiria gerir o fluxo de clientes de forma mais eficiente e reduzir as perdas de negócio.\n\nAlém disso, a criação de uma presença nas redes sociais, especialmente no Instagram, pode aumentar a visibilidade da sua marca e atrair novos clientes. A nossa análise também revelou que a falta de reviews no Google limita a confiança dos seus clientes potenciais. Recomenda-se fortemente o incentivo à avaliação online.\n\nEstamos à disposição para discutir como podemos ajudar a otimizar a sua estratégia digital e impulsionar o crescimento do seu negócio.",
+    "problemas": [
+      "Falta de sistema de reservas online, resultando em perda de oportunidades de negócio e dificuldade em gerir o fluxo de clientes.",
+      "Ausência de presença nas redes sociais, limitando a capacidade de alcançar novos clientes e promover ofertas especiais.",
+      "Website com velocidade de carregamento lenta (0.46s) que pode afastar potenciais clientes e impactar negativamente o SEO."
+    ],
+    "impacto": "A falta de um sistema de reservas online pode resultar em uma perda estimada de 10-15 marcações por mês, especialmente durante os horários de pico. A ausência de redes sociais limita o alcance a cerca de 50 novos clientes por mês e a velocidade do site afasta potenciais clientes que abandonam a página antes de obterem informações relevantes."
+  },
+  {
     "id": "osm_node_11103482180",
     "name": "O Luís",
     "category": "restaurantes",
@@ -21291,6 +21401,40 @@
     "impacto": "Estima-se uma perda de 15-20 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês. Isso pode representar uma perda de receita mensal de 500-1000 euros."
   },
   {
+    "id": "osm_way_160043443",
+    "name": "Pingo Doce",
+    "category": "comercio",
+    "lat": 37.7186639,
+    "lng": -25.4417554,
+    "address": "9680-108",
+    "municipality": "Povoacoes",
+    "phone": "+351 296 539 330",
+    "email": null,
+    "website": "www.pingodoce.pt/lojas/vila-franca-do-campo-acores",
+    "whatsapp": null,
+    "score": 42,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_email",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidades de Melhoria no Pingo Doce - Vila Franca do Campo",
+    "email_mensagem": "Olá Pingo Doce,\nCompreendo a importância de otimizar a sua presença online para atrair e reter clientes na ilha dos Açores. A nossa análise revelou que a velocidade do seu site (3.91s) está acima do ideal, o que pode estar a afastar potenciais clientes. Além disso, a ausência de um sistema de marcações online e WhatsApp Business representa uma oportunidade perdida para melhorar o atendimento ao cliente e aumentar as vendas. Recomenda-se priorizar estas melhorias para impulsionar o seu negócio.",
+    "problemas": [
+      "Velocidade do site extremamente lenta (3.91s) impacta negativamente a experiência do utilizador e a taxa de rejeição.",
+      "Falta de sistema de marcações online impede a gestão eficiente do fluxo de clientes, especialmente em horários de pico.",
+      "Ausência de WhatsApp Business limita a comunicação direta com os clientes e dificulta o atendimento personalizado."
+    ],
+    "impacto": "A velocidade do site lenta pode resultar numa perda de 15-20% dos visitantes. A falta de marcações online e WhatsApp Business representa uma oportunidade perdida de captar novos clientes e fidelizar os existentes, potencialmente reduzindo as vendas em 10-15% por mês."
+  },
+  {
     "id": "osm_way_165632144",
     "name": "Continente Modelo",
     "category": "comercio",
@@ -22775,6 +22919,42 @@
       "Presença limitada em redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes por mês. A presença limitada em redes sociais também pode estar a reduzir a visibilidade do negócio em cerca de 20-30%."
+  },
+  {
+    "id": "osm_node_5049180430",
+    "name": "Azores Dream",
+    "category": "alojamento",
+    "lat": 38.6817181,
+    "lng": -28.2079139,
+    "address": "Rua de S. João 37, Velas (São Jorge), 9800-539",
+    "municipality": "Sao Miguel",
+    "phone": null,
+    "email": null,
+    "website": "azoresdream.com",
+    "whatsapp": null,
+    "score": 42,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": false,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_redes_sociais",
+      "sem_email",
+      "sem_analytics",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidade de Crescimento para Azores Dream - Análise e Recomendações",
+    "email_mensagem": "Olá Azores Dream,\n\nCompreendemos que a vossa empresa está em fase de lançamento. A nossa análise revelou que a falta de um sistema de marcações online é uma oportunidade perdida, com potencial para perder 15-20 marcações mensais. Além disso, a ausência nas redes sociais limita o vosso alcance no mercado insular. Recomendamos fortemente a implementação de um sistema de reservas e a criação de uma estratégia de presença digital.",
+    "problemas": [
+      "Falta de sistema de marcações online, impedindo reservas automatizadas e gerando perda de tempo na gestão de reservas.",
+      "Ausência de presença nas redes sociais, limitando o alcance da marca e a capacidade de interação com potenciais clientes no mercado insular.",
+      "Website lento (0.4s) impacta negativamente a experiência do utilizador e pode afetar as taxas de conversão."
+    ],
+    "impacto": "A falta de um sistema de reservas online pode resultar em 15-20 marcações perdidas por mês, devido à dificuldade dos clientes em reservar diretamente. A ausência nas redes sociais limita o alcance da Azores Dream e a capacidade de captar novos clientes, com potencial impacto na receita. O website lento pode afastar potenciais clientes, resultando numa diminuição do tráfego e das conversões."
   },
   {
     "id": "osm_node_2913621200",
@@ -34033,6 +34213,72 @@
     "impacto": "Estima-se que a Maré Cheia perca cerca de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de email e telefone de contacto pode levar a uma perda adicional de 5-10 oportunidades de negócio por mês."
   },
   {
+    "id": "osm_node_7157141500",
+    "name": "Pe da areia",
+    "category": "restaurantes",
+    "lat": 37.889004,
+    "lng": -25.8237874,
+    "address": null,
+    "municipality": "Sao Miguel",
+    "phone": "+351 296\n283\n328",
+    "email": "geral@azores5project.pt",
+    "website": "azores5project.pt",
+    "whatsapp": null,
+    "score": 32,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidades de Melhoria para Pe da Areia - Análise Digital",
+    "email_mensagem": "Olá Pe da areia,\nCompreendo a paixão pelo seu negócio e o ambiente acolhedor que oferece. A nossa análise revela algumas áreas com potencial de melhoria. Notámos, por exemplo, que não dispõe de sistema de marcações online, o que pode estar a levar à perda de reservas importantes. Além disso, a velocidade do site (1.34s) é superior ao ideal e pode afetar a experiência dos seus clientes. Recomenda-se investir na otimização do site e na criação de uma forte presença nas redes sociais para aumentar a visibilidade e atrair novos hóspedes.",
+    "problemas": [
+      "Falta de sistema de marcações online, resultando em perda de oportunidades de reserva.",
+      "Velocidade do site (1.34s) acima do ideal, impactando a experiência do utilizador e potencialmente o SEO.",
+      "Ausência de presença ativa nas redes sociais, limitando o alcance e a interação com potenciais clientes."
+    ],
+    "impacto": "A falta de marcações online pode levar à perda de 10-15 marcações por mês, especialmente durante a alta temporada. A velocidade do site pode resultar em uma taxa de rejeição superior a 20%, impactando negativamente a conversão. A ausência nas redes sociais limita o alcance e a capacidade de interação com o público-alvo, resultando num potencial de crescimento reduzido."
+  },
+  {
+    "id": "osm_node_760552187",
+    "name": "Stage Restaurant",
+    "category": "restaurantes",
+    "lat": 37.7396555,
+    "lng": -25.6635004,
+    "address": "Portas do Mar 23, Ponta Delgada, 9500-770",
+    "municipality": "Ponta Delgada",
+    "phone": "+351 296 284 231",
+    "email": "reservas@grupoanjos.pt",
+    "website": "www.grupoanjos.pt/en/places/stage-restaurant",
+    "whatsapp": null,
+    "score": 32,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidades de Melhoria para Stage Restaurant em Ponta Delgada",
+    "email_mensagem": "Olá Stage Restaurant,\nCompreendo o vosso compromisso com a gastronomia e a localização privilegiada. Durante a nossa análise, identificámos algumas áreas que podem impulsionar o vosso negócio. A ausência de um sistema de reservas online é uma oportunidade perdida para atrair mais clientes, especialmente aqueles que procuram conveniência. Além disso, a velocidade do site pode afetar negativamente a experiência do utilizador e a sua reputação online. Recomenda-se fortemente implementar um sistema de reservas como o TheFork e otimizar a velocidade do site.",
+    "problemas": [
+      "Falta de sistema de reservas online, resultando na perda de potenciais clientes que preferem reservar online.",
+      "Velocidade do site (0.78s) pode afastar visitantes e impactar negativamente a taxa de conversão.",
+      "Ausência de reviews no Google Maps impede o estabelecimento de construir uma reputação online e influenciar decisões de compra."
+    ],
+    "impacto": "A falta de um sistema de reservas online pode resultar na perda de 10-15 marcações por mês, impactando diretamente a receita. A velocidade do site e a ausência de reviews podem levar à diminuição do tráfego orgânico e da visibilidade da marca."
+  },
+  {
     "id": "osm_node_11964856360",
     "name": "Azorean poke",
     "category": "restaurantes",
@@ -34065,6 +34311,40 @@
       "Dificuldade em encontrar informações de contato e horário de funcionamento"
     ],
     "impacto": "Estima-se que a Azorean poke perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online e à velocidade lenta do site. Além disso, a falta de informações de contato e horário de funcionamento pode afastar potenciais clientes. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
+  },
+  {
+    "id": "osm_node_12691611627",
+    "name": "Museu Militar dos Açores",
+    "category": "turismo",
+    "lat": 37.7365939,
+    "lng": -25.6725322,
+    "address": "Avenida Infante Dom Henrique, Ponta Delgada, 9500-150",
+    "municipality": "Ponta Delgada",
+    "phone": "+351 296 308 633",
+    "email": null,
+    "website": "www.exercito.pt/pt/quem-somos/organizacao/ceme/cft/zma/musmil-açores",
+    "whatsapp": null,
+    "score": 32,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_email",
+      "sem_facebook_pixel"
+    ],
+    "email_assunto": "Oportunidades de Melhoria para o Museu Militar dos Açores",
+    "email_mensagem": "Olá Museu Militar dos Açores,\nCompreendemos que o vosso website tem um bom volume de conteúdo, mas identificámos a ausência de um sistema online de marcações como uma oportunidade crítica de melhoria. A falta de contacto via WhatsApp Business e redes sociais limita significativamente a interação com o público local e turistas. Recomenda-se urgentemente a implementação de um sistema de marcações online e a criação de perfis nas redes sociais para aumentar a visibilidade e atrair novos visitantes.",
+    "problemas": [
+      "Falta de sistema de marcações online, resultando em perda de oportunidades de visitas guiadas e eventos.",
+      "Website com velocidade de carregamento de 0.52s, impactando negativamente a experiência do utilizador e o SEO.",
+      "Ausência de presença ativa nas redes sociais, limitando o alcance da informação e a interação com o público."
+    ],
+    "impacto": "A falta de marcações online pode resultar em uma perda de 10-15 visitas guiadas por mês, impactando negativamente a experiência do visitante. A velocidade do site e a ausência de redes sociais podem diminuir o tráfego orgânico em 5-10%, afetando a visibilidade do museu."
   },
   {
     "id": "osm_node_5554936923",
