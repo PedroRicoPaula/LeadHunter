@@ -76,6 +76,19 @@ _SKIP_DOMAINS = {
     "zomato.com",
     "yelp.com", "yelp.pt",
     "foursquare.com",
+    "restaurantguru.com", "pt.restaurantguru.com",
+    # Açores-local aggregators / directories — NOT individual business websites
+    "mapcarta.com",
+    "byacores.com",
+    "bellaciao.pt",
+    "ilhaverde.com", "rotasdailhaverde.com",
+    "bluepillow.com", "br.bluepillow.com",
+    "farmaciasportuguesas.pt",
+    "akiperto.pt",
+    "encontrei.pt",
+    "codigopostal.ciberforma.pt",
+    "empresite.jornaldenegocios.pt",
+    "servicospublicos.pt",
 }
 
 # Foreign ccTLD suffixes that are almost certainly wrong for an Açores business
@@ -181,6 +194,10 @@ def _valid_candidate(url: str) -> bool:
         netloc = urlparse(url).netloc.lower()
         domain = netloc.replace("www.", "").replace("m.", "")
         if domain in _SKIP_DOMAINS:
+            return False
+        # Reject literal unsubstituted template placeholders (seen in OSM data,
+        # e.g. mapper pasted "subdomain.example.pt" without replacing it)
+        if domain.startswith("subdomain.") or domain.startswith("example."):
             return False
         # Reject if any skip domain appears as a suffix (e.g. pt.tripadvisor.com)
         if any(domain == d or domain.endswith("." + d) for d in _SKIP_DOMAINS):
