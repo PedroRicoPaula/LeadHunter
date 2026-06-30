@@ -215,9 +215,14 @@ def export():
 
     skipped_no_coords = 0
     skipped_no_nicho = 0
+    skipped_not_analisado = 0
     businesses = []
 
     for lead in leads:
+        if lead.get("status") != "analisado" or not lead.get("score"):
+            skipped_not_analisado += 1
+            continue
+
         lat = lead.get("lat")
         lon = lead.get("lon") or lead.get("lng")
         if not lat or not lon:
@@ -230,11 +235,7 @@ def export():
             skipped_no_nicho += 1
             continue
 
-        score = lead.get("score")
-        if score is None:
-            # Fallback: shouldn't happen if score_all.py ran, but just in case
-            score = 50
-        score = max(0, min(100, int(score)))
+        score = max(0, min(100, int(lead["score"])))
 
         businesses.append({
             "id":           str(lead.get("place_id") or lead.get("id") or ""),
@@ -289,7 +290,7 @@ def export():
     print(f"     Categorias: {dict(cats)}")
     print(f"     Com telefone: {with_phone} | email: {with_email} | website: {with_website}")
     print(f"     Score medio: {avg_score}")
-    print(f"     Ignorados: {skipped_no_coords} sem coords, {skipped_no_nicho} sem nicho")
+    print(f"     Ignorados: {skipped_not_analisado} nao analisado, {skipped_no_coords} sem coords, {skipped_no_nicho} sem nicho")
     print(f"     meta.json actualizado: {meta['last_updated']}")
     print(f"     Faz 'git add docs/data/ && git push'")
 
