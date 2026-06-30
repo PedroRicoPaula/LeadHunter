@@ -252,14 +252,21 @@ async def _nim_batch_predict(batch: list[dict]) -> dict[str, str]:
     )
 
     loop = asyncio.get_event_loop()
-    raw = await loop.run_in_executor(
-        None,
-        lambda: nim.chat(
-            [{"role": "user", "content": prompt}],
-            temperature=0.1,
-            max_tokens=400,
-        ),
-    )
+    try:
+        raw = await asyncio.wait_for(
+            loop.run_in_executor(
+                None,
+                lambda: nim.chat(
+                    [{"role": "user", "content": prompt}],
+                    temperature=0.1,
+                    max_tokens=400,
+                ),
+            ),
+            timeout=25.0,  # fail fast — NIM backoff can eat 120s per batch otherwise
+        )
+    except asyncio.TimeoutError:
+        console.print("  [dim]NIM batch predict timeout — Fase B saltada[/]")
+        return {}
     if not raw:
         return {}
 
