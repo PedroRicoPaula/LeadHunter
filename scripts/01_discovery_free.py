@@ -85,7 +85,17 @@ NICHO_TAGS = {
     # Turismo/Lazer
     "museus":               [("tourism", "museum")],
     "aluguer_carros":       [("amenity", "car_rental")],
-    "actividades":          [("tourism", "activity"), ("leisure", "sports_centre")],
+    "actividades":          [("tourism", "activity")],
+    "mergulho":             [("shop", "scuba_diving"), ("sport", "diving")],
+    "agencias_viagens":     [("office", "travel_agent")],
+    "espacos_eventos":      [("amenity", "events_venue"), ("amenity", "community_centre")],
+
+    # Desporto
+    "clubes_desportivos":   [("club", "sport")],
+
+    # Serviços profissionais (extra)
+    "escolas_conducao":     [("amenity", "driving_school")],
+    "fotografia":           [("shop", "photo"), ("craft", "photographer")],
 }
 
 

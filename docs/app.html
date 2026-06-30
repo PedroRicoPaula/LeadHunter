@@ -131,6 +131,14 @@
       class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
       🎭 Turismo
     </button>
+    <button onclick="filterCategory('turismo_natureza')" data-cat="turismo_natureza"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      🐋 Turismo Natureza
+    </button>
+    <button onclick="filterCategory('desporto')" data-cat="desporto"
+      class="cat-btn shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold border border-white/[.06] text-gray-400 transition-all hover:text-white">
+      ⚽ Desporto
+    </button>
   </div>
   <div class="absolute right-0 top-0 bottom-0 w-10 pointer-events-none md:hidden" style="background:linear-gradient(to right, transparent, rgba(6,10,16,.95))"></div>
   </div>
@@ -208,6 +216,8 @@ const CAT_COLORS = {
   automovel:     '#64748b',
   servicos_prof: '#6366f1',
   turismo:       '#10b981',
+  turismo_natureza: '#0891b2',
+  desporto:      '#facc15',
   // legacy aliases kept for backwards compat with old businesses.json
   clinicas:      '#3b82f6',
   saloes:        '#ec4899',
@@ -224,6 +234,8 @@ const CAT_NAMES = {
   automovel:     'Automóvel',
   servicos_prof: 'Serviços Prof.',
   turismo:       'Turismo & Lazer',
+  turismo_natureza: 'Turismo de Natureza',
+  desporto:      'Clubes Desportivos',
   // legacy
   clinicas:      'Saúde',
   saloes:        'Beleza & Estética',

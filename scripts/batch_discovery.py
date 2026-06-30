@@ -54,9 +54,11 @@ NICHOS = [
     # Automóvel
     "garagens", "posto_combustivel", "aluguer_carros",
     # Serviços profissionais
-    "imobiliarias", "contabilidade", "advogados",
+    "imobiliarias", "contabilidade", "advogados", "escolas_conducao", "fotografia",
     # Turismo
-    "museus", "actividades",
+    "museus", "actividades", "mergulho", "agencias_viagens", "espacos_eventos",
+    # Desporto
+    "clubes_desportivos",
 ]
 
 NICHOS_JA_COBERTOS = {

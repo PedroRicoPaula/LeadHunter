@@ -65,8 +65,8 @@ NICHO_MAP = {
     "ginasios":         "ginasios",
     "Ginasios":         "ginasios",
     "Ginásios":         "ginasios",
-    "actividades":      "ginasios",
-    "Actividades":      "ginasios",
+    "actividades":      "turismo_natureza",
+    "Actividades":      "turismo_natureza",
     # ── Comércio ─────────────────────────────────────────────────────────────
     "supermercados":    "comercio",
     "Supermercados":    "comercio",
@@ -97,9 +97,23 @@ NICHO_MAP = {
     "Seguros":          "servicos_prof",
     "bancos":           "servicos_prof",
     "Bancos":           "servicos_prof",
+    "escolas_conducao": "servicos_prof",
+    "Escolas Conducao": "servicos_prof",
+    "fotografia":       "servicos_prof",
+    "Fotografia":       "servicos_prof",
     # ── Turismo ──────────────────────────────────────────────────────────────
     "museus":           "turismo",
     "Museus":           "turismo",
+    "espacos_eventos":  "turismo",
+    "Espacos Eventos":  "turismo",
+    # ── Turismo de Natureza (whale watching, mergulho, agências) ──────────────
+    "mergulho":         "turismo_natureza",
+    "Mergulho":         "turismo_natureza",
+    "agencias_viagens": "turismo_natureza",
+    "Agencias Viagens": "turismo_natureza",
+    # ── Desporto ─────────────────────────────────────────────────────────────
+    "clubes_desportivos": "desporto",
+    "Clubes Desportivos": "desporto",
 }
 
 POSTAL_MUN = {
