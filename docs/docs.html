@@ -748,6 +748,7 @@ document.querySelectorAll('.faq-item').forEach(function (item) {
 /* scroll-spy */
 var sections = Array.prototype.slice.call(document.querySelectorAll('section.doc-section[id]'));
 var links = sidebar.querySelectorAll('.sb-list a');
+var allGroups = sidebar.querySelectorAll('.sb-group');
 var spyObs = new IntersectionObserver(function (entries) {
   entries.forEach(function (e) {
     if (e.isIntersecting) {
@@ -756,7 +757,7 @@ var spyObs = new IntersectionObserver(function (entries) {
       if (link) {
         link.classList.add('active');
         var group = link.closest('details');
-        if (group) group.open = true;
+        allGroups.forEach(function (g) { g.open = (g === group); });
       }
     }
   });
