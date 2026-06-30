@@ -5016,43 +5016,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não disponibilidade de contacto. Além disso, a não presença em redes sociais pode estar a afastar potenciais clientes. A não utilização do WhatsApp Business também pode estar a limitar a capacidade de resposta a pedidos de informação."
   },
   {
-    "id": "osm_node_12799937027",
-    "name": "Bar Loja",
-    "category": "restaurantes",
-    "lat": 37.7536017,
-    "lng": -25.2034746,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.barloja.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Bar Loja",
-    "email_mensagem": "Olá Bar Loja, durante a análise do seu site, notei a ausência de um sistema de marcações online, o que pode estar afetando a quantidade de clientes que você recebe. Gostaria de discutir como podemos melhorar sua presença digital e aumentar suas receitas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência em canais de comunicação digitais. Isso pode resultar em uma perda de receita mensal significativa."
-  },
-  {
     "id": "osm_node_13416260751",
     "name": "Mercado Negro Porta 18",
     "category": "restaurantes",
@@ -5124,43 +5087,6 @@
       "Não tem formulário de contacto ou email visível"
     ],
     "impacto": "Estima-se que o Restaurante O Museu perca cerca de 10-15 marcações por mês devido à falta de sistema de reservas online e outros problemas de visibilidade digital. Isso pode resultar em uma perda de receita mensal de 500-1000 euros."
-  },
-  {
-    "id": "osm_node_759526254",
-    "name": "Arriba",
-    "category": "restaurantes",
-    "lat": 37.7389976,
-    "lng": -25.6702683,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "arriba.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para Arriba",
-    "email_mensagem": "Olá Arriba, descobri que o seu site não tem um sistema de reservas online, o que pode estar a afetar negativamente o número de clientes que você recebe. Além disso, a falta de presença em redes sociais e a não utilização do WhatsApp Business também podem estar a limitar o seu alcance e a sua capacidade de comunicação com os clientes. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar a sua receita.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se que a falta de sistema de reservas online e outras ferramentas digitais possa resultar em 10-15 marcações perdidas por mês, o que pode significar uma perda de receita de cerca de 500-750 euros por mês. Além disso, a falta de presença online pode dificultar a atração de novos clientes e a manutenção de uma boa reputação online."
   },
   {
     "id": "osm_node_1711527874",
@@ -5535,44 +5461,6 @@
       "Falta de formulário de contacto ou email para facilitar a comunicação"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business e redes sociais pode resultar em uma perda adicional de 5-10 oportunidades de venda por mês."
-  },
-  {
-    "id": "osm_node_4436526990",
-    "name": "Big21",
-    "category": "restaurantes",
-    "lat": 37.7411908,
-    "lng": -25.663429,
-    "address": "Rua Ernesto do Canto 21, Ponta Delgada, 9500",
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.big21.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Big21",
-    "email_mensagem": "Olá Big21, durante a nossa análise, verificamos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o número de clientes. Recomendamos a implementação de um sistema de reservas online, como o TheFork ou Otter, para melhorar a experiência do cliente e aumentar as receitas. Estamos disponíveis para discutir como podemos ajudar a melhorar a presença digital da sua empresa.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se que a falta de sistema de marcações online possa resultar em 10-15 marcações perdidas por mês. Além disso, a ausência de WhatsApp Business e redes sociais pode afetar a capacidade de resposta a clientes e potenciais clientes, resultando em perda adicional de receita."
   },
   {
     "id": "osm_node_4442998352",
@@ -6062,44 +5950,6 @@
       "Não tem formulário de contacto ou email visível"
     ],
     "impacto": "Estima-se que a falta de sistema de reservas online e outras ferramentas de contacto possa resultar em 10-15 marcações perdidas por mês, o que pode significar uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_11970158819",
-    "name": "Eh Pá",
-    "category": "restaurantes",
-    "lat": 37.8988687,
-    "lng": -25.7637239,
-    "address": "Estrada Regional N 1-1ª 75A",
-    "municipality": "Sao Miguel",
-    "phone": "+351296917191",
-    "email": null,
-    "website": "ehpa.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Crescimento Digital para Eh Pá",
-    "email_mensagem": "Olá Eh Pá, durante a análise do seu site, verifiquei que não existe um sistema de marcações online, o que pode estar a afetar negativamente a sua receita. Gostaria de discutir como podemos implementar soluções digitais para melhorar a experiência do cliente e aumentar as suas reservas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para comunicação com clientes",
-      "Não existência de redes sociais para promoção e interação",
-      "Falta de formulário de contacto ou email para facilitar a comunicação"
-    ],
-    "impacto": "Estima-se que a falta de sistema de marcações online possa resultar em 10-15 marcações perdidas por mês. Além disso, a ausência de presença digital eficaz pode levar a uma perda de receita estimada em 500-750 euros por mês."
   },
   {
     "id": "osm_node_11975782465",
@@ -6594,81 +6444,6 @@
     "impacto": "Estima-se que O Chico perca cerca de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de email ou formulário de contacto também pode estar a limitar as oportunidades de comunicação com os clientes."
   },
   {
-    "id": "osm_node_11171813286",
-    "name": "O Raul",
-    "category": "restaurantes",
-    "lat": 38.7946145,
-    "lng": -27.2531706,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.oraul.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para O Raul",
-    "email_mensagem": "Olá O Raul, durante a nossa análise, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o número de clientes. Recomendamos a implementação de um sistema de reservas online, como o TheFork ou Otter, para melhorar a experiência do cliente e aumentar as marcações. Além disso, a criação de perfis em redes sociais e a utilização do WhatsApp Business podem ajudar a aumentar a visibilidade e a atrair mais clientes. Estamos disponíveis para discutir estas oportunidades em mais detalhe.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais"
-    ],
-    "impacto": "Estima-se que O Raul perca cerca de 15-20 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita mensal significativa."
-  },
-  {
-    "id": "osm_node_11171813293",
-    "name": "O Raul",
-    "category": "restaurantes",
-    "lat": 38.7958511,
-    "lng": -27.2477671,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 912 961 632",
-    "email": null,
-    "website": "www.oraul.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria para O Raul",
-    "email_mensagem": "Olá O Raul, durante a nossa análise, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afastar clientes potenciais. Recomendamos a implementação de um sistema de reservas online, como o TheFork ou o Otter, para melhorar a experiência do cliente e aumentar as marcações. Além disso, a criação de perfis em redes sociais pode ajudar a aumentar a visibilidade do negócio e a atrair mais clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não presença em redes sociais",
-      "Não disponibilidade de formulário de contacto ou email"
-    ],
-    "impacto": "Estima-se que O Raul perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A falta de presença em redes sociais também pode estar a limitar a visibilidade do negócio."
-  },
-  {
     "id": "osm_node_12141601644",
     "name": "Sala 319",
     "category": "restaurantes",
@@ -7076,81 +6851,6 @@
       "Não tem formulário de contacto ou email visível"
     ],
     "impacto": "Estima-se que a Pastella perca cerca de 15-20 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de formulário de contacto ou email visível também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
-    "id": "osm_node_9934306474",
-    "name": "Onda",
-    "category": "restaurantes",
-    "lat": 38.4264255,
-    "lng": -28.4215118,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "onda.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para a Onda",
-    "email_mensagem": "Olá Onda, durante a nossa análise, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afastar potenciais clientes. Recomendamos a implementação de um sistema de reservas online, como o TheFork ou o Otter, para melhorar a experiência do cliente e aumentar as marcações. Além disso, a criação de perfis em redes sociais e a implementação de um formulário de contacto ou email podem ajudar a aumentar a visibilidade e a atrair mais clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não tem presença em redes sociais",
-      "Não tem email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se que a Onda perca cerca de 15-20 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de email ou formulário de contacto também pode estar a limitar as oportunidades de negócio."
-  },
-  {
-    "id": "osm_node_12155988784",
-    "name": "Tacão",
-    "category": "restaurantes",
-    "lat": 38.414387,
-    "lng": -28.3351082,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 292673065",
-    "email": null,
-    "website": "www.tacao.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Tacão",
-    "email_mensagem": "Olá Tacão, durante a nossa análise do seu site, notámos que não tem um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua receita. Gostaríamos de discutir como podemos ajudar a melhorar a sua presença digital e aumentar as suas marcações e vendas. Por favor, não hesite em contactar-nos para mais informações.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não tem redes sociais detectadas",
-      "Não tem email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se que a falta de sistema de marcações online possa resultar em 10-15 marcações perdidas por mês. Além disso, a ausência de WhatsApp Business e redes sociais pode afetar a capacidade de resposta a clientes e potenciais clientes, resultando em perdas adicionais de receita."
   },
   {
     "id": "osm_node_12258236422",
@@ -10409,39 +10109,6 @@
     "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês."
   },
   {
-    "id": "osm_node_9270629900",
-    "name": "KFC",
-    "category": "restaurantes",
-    "lat": 37.7516075,
-    "lng": -25.6548936,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 934 899 198",
-    "email": null,
-    "website": "www.kfc.pt/encontra-a-tua-kfc/kfc-ponta-delgada",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para KFC Ponta Delgada",
-    "email_mensagem": "Olá KFC, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afetar negativamente a experiência do cliente e a perda de potenciais vendas. Recomendo a implementação de um sistema de marcações online e a ativação do WhatsApp Business para melhorar a comunicação com os clientes e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para comunicação com clientes",
-      "Não disponibilidade de formulário de contacto no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação, resultando em uma perda adicional de 5-10 pedidos por mês."
-  },
-  {
     "id": "osm_node_10247888701",
     "name": "Burger King",
     "category": "restaurantes",
@@ -10480,118 +10147,6 @@
     "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar clientes potenciais. A falta de formulário de contacto também pode estar a limitar a capacidade de resposta a pedidos e dúvidas dos clientes."
   },
   {
-    "id": "osm_node_2292271786",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 37.8197427,
-    "lng": -25.5266801,
-    "address": "Rua de São Francisco, Ribeira Grande, 9600-516",
-    "municipality": "Nordeste",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para a loja MO",
-    "email_mensagem": "Olá MO, durante a nossa análise, verificámos que a falta de sistema de marcações online pode estar a afetar negativamente o seu negócio. Recomendamos a implementação de um sistema de marcações online para aumentar a eficiência e atrair mais clientes. Além disso, a criação de um perfil no WhatsApp Business e a presença em redes sociais podem ajudar a aumentar a visibilidade e o engajamento com os clientes. Por favor, não hesite em contactar-nos para discutir como podemos ajudar a melhorar a presença online da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não existência de redes sociais detectadas",
-      "Falta de email e formulário de contacto"
-    ],
-    "impacto": "Estima-se que a loja MO perca cerca de 10-15 oportunidades de marcação por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de email e formulário de contacto também pode estar a limitar a capacidade da loja de receber pedidos e feedback dos clientes."
-  },
-  {
-    "id": "osm_node_4789796620",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 37.7464653,
-    "lng": -25.5848772,
-    "address": "Rua Direita, Atalhada, Lagoa, 9560-414",
-    "municipality": "Ribeira Grande",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para MO",
-    "email_mensagem": "Olá MO, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afetar a quantidade de clientes que conseguem marcar serviços. Recomendo a implementação de um sistema de marcações online e a utilização do WhatsApp Business para melhorar a comunicação com os clientes. Além disso, a criação de perfis nas redes sociais pode ajudar a aumentar a visibilidade do negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais e formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de canais de contacto eficazes. Além disso, a falta de presença nas redes sociais pode estar a afetar a visibilidade e atractividade do negócio."
-  },
-  {
-    "id": "osm_node_5110620721",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 37.7408692,
-    "lng": -25.6675428,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para MO",
-    "email_mensagem": "Olá MO, durante a auditoria técnica realizada, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Recomendamos a implementação de um sistema de marcações online e a criação de perfis nas redes sociais para melhorar a visibilidade e o engajamento com os clientes. Estamos disponíveis para discutir como podemos ajudar a melhorar a presença digital da sua empresa.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais e formulários de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de informações de contacto. Além disso, a falta de presença nas redes sociais pode estar a afastar potenciais clientes. A perda estimada de receita pode variar entre 500-1000 euros por mês."
-  },
-  {
     "id": "osm_node_5268858673",
     "name": "Chinatown",
     "category": "comercio",
@@ -10628,81 +10183,6 @@
       "Falta de formulário de contacto ou email"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de formulário de contacto ou email também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
-    "id": "osm_node_5463097722",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 37.7599371,
-    "lng": -25.7018751,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o seu negócio",
-    "email_mensagem": "Olá MO, durante a nossa auditoria, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o seu negócio. Recomendamos a implementação de um sistema de marcações online para aumentar a eficiência e atrair mais clientes. Além disso, a criação de perfis em redes sociais e a implementação do WhatsApp Business podem ajudar a aumentar a visibilidade e a interação com os clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não detecção de redes sociais",
-      "Falta de email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de email ou formulário de contacto também pode estar a limitar as oportunidades de negócio."
-  },
-  {
-    "id": "osm_node_5823869154",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 37.834217,
-    "lng": -25.6864979,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para MO",
-    "email_mensagem": "Olá MO, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar potenciais clientes. Além disso, a não utilização do WhatsApp Business e a não presença em redes sociais também podem estar a ter um impacto negativo no seu negócio. Gostaria de discutir como posso ajudar a melhorar a presença digital da sua empresa.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não presença em redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a não presença em redes sociais pode estar a afastar potenciais clientes."
   },
   {
     "id": "osm_node_9400295817",
@@ -10817,43 +10297,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A não disponibilidade de email ou formulário de contacto também pode estar a limitar a capacidade de resposta a pedidos de informação."
   },
   {
-    "id": "osm_node_10247890223",
-    "name": "Oysho",
-    "category": "comercio",
-    "lat": 37.7459655,
-    "lng": -25.6748146,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.oysho.com/pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Oysho",
-    "email_mensagem": "Olá Oysho, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o seu negócio. A implementação de um sistema de marcações online e a utilização do WhatsApp Business podem ajudar a aumentar as vendas e melhorar a experiência do cliente. Gostaria de discutir como posso ajudar a melhorar a presença digital da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais e email de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de canais de contacto eficazes. Isso pode resultar em uma perda de receita mensal de 500-1000 euros."
-  },
-  {
     "id": "osm_node_10247890228",
     "name": "Pull & Bear",
     "category": "comercio",
@@ -10927,44 +10370,6 @@
       "Não disponibilidade de contacto por email ou formulário"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A ausência em redes sociais também pode estar a limitar a visibilidade da marca."
-  },
-  {
-    "id": "osm_node_10247890245",
-    "name": "Zara",
-    "category": "comercio",
-    "lat": 37.7485404,
-    "lng": -25.6758069,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.zara.com/pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Zara",
-    "email_mensagem": "Olá Zara, durante a nossa auditoria técnica, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente a sua receita. Recomendamos a implementação de um sistema de marcações online e a criação de perfis em redes sociais para melhorar a visibilidade e o engajamento com os clientes. Estamos disponíveis para discutir como podemos ajudar a melhorar a presença digital da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não detecção de redes sociais",
-      "Falta de formulário de contacto ou email"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. A falta de formulário de contacto ou email também pode estar a dificultar a comunicação com os clientes."
   },
   {
     "id": "osm_node_11976301332",
@@ -11411,43 +10816,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de informações de contacto. Além disso, a falta de presença nas redes sociais pode estar a afastar potenciais clientes. A perda estimada de receita pode chegar a 500-750 euros por mês."
   },
   {
-    "id": "osm_node_9806950512",
-    "name": "Ceta",
-    "category": "comercio",
-    "lat": 38.6554575,
-    "lng": -27.2187929,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "ceta.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Ceta",
-    "email_mensagem": "Olá Ceta, descobri que a falta de sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente o seu negócio. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar as marcações e a visibilidade da sua empresa. Por favor, não hesite em contactar-me para saber mais sobre como posso ajudar.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não presença em redes sociais",
-      "Não disponibilidade de email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 potenciais clientes por mês. A ausência em redes sociais também pode estar a limitar a visibilidade da empresa."
-  },
-  {
     "id": "osm_way_859405896",
     "name": "Mango",
     "category": "comercio",
@@ -11740,44 +11108,6 @@
     "impacto": "Estima-se que a falta de um sistema de marcações online e a não utilização do WhatsApp Business possam resultar em 10-15 marcações perdidas por mês. Além disso, a ausência de redes sociais e formulários de contacto pode afetar negativamente a visibilidade e a capacidade de resposta do negócio."
   },
   {
-    "id": "osm_node_4386862716",
-    "name": "Minimercado",
-    "category": "comercio",
-    "lat": 38.5743621,
-    "lng": -28.6182931,
-    "address": "Estrada Regional 1-1 17, Pedro Miguel, 9900-429",
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.minimercado.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o Minimercado",
-    "email_mensagem": "Olá Minimercado, durante a análise do seu site, verifiquei que não tem um sistema de marcações online, o que pode estar a afetar negativamente o seu negócio. A implementação de ferramentas como o WhatsApp Business e a criação de perfis em redes sociais podem ajudar a aumentar a visibilidade e o contacto com os clientes. Gostaria de discutir como posso ajudar a melhorar a presença digital do seu negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se que o Minimercado perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online e outras ferramentas de contacto. Além disso, a falta de presença em redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita estimada em 500-1000 euros por mês."
-  },
-  {
     "id": "osm_node_5688008001",
     "name": "Continente Modelo",
     "category": "comercio",
@@ -11886,43 +11216,6 @@
       "Não disponibilidade de formulário de contacto ou email"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes potenciais por mês. A falta de presença em redes sociais também pode estar a limitar a visibilidade do negócio."
-  },
-  {
-    "id": "osm_node_2812118056",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 38.5291601,
-    "lng": -28.6316729,
-    "address": "Estrada Príncipe Alberto do Mónaco, Horta (Angústias), 9900-038",
-    "municipality": "Sao Miguel",
-    "phone": "+351 292101015",
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para MO",
-    "email_mensagem": "Olá MO, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar clientes potenciais. Além disso, a ausência de WhatsApp Business e redes sociais também pode estar a limitar a visibilidade do seu negócio. Gostaria de discutir como podemos melhorar a presença digital da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não detecção de redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes potenciais. A não detecção de redes sociais também pode estar a limitar a visibilidade do negócio."
   },
   {
     "id": "osm_way_389444910",
@@ -12215,43 +11508,6 @@
       "Não disponibilidade de formulário de contacto ou email"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a não presença em redes sociais pode estar a afastar potenciais clientes. A perda total de receita pode ascender a 500-1000 euros por mês."
-  },
-  {
-    "id": "osm_node_9861381351",
-    "name": "O Spot",
-    "category": "restaurantes",
-    "lat": 38.6407717,
-    "lng": -27.9677583,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.ospot.com",
-    "whatsapp": null,
-    "score": 50,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para O Spot",
-    "email_mensagem": "Olá O Spot, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente o número de clientes. Além disso, a falta de presença nas redes sociais e a inexistência de formulários de contacto podem estar a limitar o potencial do seu negócio. Gostaria de discutir possíveis soluções para melhorar a sua presença digital e aumentar as oportunidades de negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Inexistência de redes sociais e formulários de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e ausência de presença nas redes sociais. Além disso, a inexistência de formulários de contacto e WhatsApp Business pode resultar em mais 5-10 oportunidades perdidas por mês."
   },
   {
     "id": "osm_node_615075848",
@@ -16051,43 +15307,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business e redes sociais pode resultar em uma perda adicional de 5-10 oportunidades de venda por mês."
   },
   {
-    "id": "osm_node_1821485543",
-    "name": "Arco 8",
-    "category": "restaurantes",
-    "lat": 37.7350674,
-    "lng": -25.6818676,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "arco8.blogspot.pt",
-    "whatsapp": null,
-    "score": 45,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": false,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_ssl",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Arco 8",
-    "email_mensagem": "Olá Arco 8, descobri que o seu site não tem um sistema de marcações online, o que pode estar afetando a quantidade de clientes que você recebe. Além disso, a ausência de WhatsApp Business e redes sociais pode estar limitando a visibilidade do seu negócio. Gostaria de discutir como podemos melhorar a presença digital do Arco 8 e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não tem redes sociais detectadas"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar afetando a visibilidade e o engajamento do negócio. Isso pode resultar em uma perda de receita de 500-1000 euros por mês."
-  },
-  {
     "id": "osm_node_10156951179",
     "name": "The Gin Library",
     "category": "restaurantes",
@@ -16359,42 +15578,6 @@
     "impacto": "Estima-se que a falta de sistema de marcações online e outros meios de comunicação eficazes possa resultar em 10-15 marcações perdidas por mês, o que pode representar uma perda de receita significativa. Além disso, a não utilização de WhatsApp Business e a falta de email de contacto visível podem afetar negativamente a experiência do cliente e a capacidade de resposta da empresa."
   },
   {
-    "id": "osm_node_5569886971",
-    "name": "Hertz",
-    "category": "automovel",
-    "lat": 37.7494855,
-    "lng": -25.7099258,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.hertz.pt/rentacar/reservation",
-    "whatsapp": null,
-    "score": 45,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria para Hertz Açores",
-    "email_mensagem": "Olá Hertz, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afetar negativamente a sua receita. Recomendo a implementação de um sistema de marcações online para melhorar a experiência do cliente e aumentar as reservas. Além disso, a utilização do WhatsApp Business e a criação de perfis em redes sociais podem ajudar a aumentar a visibilidade e a atrair mais clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais detectadas",
-      "Não disponibilidade de email de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A ausência de redes sociais detectadas também limita a visibilidade da empresa."
-  },
-  {
     "id": "osm_node_5569892942",
     "name": "Wayzor",
     "category": "automovel",
@@ -16460,79 +15643,6 @@
       "Não disponibilidade de email de contacto para esclarecimentos"
     ],
     "impacto": "Estima-se uma perda de 10-15 visitas/mês devido à falta de canais de comunicação eficazes. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês, considerando uma média de 50 euros por visita."
-  },
-  {
-    "id": "osm_node_6459489378",
-    "name": "Paulo",
-    "category": "restaurantes",
-    "lat": 38.7391115,
-    "lng": -27.0723859,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "paulo.pt",
-    "whatsapp": null,
-    "score": 45,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para o Seu Negócio",
-    "email_mensagem": "Olá Paulo, após uma análise detalhada do seu site e presença online, verifiquei que falta um sistema de marcações online, o que pode estar a afetar negativamente o seu negócio. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar as marcações e receita. Por favor, não hesite em contactar-me para mais informações.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais e email de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_4187517791",
-    "name": "MO",
-    "category": "comercio",
-    "lat": 38.6635075,
-    "lng": -27.2069642,
-    "address": "Rua do Cambalim 116, Angra do Heroísmo, 9700-037",
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "mo.pt",
-    "whatsapp": null,
-    "score": 45,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para MO",
-    "email_mensagem": "Olá MO, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar potenciais clientes. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a limitar a sua visibilidade. Gostaria de discutir como posso ajudar a melhorar a sua presença digital e aumentar as suas receitas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Não detecção de redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita de 500-1000 euros por mês."
   },
   {
     "id": "osm_way_1371346156",
@@ -16606,43 +15716,6 @@
       "Falta de email de contacto para comunicação direta"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode resultar em uma perda adicional de 5-10 oportunidades de comunicação com clientes por mês."
-  },
-  {
-    "id": "osm_node_5554936281",
-    "name": "Meta",
-    "category": "comercio",
-    "lat": 38.5336634,
-    "lng": -28.5242122,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "meta.pt",
-    "whatsapp": null,
-    "score": 45,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para a Meta",
-    "email_mensagem": "Olá Meta, durante a análise do seu site, verifiquei que o mesmo está desatualizado e não apresenta um sistema de marcações online, o que pode estar a afetar a sua capacidade de atrair novos clientes. Recomendo a implementação de um sistema de marcações online e a criação de perfis em redes sociais para melhorar a visibilidade e a interação com os clientes. Além disso, a utilização do WhatsApp Business pode ser uma ferramenta útil para comunicação com os clientes. Estou à disposição para discutir estas sugestões em mais detalhe.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais",
-      "Site desatualizado e com conteúdo padrão"
-    ],
-    "impacto": "Estima-se que a Meta perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online e presença em redes sociais. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes potenciais. A falta de atualização do site também pode estar a afetar a credibilidade da empresa."
   },
   {
     "id": "osm_node_2811505375",
@@ -17758,41 +16831,6 @@
       "Presença insuficiente em redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A presença limitada em redes sociais também reduz a visibilidade do negócio."
-  },
-  {
-    "id": "osm_node_11103482180",
-    "name": "O Luís",
-    "category": "restaurantes",
-    "lat": 38.5306178,
-    "lng": -28.5331439,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 919 624 077",
-    "email": null,
-    "website": "oluis.pt",
-    "whatsapp": null,
-    "score": 42,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria para o Restaurante O Luís",
-    "email_mensagem": "Olá O Luís, descobri que o seu restaurante não tem um sistema de reservas online, o que pode estar a afetar negativamente o número de clientes. Além disso, a falta de WhatsApp Business e email de contacto pode estar a limitar a comunicação com os clientes. Gostaria de discutir como posso ajudar a melhorar a presença digital do seu restaurante.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Ausência de WhatsApp Business para comunicação com clientes",
-      "Não disponibilidade de email de contacto para esclarecimento de dúvidas"
-    ],
-    "impacto": "Estima-se que o Restaurante O Luís perca cerca de 15-20 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação, resultando em uma perda adicional de 5-10 potenciais clientes por mês."
   },
   {
     "id": "osm_node_5784896953",
@@ -20348,39 +19386,6 @@
       "Ausência de email de contacto"
     ],
     "impacto": "Estima-se uma perda de 15-20 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A ausência de email de contacto também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
-    "id": "osm_node_9799290148",
-    "name": "Click",
-    "category": "comercio",
-    "lat": 38.6557241,
-    "lng": -27.2190749,
-    "address": "Rua da Sé",
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "info@click.pt",
-    "website": "click.pt",
-    "whatsapp": null,
-    "score": 42,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_mobile"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o Click",
-    "email_mensagem": "Olá Click, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar potenciais clientes. Além disso, a não utilização do WhatsApp Business e a presença insuficiente em redes sociais também podem estar a limitar a visibilidade do negócio. Gostaria de discutir como posso ajudar a melhorar a presença online do Click.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Presença insuficiente em redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem esta via de comunicação. A presença insuficiente em redes sociais também pode estar a limitar a visibilidade do negócio."
   },
   {
     "id": "osm_node_9806987812",
@@ -23921,39 +22926,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A não utilização de redes sociais pode estar a limitar a visibilidade e o alcance do negócio."
   },
   {
-    "id": "osm_node_9153430120",
-    "name": "SLB",
-    "category": "restaurantes",
-    "lat": 37.7160695,
-    "lng": -25.4325808,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.slb.com",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para SLB",
-    "email_mensagem": "Olá SLB, durante a análise do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. A implementação de um sistema de marcações online pode ajudar a aumentar a eficiência e a reduzir a perda de receita. Estou disponível para discutir esta questão mais a fundo e explorar outras oportunidades de melhoria digital para a sua empresa.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de formulário de contacto ou email"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes potenciais que preferem essa forma de contacto. A falta de formulário de contacto ou email também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
     "id": "osm_node_9153430144",
     "name": "Café Central",
     "category": "restaurantes",
@@ -24535,40 +23507,6 @@
     "impacto": "Estima-se que a falta de sistema de marcações online e outros meios de contacto possa resultar em 10-15 oportunidades de venda perdidas por mês, o que pode representar uma perda de receita de 500-1000 euros por mês."
   },
   {
-    "id": "osm_node_2364164272",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.8325876,
-    "lng": -25.6882791,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "spar.pt",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para Spar",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afetar negativamente a experiência do cliente. Recomendo a implementação de um sistema de marcações online para melhorar a eficiência e aumentar as oportunidades de negócio. Além disso, a utilização de WhatsApp Business e a disponibilização de um email ou formulário de contacto visível podem ajudar a aumentar a interação com os clientes e melhorar a experiência geral.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem email ou formulário de contacto visível"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de email ou formulário de contacto visível também pode estar a limitar as oportunidades de negócio."
-  },
-  {
     "id": "osm_node_6724685062",
     "name": "Resendes",
     "category": "comercio",
@@ -24602,40 +23540,6 @@
       "Não tem presença em redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A falta de presença em redes sociais também pode estar a limitar a visibilidade do negócio."
-  },
-  {
-    "id": "osm_node_10808143056",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.8306989,
-    "lng": -25.3527061,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "spar.pt",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para Spar",
-    "email_mensagem": "Olá Spar, após uma análise ao vosso site e presença online, verifiquei que falta um sistema de marcações online, o que pode estar a afastar clientes. Sugiro a implementação de um sistema de marcações online e a utilização de WhatsApp Business para melhorar a comunicação com os clientes. Além disso, a adição de um formulário de contacto ou email visível pode facilitar o contacto com potenciais parceiros ou clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa via de comunicação. A falta de formulário de contacto ou email visível também pode estar a dificultar o contacto com potenciais parceiros ou clientes."
   },
   {
     "id": "osm_node_5540385222",
@@ -25540,244 +24444,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a não presença em redes sociais pode estar a afastar potenciais clientes."
   },
   {
-    "id": "osm_node_1115827126",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.8203706,
-    "lng": -25.414202,
-    "address": "Rua do Ramal 1D, São Brás, 9625-511",
-    "municipality": "Sao Miguel",
-    "phone": "201938586",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/267",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Spar São Brás",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não tem um sistema de marcações online, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Gostaria de discutir formas de melhorar a sua presença digital e aumentar as suas vendas. Por favor, não hesite em contactar-me para saber mais sobre como posso ajudar.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de email ou formulário de contacto também pode estar a limitar a capacidade de resposta a perguntas e pedidos de informação dos clientes."
-  },
-  {
-    "id": "osm_node_1950017871",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.735344,
-    "lng": -25.2985384,
-    "address": "Rua Doutor Frederico Moniz Pereira 14A, Ribeira Quente, 9675-174",
-    "municipality": "Povoacoes",
-    "phone": "+351 296 588 117",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/307",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o Spar Ribeira Quente",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afastar potenciais clientes. Além disso, a não utilização do WhatsApp Business e a falta de email ou formulário de contacto podem estar a perder oportunidades de negócio. Gostaria de discutir como podemos melhorar a presença digital do seu negócio e aumentar as oportunidades de contacto com os clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não disponibilidade de email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes por mês. A falta de email ou formulário de contacto pode estar a perder mais 5 oportunidades de contacto por mês."
-  },
-  {
-    "id": "osm_node_2991514126",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.7732497,
-    "lng": -25.3089007,
-    "address": "Furnas, 9675-055",
-    "municipality": "Povoacoes",
-    "phone": "+351 296 584 446",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/305",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria para Spar Furnas",
-    "email_mensagem": "Olá Spar, após uma análise ao seu site e presença online, verifiquei que falta um sistema de marcações online, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Recomendo a implementação de um sistema de marcações online e a utilização de WhatsApp Business para melhorar a comunicação com os clientes. Além disso, sugiro a adição de um formulário de contacto ou email visível para facilitar a comunicação com potenciais clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de formulário de contacto ou email visível também pode estar a dificultar a comunicação com potenciais clientes."
-  },
-  {
-    "id": "osm_node_4343464596",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.832291,
-    "lng": -25.1468561,
-    "address": "Praça da República 7, Nordeste, 9630-141",
-    "municipality": "Nordeste",
-    "phone": "+351 296 242 421",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/306",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para Spar Nordeste",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afetar negativamente a sua receita. Recomendo a implementação de um sistema de marcações online e a ativação do WhatsApp Business para melhorar a experiência do cliente e aumentar as oportunidades de contacto. Estou disponível para discutir como posso ajudar a melhorar a presença digital da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para contacto rápido",
-      "Dificuldade em encontrar informações de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode resultar em 5-10 oportunidades de contacto perdidas por mês. Isso pode representar uma perda de receita de 500-1000 euros por mês."
-  },
-  {
-    "id": "osm_node_11401477578",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.8028971,
-    "lng": -25.614563,
-    "address": "Avenida da Paz 37, Ponta Delgada, 9500-089",
-    "municipality": "Ponta Delgada",
-    "phone": "+351 296 242 890",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/270",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o Spar de Ponta Delgada",
-    "email_mensagem": "Olá Spar, durante a nossa análise, verificámos que o seu site não tem um sistema de marcações online, o que pode estar a afastar clientes. Recomendamos a implementação deste sistema para aumentar as vendas. Além disso, a utilização do WhatsApp Business e a disponibilidade de email ou formulário de contacto também podem ser benéficas para o seu negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não disponibilidade de email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem esta forma de contacto. A falta de email ou formulário de contacto também pode estar a limitar as oportunidades de venda."
-  },
-  {
-    "id": "osm_node_11963394988",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.7402092,
-    "lng": -25.6706933,
-    "address": "Rua Marquês da Praia e de Monforte 2, Ponta Delgada, 9500-089",
-    "municipality": "Ponta Delgada",
-    "phone": "+351 296 305 501",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/271",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Spar Ponta Delgada",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não tem um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar as suas vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem formulário de contacto ou email visível"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de um formulário de contacto ou email visível também pode estar a dificultar a comunicação com potenciais clientes."
-  },
-  {
-    "id": "osm_way_570787960",
-    "name": "Spar",
-    "category": "comercio",
-    "lat": 37.769423,
-    "lng": -25.3185148,
-    "address": "Rua da Águas Auente 15, Furnas, 9675-040",
-    "municipality": "Povoacoes",
-    "phone": "+351 296 584 973",
-    "email": null,
-    "website": "www.spar.pt/loja/detalhe/303",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Spar Furnas",
-    "email_mensagem": "Olá Spar, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afastar potenciais clientes. A implementação de um sistema de marcações online e a utilização do WhatsApp Business podem ajudar a aumentar a visibilidade e a atracção de clientes. Estou disponível para discutir como posso ajudar a melhorar a presença digital da sua loja.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não disponibilidade de email ou formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem esta via de comunicação. A falta de email ou formulário de contacto também pode estar a limitar a capacidade de resposta a pedidos de informação ou reclamações."
-  },
-  {
     "id": "osm_way_677146068",
     "name": "Q.B. - Food Court",
     "category": "restaurantes",
@@ -25882,39 +24548,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de um formulário de contacto ou email visível também pode estar a dificultar a comunicação com potenciais clientes."
   },
   {
-    "id": "osm_node_10247890212",
-    "name": "KFC",
-    "category": "restaurantes",
-    "lat": 37.7471516,
-    "lng": -25.6751237,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 934 899 198",
-    "email": null,
-    "website": "www.kfc.pt/encontra-a-tua-kfc/kfc-acores",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidades de Melhoria para o KFC Açores",
-    "email_mensagem": "Olá KFC, após uma análise detalhada do seu site e presença online, identifiquei algumas oportunidades de melhoria que poderiam aumentar a sua visibilidade e atrair mais clientes. A implementação de um sistema de marcações online, a utilização do WhatsApp Business e a adição de um formulário de contacto no site poderiam ser grandes passos para melhorar a experiência do cliente e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de formulário de contacto no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa via de comunicação. A ausência de formulário de contacto no site também pode estar a limitar a capacidade de captação de leads."
-  },
-  {
     "id": "osm_node_10247890242",
     "name": "Wok to Walk",
     "category": "restaurantes",
@@ -25946,41 +24579,6 @@
       "Não tem formulário de contacto ou email visível no site"
     ],
     "impacto": "Estima-se que a falta de sistema de marcações online e outras ferramentas de comunicação possa resultar em 10-15 marcações perdidas por mês, o que pode afetar negativamente a receita do negócio. Além disso, a ausência de um formulário de contacto ou email visível pode dificultar a comunicação com potenciais clientes, levando a uma perda adicional de 5-10 oportunidades de negócio por mês."
-  },
-  {
-    "id": "osm_node_12020707822",
-    "name": "Bar",
-    "category": "restaurantes",
-    "lat": 37.7478027,
-    "lng": -25.6694044,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "hello@fruits.co",
-    "website": "bar.pt/en",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o Bar",
-    "email_mensagem": "Olá Bar, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar clientes potenciais. Além disso, a não utilização do WhatsApp Business e a falta de presença em redes sociais também podem estar a limitar a visibilidade do negócio. Gostaria de discutir como posso ajudar a melhorar a presença online do seu negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não presença em redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A falta de presença em redes sociais também pode estar a limitar a visibilidade do negócio."
   },
   {
     "id": "osm_node_12921450800",
@@ -26188,41 +24786,6 @@
       "Não tem presença em redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita de 500-1000 euros por mês."
-  },
-  {
-    "id": "osm_node_5768226388",
-    "name": "Bella",
-    "category": "comercio",
-    "lat": 37.8321334,
-    "lng": -25.146561,
-    "address": "Praça da República, Nordeste, 9630-141",
-    "municipality": "Nordeste",
-    "phone": null,
-    "email": "hello@fruits.co",
-    "website": "bella.pt/en",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para Bella",
-    "email_mensagem": "Olá Bella, durante a análise do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Gostaria de discutir possíveis soluções para melhorar a sua presença digital e aumentar as oportunidades de negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem presença em redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês."
   },
   {
     "id": "osm_node_10247888702",
@@ -26466,39 +25029,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e formulário de contacto pode resultar em mais 5-10 oportunidades de negócio perdidas por mês."
   },
   {
-    "id": "osm_way_1005572701",
-    "name": "KFC",
-    "category": "restaurantes",
-    "lat": 38.6686611,
-    "lng": -27.2157137,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 932 023 132",
-    "email": null,
-    "website": "www.kfc.pt/encontra-a-tua-kfc/kfc-angra-do-heroismo",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o KFC Angra do Heroísmo",
-    "email_mensagem": "Olá KFC, durante a auditoria realizada ao seu site, verificámos que não existe um sistema de marcações online, o que pode estar a afastar potenciais clientes. Além disso, a ausência de WhatsApp Business e de um formulário de contacto no site também podem estar a limitar a capacidade de resposta a perguntas e pedidos de informação dos clientes. Estamos disponíveis para discutir formas de melhorar a presença digital do seu negócio e aumentar a sua visibilidade online.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Falta de formulário de contacto no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A falta de formulário de contacto no site também pode estar a limitar a capacidade de resposta a perguntas e pedidos de informação dos clientes."
-  },
-  {
     "id": "osm_node_9807000752",
     "name": "Memória",
     "category": "alojamento",
@@ -26673,41 +25203,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business e redes sociais pode estar a afastar potenciais clientes. Isso pode resultar em uma perda de receita estimada em 500-1000 euros por mês."
   },
   {
-    "id": "osm_node_6459489375",
-    "name": "VET",
-    "category": "saude",
-    "lat": 38.7384734,
-    "lng": -27.0695266,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "seu.nome@vet.pt",
-    "website": "vet.pt",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o seu negócio",
-    "email_mensagem": "Olá VET, durante a nossa auditoria, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afastar potenciais clientes. A implementação de um sistema de marcações online e a utilização do WhatsApp Business podem ser grandes oportunidades para aumentar a sua visibilidade e atrair mais clientes. Estou disponível para discutir estas oportunidades em mais detalhe.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Ausência de redes sociais"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e à não utilização do WhatsApp Business. Além disso, a ausência de redes sociais pode estar a afastar potenciais clientes."
-  },
-  {
     "id": "osm_way_768102257",
     "name": "Pastelaria O Forno",
     "category": "comercio",
@@ -26847,39 +25342,6 @@
       "Inexistência de redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 visitas/mês devido à falta de marcações online e ausência de presença nas redes sociais. Isso pode resultar em uma perda de receita de cerca de 500-750 euros/mês."
-  },
-  {
-    "id": "osm_node_10790583203",
-    "name": "KFC",
-    "category": "restaurantes",
-    "lat": 38.5297881,
-    "lng": -28.6322929,
-    "address": "Estrada Príncipe Alberto do Mónaco, Horta (Angústias), 9900-038",
-    "municipality": "Sao Miguel",
-    "phone": "+351 932 052 182",
-    "email": null,
-    "website": "www.kfc.pt/encontra-a-tua-kfc/kfc-horta",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o KFC Horta",
-    "email_mensagem": "Olá KFC, durante a nossa análise ao seu site, verificámos que não existe um sistema de marcações online, o que pode estar a afastar potenciais clientes. Além disso, a não utilização do WhatsApp Business e a falta de formulário de contacto ou email também podem estar a limitar a capacidade de resposta a perguntas e pedidos de informação dos clientes. Gostaríamos de discutir possíveis soluções para melhorar a experiência do cliente e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Não disponibilidade de formulário de contacto ou email"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de contacto. A falta de formulário de contacto ou email também pode estar a limitar a capacidade de resposta a perguntas e pedidos de informação dos clientes."
   },
   {
     "id": "osm_node_3805411422",
@@ -27189,39 +25651,6 @@
       "Não presença em redes sociais"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A ausência em redes sociais também limita a visibilidade e o alcance do negócio."
-  },
-  {
-    "id": "osm_way_1263019178",
-    "name": "Go Gym",
-    "category": "ginasios",
-    "lat": 38.5456885,
-    "lng": -28.630581,
-    "address": "Estrada 5 de Outubro 7A, Horta (Conceição), 9900-093",
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "gogym.pt",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Go Gym",
-    "email_mensagem": "Olá Go Gym, durante a análise do seu site, verifiquei que não tem um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Recomendo a implementação de um sistema de marcações online para melhorar a experiência do cliente e aumentar as conversões. Além disso, a utilização de WhatsApp Business e a disponibilização de um email ou formulário de contacto visível podem ajudar a melhorar a comunicação com os clientes e potenciais clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem email ou formulário de contacto visível"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar potenciais clientes que preferem essa plataforma para contatar empresas. A falta de email ou formulário de contacto visível também pode estar a dificultar o contacto com o ginásio."
   },
   {
     "id": "osm_node_2824326981",
@@ -28894,43 +27323,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A ausência em redes sociais também limita a visibilidade e o alcance do negócio."
   },
   {
-    "id": "osm_node_5832596234",
-    "name": "Padaria",
-    "category": "comercio",
-    "lat": 39.6721393,
-    "lng": -31.1121576,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.padaria.pt",
-    "whatsapp": null,
-    "score": 40,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": false,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_redes_sociais",
-      "sem_email",
-      "sem_mobile",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Crescimento Digital para a Padaria do Corvo",
-    "email_mensagem": "Olá Padaria,\n\nCompreendemos a importância de otimizar a sua presença online. A nossa análise revelou que o website apresenta erros persistentes, impactando a experiência do utilizador e a visibilidade da sua padaria. Além disso, a ausência de canais digitais limita o seu alcance e potencial de crescimento.\n\nRecomendamos urgentemente a implementação de um sistema de marcações online, a criação de perfis nas redes sociais e a utilização de ferramentas de email marketing para fortalecer o relacionamento com os seus clientes. Acreditamos que estas ações podem impulsionar significativamente as suas vendas.",
-    "problemas": [
-      "Website com erros de acesso persistentes, impedindo o carregamento da página de contacto e potencialmente afetando a experiência do utilizador.",
-      "Ausência total de presença online: sem sistema de marcações, sem WhatsApp Business, sem redes sociais ou formulário de contacto.",
-      "Velocidade do website lenta (0.48s), impactando negativamente a experiência do utilizador e o SEO."
-    ],
-    "impacto": "A falta de um sistema de marcações online pode resultar na perda de 10-15 marcações por mês, especialmente em épocas de maior movimento. A ausência de canais digitais limita significativamente a capacidade de alcançar novos clientes e fidelizar os existentes. A velocidade do site, embora aceitável, pode afastar potenciais clientes que esperam uma experiência online rápida e intuitiva."
-  },
-  {
     "id": "osm_node_3876930851",
     "name": "Bomba de Gasolina",
     "category": "automovel",
@@ -29847,41 +28239,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A falta de menu digital actualizado pode levar a uma perda de 5-10% nas vendas."
   },
   {
-    "id": "osm_node_5586084321",
-    "name": "Faia",
-    "category": "restaurantes",
-    "lat": 38.405008,
-    "lng": -28.0737731,
-    "address": "Rua Feteira de Baixo, 9930-028",
-    "municipality": "Sao Miguel",
-    "phone": "+351 292 701066",
-    "email": null,
-    "website": "www.faia.com",
-    "whatsapp": null,
-    "score": 35,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Faia",
-    "email_mensagem": "Olá Faia, descobri que o seu site não tem um sistema de reservas online, o que pode estar a afastar clientes potenciais. Além disso, a falta de WhatsApp Business e email de contacto visível também pode estar a dificultar a comunicação com os clientes. Gostaria de discutir como podemos melhorar a presença digital da Faia e aumentar as marcações e a receita.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Não utiliza WhatsApp Business",
-      "Não tem email de contacto visível",
-      "Site desactualizado e não adaptado ao sector de restaurantes"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a não utilização de WhatsApp Business pode estar a afastar clientes potenciais. A falta de email de contacto visível também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
     "id": "osm_node_5793785954",
     "name": "Ponto de Encontro",
     "category": "restaurantes",
@@ -30287,40 +28644,6 @@
       "Não tem email de contacto visível no site"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes por mês. A ausência de um email de contacto visível pode estar a perder mais 2-5 oportunidades de contacto por mês."
-  },
-  {
-    "id": "osm_node_5580001070",
-    "name": "Sixt",
-    "category": "automovel",
-    "lat": 37.7495918,
-    "lng": -25.7102775,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": null,
-    "website": "www.sixt.pt",
-    "whatsapp": null,
-    "score": 35,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_email",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para Sixt",
-    "email_mensagem": "Olá Sixt, durante a análise do seu site, verifiquei que falta um sistema de marcações online, o que pode estar a afetar negativamente a sua taxa de conversão. Recomendo a implementação de um sistema de marcações online para melhorar a experiência do cliente e aumentar as reservas. Além disso, a integração do WhatsApp Business pode ser benéfica para uma comunicação mais eficaz com os clientes. Estou à disposição para discutir estas oportunidades de melhoria em mais detalhe.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para comunicação eficaz",
-      "Não disponibilidade de email de contacto para esclarecimentos"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode levar a uma perda adicional de 5-10 oportunidades de comunicação por mês. Isso pode resultar em uma perda de receita estimada em 500-1000 euros por mês."
   },
   {
     "id": "osm_way_306883551",
@@ -31809,70 +30132,6 @@
       "Não tem formulários de contato no site"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. A ausência de formulários de contato no site também pode estar a dificultar o contacto com potenciais clientes."
-  },
-  {
-    "id": "osm_node_4187688191",
-    "name": "Farmácia",
-    "category": "saude",
-    "lat": 37.7603469,
-    "lng": -25.7043472,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "geral@farmacia.pt",
-    "website": "farmacia.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Farmácia",
-    "email_mensagem": "Olá Farmácia, durante a nossa análise, verificamos que não têm um sistema de marcações online, o que pode estar a afetar negativamente a sua receita. Recomendamos a implementação de um sistema de marcações online e a utilização do WhatsApp Business para melhorar a comunicação com os clientes. Isso pode ajudar a aumentar a receita e melhorar a experiência do cliente.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contato"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Isso pode resultar em uma perda de receita de 500-750€ por mês."
-  },
-  {
-    "id": "osm_node_4190284394",
-    "name": "Farmácia",
-    "category": "saude",
-    "lat": 37.8330308,
-    "lng": -25.3898495,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "geral@farmacia.pt",
-    "website": "farmacia.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas"
-    ],
-    "email_assunto": "Oportunidades de melhoria para a Farmácia",
-    "email_mensagem": "Olá Farmácia, durante a nossa análise, verificamos que o seu site não tem um sistema de marcações online, o que pode estar a afetar negativamente a sua receita. Além disso, a não utilização do WhatsApp Business também pode estar a limitar as oportunidades de venda. Gostaríamos de discutir formas de melhorar a sua presença online e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a dificuldade em encontrar informações de contato no site pode levar a uma perda adicional de 5-10 oportunidades de venda por mês."
   },
   {
     "id": "osm_node_10247888706",
@@ -33849,107 +32108,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e à não utilização de WhatsApp Business. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
   },
   {
-    "id": "osm_node_5463097723",
-    "name": "Bagga",
-    "category": "restaurantes",
-    "lat": 37.7603059,
-    "lng": -25.701838,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351213928400",
-    "email": "apoiocliente@continente.pt",
-    "website": "bagga.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Bagga",
-    "email_mensagem": "Olá Bagga, durante a análise do seu site, verifiquei que não há um sistema de marcações online disponível, o que pode estar a afastar potenciais clientes. Além disso, a falta de WhatsApp Business e formulários de contato no site também podem estar a limitar a capacidade de comunicação com os clientes. Gostaria de discutir como podemos melhorar a presença digital da Bagga e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Inexistência de formulários de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_5823873475",
-    "name": "Bagga",
-    "category": "restaurantes",
-    "lat": 37.8342298,
-    "lng": -25.6868231,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351213928400",
-    "email": "apoiocliente@continente.pt",
-    "website": "bagga.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Bagga",
-    "email_mensagem": "Olá Bagga, descobri que o seu site não tem um sistema de marcações online, o que pode estar a afetar a sua receita. Sugiro implementar um sistema de marcações online e utilizar WhatsApp Business para melhorar a experiência do cliente e aumentar as vendas. Estou à disposição para discutir como posso ajudar.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem formulários de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização de WhatsApp Business. Isso pode resultar em uma perda de receita de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_6789398870",
-    "name": "Melo",
-    "category": "restaurantes",
-    "lat": 37.8200717,
-    "lng": -25.6617691,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "firstname@melo.com",
-    "website": "melo.com",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Melo",
-    "email_mensagem": "Olá Melo, durante a auditoria do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar a sua capacidade de gerar novas oportunidades de negócio. Gostaria de discutir como podemos melhorar a presença digital do seu negócio e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem telefone visível no site"
-    ],
-    "impacto": "Estima-se que a falta de sistema de marcações online e a não utilização do WhatsApp Business possam resultar em 10-15 marcações perdidas por mês, o que pode afetar negativamente a receita do negócio."
-  },
-  {
     "id": "osm_node_7157141497",
     "name": "Bom appetit",
     "category": "restaurantes",
@@ -34518,39 +32676,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações de serviços por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa via de comunicação. A falta de preços visíveis no site pode levar a uma perda adicional de 5-10 potenciais clientes por mês."
   },
   {
-    "id": "osm_node_761227784",
-    "name": "Galp",
-    "category": "comercio",
-    "lat": 37.716284,
-    "lng": -25.4419964,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise do seu site, notámos que falta um sistema de marcações online e não está a utilizar o WhatsApp Business, o que pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Gostaríamos de discutir como podemos ajudar a melhorar a sua presença digital e aumentar as suas vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contato e localização claras"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a falta de informações de contato e localização claras pode levar a uma perda adicional de 5-10 clientes por mês."
-  },
-  {
     "id": "osm_node_5612363345",
     "name": "Sol Mar",
     "category": "comercio",
@@ -34584,38 +32709,6 @@
       "Site desatualizado e com poucas funcionalidades interativas"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes potenciais por mês. A desatualização do site pode estar a reduzir a confiança dos clientes e a afetar negativamente a imagem da marca."
-  },
-  {
-    "id": "osm_node_10247890246",
-    "name": "BP",
-    "category": "comercio",
-    "lat": 37.7457144,
-    "lng": -25.674663,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "281 366 200",
-    "email": "obsluga@bp.com",
-    "website": "www.bp.com/pt_pt/portugal/home.html",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para BP",
-    "email_mensagem": "Olá BP, durante a auditoria técnica do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar negativamente a sua receita. Além disso, a não utilização do WhatsApp Business também pode ser uma oportunidade perdida. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar as suas vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contacto e localização claras"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a falta de informações de contacto e localização claras pode levar a uma perda adicional de 5-10 clientes por mês."
   },
   {
     "id": "osm_way_166072908",
@@ -37998,74 +36091,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a dificuldade em encontrar informações de contato e encomendas online pode levar a uma perda adicional de 5-10 potenciais clientes por mês."
   },
   {
-    "id": "osm_node_4789912999",
-    "name": "Bagga",
-    "category": "restaurantes",
-    "lat": 37.7486276,
-    "lng": -25.6758405,
-    "address": "Rua da Juventude, Ponta Delgada, 9500-211",
-    "municipality": "Ponta Delgada",
-    "phone": "+351213976832",
-    "email": "apoiocliente@continente.pt",
-    "website": "bagga.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Bagga",
-    "email_mensagem": "Olá Bagga, durante a análise do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar negativamente a experiência do cliente e a perda de potenciais vendas. Recomendo a implementação de um sistema de marcações online para melhorar a eficiência e atractividade do seu negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Não tem formulário de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 200-300 euros por mês."
-  },
-  {
-    "id": "osm_node_5077332826",
-    "name": "Bagga",
-    "category": "restaurantes",
-    "lat": 37.7406809,
-    "lng": -25.6656002,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351213976832",
-    "email": "apoiocliente@continente.pt",
-    "website": "bagga.pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Bagga",
-    "email_mensagem": "Olá Bagga, durante a nossa análise do seu site e presença online, notámos que falta um sistema de marcações online, o que pode estar a afetar negativamente a sua receita. Recomendamos a implementação de um sistema de marcações online e a ativação do WhatsApp Business para melhorar a comunicação com os clientes e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para comunicação com clientes",
-      "Não existência de formulários de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
     "id": "osm_node_6498707689",
     "name": "Mr. Pizza",
     "category": "restaurantes",
@@ -38097,40 +36122,6 @@
       "Ausência de formulários de contato no site"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes potenciais por mês. A ausência de formulários de contato no site também pode estar a dificultar a comunicação com os clientes."
-  },
-  {
-    "id": "osm_node_10247890209",
-    "name": "h3",
-    "category": "restaurantes",
-    "lat": 37.747486,
-    "lng": -25.6752586,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "apoioaocliente@h3.com",
-    "website": "www.h3.com",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para h3",
-    "email_mensagem": "Olá h3, durante a nossa análise, descobri que a falta de um sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente a sua receita. Gostaria de discutir como podemos melhorar a presença digital da sua empresa e aumentar as marcações e vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contacto, como telefones"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online e dificuldade em encontrar informações de contacto. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem esta forma de comunicação."
   },
   {
     "id": "osm_node_10247890224",
@@ -38629,39 +36620,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações/mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de comunicação com clientes por mês."
   },
   {
-    "id": "osm_node_692337289",
-    "name": "GALP",
-    "category": "automovel",
-    "lat": 37.7497,
-    "lng": -25.6497146,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para GALP",
-    "email_mensagem": "Olá GALP, descobri que a falta de sistema de marcações online e não utilização do WhatsApp Business pode estar afetando negativamente a sua receita. Sugiro implementar essas ferramentas para melhorar a experiência do cliente e aumentar as vendas. Estou à disposição para discutir como posso ajudar.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Velocidade do site aceitável, mas pode ser melhorada"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Isso pode resultar em uma perda de receita de 500-1000€ por mês."
-  },
-  {
     "id": "osm_node_759526926",
     "name": "REPSOL",
     "category": "automovel",
@@ -38692,39 +36650,6 @@
       "Dificuldade em encontrar informações de contato"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A dificuldade em encontrar informações de contato pode levar a uma perda de 5-10 oportunidades de venda por mês."
-  },
-  {
-    "id": "osm_node_1313209709",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.7207355,
-    "lng": -25.5129566,
-    "address": "Rua Manuel Augusto de Amaral, Água de Pau, 9560-236",
-    "municipality": "Ribeira Grande",
-    "phone": "+351 296 913091",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site, notei a falta de um sistema de marcações online, o que pode estar afetando a conversão de visitantes em clientes. Recomendo a implementação de um sistema de marcações online e a ativação do WhatsApp Business para melhorar a comunicação com os clientes e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business para comunicação com clientes",
-      "Limitações no site para converter visitantes em clientes"
-    ],
-    "impacto": "Estima-se uma perda de 15-20 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar afetando a capacidade de atendimento ao cliente, resultando em perda adicional de receita."
   },
   {
     "id": "osm_node_1377241170",
@@ -38759,39 +36684,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A dificuldade em encontrar informações de contato pode estar a gerar uma perda adicional de 5-10 oportunidades de negócio por mês."
   },
   {
-    "id": "osm_node_1793857520",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.7710561,
-    "lng": -25.2951607,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 296 584555",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, identificamos oportunidades de melhoria para aumentar a eficiência e atração de clientes. A falta de um sistema de marcações online e a não utilização do WhatsApp Business são pontos críticos que podem estar afetando negativamente a sua receita. Gostaríamos de discutir como podemos ajudar a implementar soluções para esses problemas e melhorar a sua presença digital.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Não utilização do WhatsApp Business para comunicação com clientes",
-      "Limitações no site para facilitar a navegação e encontrar informações sobre produtos e serviços"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de comunicação por mês. Isso pode representar uma perda anual de receita de cerca de 2.400 a 4.320 euros."
-  },
-  {
     "id": "osm_node_1795595032",
     "name": "Repsol",
     "category": "automovel",
@@ -38824,39 +36716,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A falta de telefone visível no site também pode estar a dificultar o contacto com a empresa."
   },
   {
-    "id": "osm_node_1938345691",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.8166314,
-    "lng": -25.5942372,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, identificamos oportunidades de melhoria que podem aumentar a eficiência e atração de clientes. A implementação de um sistema de marcações online e a utilização do WhatsApp Business podem ser grandes passos para melhorar a experiência do usuário e aumentar as conversões. Gostaríamos de discutir como podemos ajudar a Galp a aproveitar essas oportunidades e melhorar sua presença digital.",
-    "problemas": [
-      "Falta de sistema de marcações online para facilitar a interação com os clientes",
-      "Ausência de WhatsApp Business para atendimento rápido e personalizado",
-      "Limitações no site que não permitem uma experiência de usuário completa e eficaz"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de atendimento por mês."
-  },
-  {
     "id": "osm_node_1938374871",
     "name": "Repsol",
     "category": "automovel",
@@ -38887,170 +36746,6 @@
       "Dificuldade em encontrar informações de contato, como telefones e formulários de contato"
     ],
     "impacto": "Estima-se que a Repsol perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar afetando a capacidade de resposta rápida a dúvidas e solicitações de clientes, resultando em perda de receita."
-  },
-  {
-    "id": "osm_node_1948015771",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.8087999,
-    "lng": -25.5426831,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, descobri que a falta de sistema de marcações online e a ausência de WhatsApp Business podem estar a afetar negativamente a sua presença digital. Gostaria de discutir como podemos melhorar a sua presença online e aumentar a sua receita. Por favor, não hesite em contactar-me para saber mais.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Dificuldade em encontrar informações de contato"
-    ],
-    "impacto": "Estima-se que a Galp perca cerca de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750€ por mês."
-  },
-  {
-    "id": "osm_node_2364164264",
-    "name": "BP",
-    "category": "automovel",
-    "lat": 37.8314215,
-    "lng": -25.6870482,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "932 762216",
-    "email": "bpconsumer@bp.com",
-    "website": "www.bp.com/pt_pt/portugal/home.html",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": true,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para BP",
-    "email_mensagem": "Olá BP, durante a nossa análise, verificámos que a falta de um sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente a sua capacidade de atrair e reter clientes. Recomendamos a implementação dessas ferramentas para melhorar a experiência do cliente e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Limitações no formulário de contacto"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa via de comunicação. Isso pode resultar em uma perda adicional de 5-10 oportunidades de venda por mês."
-  },
-  {
-    "id": "osm_node_2397671918",
-    "name": "galp",
-    "category": "automovel",
-    "lat": 37.807494,
-    "lng": -25.7985491,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades Digitais para Galp",
-    "email_mensagem": "Olá galp, durante a análise do seu site e presença online, identificamos oportunidades para melhorar a interação com os clientes e aumentar as marcações. A implementação de um sistema de marcações online e a utilização do WhatsApp Business podem ser grandes aliados nesse sentido. Gostaria de discutir como podemos ajudar a Galp a aproveitar essas oportunidades.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Limitações na presença digital para interação com clientes"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês."
-  },
-  {
-    "id": "osm_node_3766081191",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.7475149,
-    "lng": -25.2442142,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, verifiquei que falta um sistema de marcações online e a utilização do WhatsApp Business, o que pode estar a afastar potenciais clientes. Sugiro a implementação destas ferramentas para melhorar a experiência do cliente e aumentar as marcações. Estou à disposição para discutir mais sobre estas oportunidades.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Velocidade do site aceitável, mas com potencial de melhoria"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Além disso, a velocidade do site, embora aceitável, pode afastar alguns potenciais clientes."
-  },
-  {
-    "id": "osm_node_4805557013",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.7531404,
-    "lng": -25.6343926,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, identifiquei oportunidades de melhoria para aumentar a eficiência e atrair mais clientes. A falta de um sistema de marcações online e a não utilização do WhatsApp Business são pontos críticos que podem ser melhorados. Gostaria de discutir como podemos trabalhar juntos para implementar soluções digitais que atendam às necessidades dos seus clientes e aumentem a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Não utilização do WhatsApp Business para comunicação com clientes",
-      "Limitações no site para facilitar a navegação e encontrar informações sobre produtos e serviços"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de comunicação por mês."
   },
   {
     "id": "osm_node_5255730173",
@@ -39115,39 +36810,6 @@
       "Site desatualizado e sem opções de compra online claras"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes potenciais. A falta de opções de compra online claras também pode estar a reduzir as vendas."
-  },
-  {
-    "id": "osm_node_10733333874",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 37.8627815,
-    "lng": -25.7075978,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar resultando em perdas de receita. Além disso, a falta de WhatsApp Business pode estar limitando o atendimento ao cliente. Gostaria de discutir como podemos melhorar a presença digital da sua empresa.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Ausência de WhatsApp Business para atendimento ao cliente",
-      "Limitações no site para conversão de leads em clientes"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode resultar em 5-10 oportunidades de atendimento ao cliente perdidas por mês."
   },
   {
     "id": "osm_node_10808143071",
@@ -40415,138 +38077,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
   },
   {
-    "id": "osm_node_2102551290",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.7498827,
-    "lng": -27.0950903,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, notei que falta um sistema de marcações online e a utilização do WhatsApp Business, o que pode estar a afetar a interação com os clientes e a receita. Gostaria de discutir como podemos melhorar a experiência do usuário e aumentar a eficiência da sua presença digital.",
-    "problemas": [
-      "Falta de sistema de marcações online para facilitar a interação com os clientes",
-      "Não utilização do WhatsApp Business para comunicação eficaz com os clientes",
-      "Limitações no site que não permitem uma experiência de usuário completa e eficiente"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações/mês devido à falta de sistema de marcações online e à não utilização do WhatsApp Business. Isso pode resultar em uma perda anual de receita de cerca de 120-180 marcações."
-  },
-  {
-    "id": "osm_node_2102553377",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.7313028,
-    "lng": -27.0655619,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise, verificámos que a falta de sistema de marcações online e a ausência de WhatsApp Business podem estar a afetar negativamente a sua presença digital. Gostaríamos de discutir como podemos ajudar a melhorar a sua presença online e aumentar a receita. Por favor, não hesite em contactar-nos para mais informações.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Dificuldade em encontrar informações de contato"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de 500-1000€ por mês."
-  },
-  {
-    "id": "osm_node_2102629085",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.7954558,
-    "lng": -27.2516969,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise, notámos que a falta de um sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente a sua receita. Gostaríamos de discutir possíveis soluções para melhorar a experiência do cliente e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Limitações no formulário de contato"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e à não utilização do WhatsApp Business. Isso pode resultar em uma perda de receita de 500-750€ por mês."
-  },
-  {
-    "id": "osm_node_2113497805",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.6608941,
-    "lng": -27.2336645,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise, verificámos que a falta de um sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente o seu negócio. Gostaríamos de discutir como podemos ajudar a melhorar a sua presença digital e aumentar as oportunidades de negócio.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Pouca visibilidade de preços e serviços no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda adicional de 5-10 oportunidades de negócio por mês."
-  },
-  {
     "id": "osm_node_3417351832",
     "name": "Repsol",
     "category": "automovel",
@@ -40577,39 +38107,6 @@
       "Site não apresenta opção de compra ou reserva de produtos online"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações/mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda adicional de 5-10 oportunidades de venda por mês."
-  },
-  {
-    "id": "osm_node_3450699161",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.7610588,
-    "lng": -27.0976839,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise, notámos que a falta de sistema de marcações online e a não utilização do WhatsApp Business podem estar a afetar negativamente o seu negócio. Gostaríamos de discutir como podemos ajudar a melhorar a sua presença digital e aumentar as oportunidades de contacto com os clientes.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Velocidade do site aceitável, mas pode ser melhorada"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês."
   },
   {
     "id": "osm_way_705286725",
@@ -41114,73 +38611,6 @@
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e preços não visíveis. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação."
   },
   {
-    "id": "osm_node_12943387876",
-    "name": "Jugos",
-    "category": "comercio",
-    "lat": 38.5365496,
-    "lng": -28.7422576,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": null,
-    "email": "info@quicornac.com",
-    "website": "www.jugos.com",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para o negócio Jugos",
-    "email_mensagem": "Olá Jugos, após uma análise detalhada do seu website e presença online, identifiquei algumas oportunidades de melhoria que podem ajudar a aumentar a visibilidade e a receita do seu negócio. Uma das principais descobertas foi a falta de um sistema de marcações online, o que pode estar afetando a capacidade de atrair e reter clientes. Estou à disposição para discutir como podemos trabalhar juntos para melhorar a presença online do seu negócio e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Website desatualizado e não adaptado ao mercado local"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de contato por mês. Isso pode representar uma perda de receita mensal estimada em 500-1000 euros."
-  },
-  {
-    "id": "osm_node_512578974",
-    "name": "GALP",
-    "category": "automovel",
-    "lat": 38.5221103,
-    "lng": -28.7113074,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de Melhoria Digital para GALP",
-    "email_mensagem": "Olá GALP, durante a análise do seu site e presença online, identificamos oportunidades de melhoria para aumentar a eficiência e atrair mais clientes. A falta de sistema de marcações online e a não utilização do WhatsApp Business são pontos críticos que podem ser melhorados. Gostaria de discutir como podemos ajudar a implementar soluções para esses problemas e aumentar a sua presença digital.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Não utilização do WhatsApp Business para comunicação com clientes",
-      "Limitações no site para não oferecer uma experiência de usuário mais interativa e personalizada"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações/mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Isso pode resultar em uma perda anual de receita de 120-180 marcações."
-  },
-  {
     "id": "osm_node_2824354067",
     "name": "Repsol",
     "category": "automovel",
@@ -41211,39 +38641,6 @@
       "Dificuldade em encontrar informações de contato"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_5593172638",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.5282432,
-    "lng": -28.6256733,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, identificamos oportunidades de melhoria para aumentar a eficiência e atrair mais clientes. A falta de um sistema de marcações online e a não utilização do WhatsApp Business são pontos críticos que podem estar afetando a sua receita. Gostaríamos de discutir como podemos ajudar a melhorar sua presença digital e aumentar as oportunidades de negócios.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Não utilização do WhatsApp Business para comunicação com clientes",
-      "Limitações no site para facilitar a navegação e encontrar informações sobre os serviços oferecidos"
-    ],
-    "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de comunicação por mês."
   },
   {
     "id": "osm_node_4137191093",
@@ -41616,39 +39013,6 @@
       "Dificuldade em encontrar informações de contacto"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem esta forma de contacto. A dificuldade em encontrar informações de contacto pode também estar a afetar a experiência do cliente."
-  },
-  {
-    "id": "osm_node_3266168675",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.4152973,
-    "lng": -28.2775658,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, notei a falta de um sistema de marcações online e a não utilização do WhatsApp Business. Isso pode estar afetando negativamente a sua capacidade de atrair e reter clientes. Gostaria de discutir como podemos melhorar sua presença digital e aumentar sua receita.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utiliza WhatsApp Business",
-      "Página de contato não oferece opções de marcação ou formulário de contato eficaz"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e não utilização do WhatsApp Business. Isso pode resultar em uma perda de receita de cerca de 500-750€ por mês."
   },
   {
     "id": "osm_node_3266813294",
@@ -42146,39 +39510,6 @@
     "impacto": "Estima-se uma perda de receita de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. A não visibilidade dos preços no site também pode estar a desencorajar os clientes a fazer reservas."
   },
   {
-    "id": "osm_node_12971487611",
-    "name": "Galp",
-    "category": "comercio",
-    "lat": 38.6059782,
-    "lng": -27.9833257,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para a Galp",
-    "email_mensagem": "Olá Galp, durante a nossa análise, verificámos que a falta de sistema de marcações online e a ausência de WhatsApp Business podem estar a afetar negativamente a sua capacidade de atrair e reter clientes. Recomendamos a implementação dessas ferramentas para melhorar a experiência do cliente e aumentar a receita. Estamos disponíveis para discutir formas de implementar essas soluções de forma eficaz.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Ausência de WhatsApp Business",
-      "Dificuldade em encontrar informações de contato claras"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode estar a afastar clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750€ por mês."
-  },
-  {
     "id": "osm_node_5784897053",
     "name": "Santa Catarina- Indústria Conserveira",
     "category": "comercio",
@@ -42244,39 +39575,6 @@
       "Dificuldade em encontrar informações de contato, como telefones"
     ],
     "impacto": "Estima-se que a Repsol perca cerca de 10-15 oportunidades de marcação por mês devido à falta de sistema de marcações online. Além disso, a ausência de WhatsApp Business pode resultar em uma perda adicional de 5-10 interações com clientes por mês. Isso pode representar uma perda de receita significativa."
-  },
-  {
-    "id": "osm_node_13136927014",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 38.6917833,
-    "lng": -28.2128571,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a análise do seu site e presença online, verifiquei que falta um sistema de marcações online e a utilização do WhatsApp Business. Isso pode estar a afetar negativamente a sua capacidade de atrair e reter clientes. Gostaria de discutir como podemos melhorar a sua presença digital e aumentar a sua receita. Por favor, não hesite em contactar-me para mais informações.",
-    "problemas": [
-      "Falta de sistema de marcações online para agendamento de serviços",
-      "Não utilização do WhatsApp Business para comunicação com clientes",
-      "Dificuldade em encontrar informações de contato e formulários de contato no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar cerca de 5-10 clientes por mês que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita anual de cerca de 2.000 a 5.000 euros."
   },
   {
     "id": "osm_node_4398451090",
@@ -42507,39 +39805,6 @@
       "Site não apresenta opção de compra online ou reserva de produtos"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações/mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode resultar em uma perda adicional de 5-10 oportunidades de venda por mês."
-  },
-  {
-    "id": "osm_node_5695257932",
-    "name": "Galp",
-    "category": "automovel",
-    "lat": 39.4597989,
-    "lng": -31.1307892,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "217 242 500",
-    "email": "galp@galpenergia.com",
-    "website": "www.galp.com/pt",
-    "whatsapp": null,
-    "score": 30,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_whatsapp",
-      "sem_reservas",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de Melhoria Digital para a Galp",
-    "email_mensagem": "Olá Galp, durante a auditoria técnica do seu site, verifiquei que não há um sistema de marcações online implementado, o que pode estar a afetar negativamente a experiência do cliente e a receita da empresa. Recomendo a implementação de um sistema de marcações online e a utilização do WhatsApp Business para melhorar a comunicação com os clientes e aumentar as vendas.",
-    "problemas": [
-      "Falta de sistema de marcações online",
-      "Não utilização do WhatsApp Business",
-      "Dificuldade em encontrar informações de contato e formulários no site"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online. Além disso, a não utilização do WhatsApp Business pode estar a afastar potenciais clientes que preferem essa forma de comunicação. Isso pode resultar em uma perda de receita de cerca de 500-750€ por mês."
   },
   {
     "id": "osm_node_5569886970",
@@ -42967,73 +40232,6 @@
       "Não há um calendário de disponibilidade"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de marcações online e preços não visíveis. Isso pode resultar em uma perda de receita de cerca de 500-750 euros por mês."
-  },
-  {
-    "id": "osm_node_1433880729",
-    "name": "Esquina",
-    "category": "restaurantes",
-    "lat": 37.7391984,
-    "lng": -25.6741964,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "931 192 227",
-    "email": "admin@quintadossantos.com",
-    "website": "www.esquina.pt",
-    "whatsapp": "351931192227",
-    "score": 25,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Esquina",
-    "email_mensagem": "Olá Esquina, durante a auditoria técnica do seu site, verifiquei que não há um sistema de reservas online implementado, o que pode estar a afetar negativamente a sua receita. Além disso, o menu digital não está atualizado com preços, o que pode levar a uma perda de pedidos. Recomendo a implementação de um sistema de reservas online e a atualização do menu digital para melhorar a experiência do cliente e aumentar a receita.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Menu digital não atualizado com preços",
-      "Horários de funcionamento não bem visíveis"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a falta de menu digital atualizado com preços pode levar a uma perda adicional de 5-10 pedidos por mês. Isso pode resultar em uma perda de receita de cerca de 500-1000 euros por mês."
-  },
-  {
-    "id": "osm_node_5554933286",
-    "name": "Terras",
-    "category": "restaurantes",
-    "lat": 37.7408516,
-    "lng": -25.6686221,
-    "address": "Rua Hintze Ribeiro 55",
-    "municipality": "Sao Miguel",
-    "phone": "+351296285465",
-    "email": "kontakt@terras.com",
-    "website": "www.terras.com",
-    "whatsapp": "15150867704",
-    "score": 25,
-    "has_website": true,
-    "has_booking": false,
-    "has_analytics": false,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_reservas",
-      "sem_analytics",
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidade de melhoria digital para Terras",
-    "email_mensagem": "Olá Terras, durante a nossa auditoria, notámos que o seu site não tem um sistema de reservas online, o que pode estar a afastar potenciais clientes. Gostaríamos de discutir como podemos ajudar a melhorar a presença digital da sua empresa e aumentar as vendas. Por favor, não hesite em contactar-nos para mais informações.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Informação de preços e horários não visíveis",
-      "Não há opção de delivery ou takeaway",
-      "Não há resposta a reviews no Google"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a não visibilidade de preços e horários pode afastar potenciais clientes. A falta de opção de delivery ou takeaway também pode reduzir as vendas."
   },
   {
     "id": "osm_node_9826348818",
@@ -44361,37 +41559,5 @@
       "Não há resposta a reviews no Google"
     ],
     "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de reservas online. Além disso, a ausência de menu online com preços pode afastar potenciais clientes. A não resposta a reviews no Google pode afetar a reputação do restaurante."
-  },
-  {
-    "id": "osm_node_13416260754",
-    "name": "Oishi",
-    "category": "restaurantes",
-    "lat": 37.7413136,
-    "lng": -25.6666504,
-    "address": null,
-    "municipality": "Sao Miguel",
-    "phone": "+351 966 896 004",
-    "email": "geral@oishi.pt",
-    "website": "oishi.pt",
-    "whatsapp": "351966896004",
-    "score": 4,
-    "has_website": true,
-    "has_booking": true,
-    "has_analytics": true,
-    "has_facebook_pixel": false,
-    "has_ssl": true,
-    "is_mobile_friendly": true,
-    "gaps": [
-      "sem_facebook_pixel"
-    ],
-    "email_assunto": "Oportunidades de melhoria para Oishi",
-    "email_mensagem": "Olá Oishi, durante a auditoria do seu site, verifiquei que não há um sistema de reservas online implementado, o que pode estar a afetar a sua capacidade de gerar marcações. Além disso, o menu digital não está atualizado e os horários e preços não são visíveis. Recomendo a implementação de um sistema de reservas online e a atualização do menu digital para melhorar a experiência do cliente e aumentar as marcações.",
-    "problemas": [
-      "Falta de sistema de reservas online",
-      "Menu digital não atualizado",
-      "Horários e preços não visíveis",
-      "Resposta insuficiente a reviews no Google"
-    ],
-    "impacto": "Estima-se uma perda de 10-15 marcações por mês devido à falta de sistema de reservas online e menu digital atualizado. Além disso, a não visibilidade de horários e preços pode levar a uma perda adicional de 5-10 clientes por mês. A resposta insuficiente a reviews no Google pode afetar a reputação do negócio, levando a uma perda de 2-5 clientes por mês."
   }
 ]

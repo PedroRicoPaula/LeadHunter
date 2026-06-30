@@ -89,6 +89,9 @@ _SKIP_DOMAINS = {
     "codigopostal.ciberforma.pt",
     "empresite.jornaldenegocios.pt",
     "servicospublicos.pt",
+    # Domain marketplaces — parked/for-sale domains, never a real business site
+    "brandbucket.com", "sedo.com", "dan.com", "afternic.com",
+    "hugedomains.com", "godaddy.com",
 }
 
 # Foreign ccTLD suffixes that are almost certainly wrong for an Açores business
@@ -305,6 +308,21 @@ async def _nim_batch_predict(batch: list[dict]) -> dict[str, str]:
     return result
 
 
+# Generic Portuguese commerce/category nouns — common as standalone OSM `name`
+# tags on poorly-identified POIs (e.g. name="Mercearia" with no proper noun).
+# Domain-guessing for these is unreliable: "{slug}.com" trivially "matches" the
+# slug by construction, so any registered domain with that generic word scores
+# near-100% confidence regardless of whether it's the actual business.
+_GENERIC_NAMES = {
+    "mercearia", "minimercado", "supermercado", "mercado", "loja",
+    "padaria", "pastelaria", "talho", "peixaria", "garagem", "oficina",
+    "farmacia", "clinica", "cafe", "restaurante", "bar", "snackbar",
+    "snack-bar", "hotel", "pensao", "residencial", "quiosque", "armazem",
+    "drogaria", "papelaria", "sapataria", "ourivesaria", "florista",
+    "lavandaria", "tabacaria", "frutaria",
+}
+
+
 async def _verify_domain_guesses(name: str) -> list[str]:
     """
     Generate common PT domain patterns and HEAD-check each one.
@@ -312,6 +330,8 @@ async def _verify_domain_guesses(name: str) -> list[str]:
     """
     slug, slug_dash = _name_to_slug(name)
     if len(slug) < 3:
+        return []
+    if slug in _GENERIC_NAMES:
         return []
 
     # Also try first meaningful word only (e.g. "Coffee Bar Alfredo" → "alfredo")
@@ -321,7 +341,7 @@ async def _verify_domain_guesses(name: str) -> list[str]:
 
     patterns: list[str] = []
     for s in dict.fromkeys([slug, slug_dash, first_slug, last_slug]):
-        if not s or len(s) < 3:
+        if not s or len(s) < 3 or s in _GENERIC_NAMES:
             continue
         patterns += [
             f"https://www.{s}.pt",
