@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-PT" data-theme="dark" data-doclang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Documentação — LeadHunter | Como funciona, conceitos e segurança</title>
+<meta name="description" content="Documentação oficial do LeadHunter: workflow completo, conceitos (score, gaps digitais), planos, fontes de dados, segurança e RGPD, dicas de prospeção e glossário. PT/EN." />
+<link rel="canonical" href="https://leadhunter.pedropaula.com/docs.html" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:title" content="Documentação — LeadHunter" />
+<meta property="og:description" content="Tudo sobre o sistema LeadHunter: workflow, conceitos, planos, dados, segurança e RGPD." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://leadhunter.pedropaula.com/docs.html" />
+<meta property="og:locale" content="pt_PT" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Documentação — LeadHunter" />
+<meta name="twitter:description" content="Workflow, conceitos, planos, dados, segurança e RGPD do LeadHunter." />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Os dados são actualizados e precisos?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Os dados são recolhidos automaticamente de fontes públicas (OpenStreetMap, Google Maps, websites das empresas). São dados reais mas podem ter imprecisões pontuais — recomendamos verificar antes de contactar." }
+    },
+    {
+      "@type": "Question",
+      "name": "O que é o score de oportunidade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Uma pontuação de 0 a 100 que mede gaps digitais de um negócio. Acima de 70 é considerado alta oportunidade, entre 40 e 69 média, abaixo de 40 baixa." }
+    },
+    {
+      "@type": "Question",
+      "name": "Como funciona o pagamento e entrega?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pagamento processado pela Stripe (cartão, Multibanco, Apple/Google Pay). Após confirmação, o utilizador é redireccionado de imediato para a página de download — os PDFs são gerados no browser, sem espera e sem email." }
+    },
+    {
+      "@type": "Question",
+      "name": "Os meus dados de pagamento ficam guardados no LeadHunter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Não. Os dados de cartão são processados exclusivamente pela Stripe, certificada PCI-DSS. O LeadHunter nunca armazena números de cartão." }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg:        #0a0a0b;
+  --bg-alt:    #111113;
+  --surface:   rgba(255,255,255,.04);
+  --surface-2: rgba(255,255,255,.07);
+  --border:    rgba(255,255,255,.09);
+  --border-hi: rgba(255,255,255,.22);
+  --text:      #f2f2f3;
+  --text-2:    #9c9ca3;
+  --text-3:    #67676f;
+  --accent:    #f2f2f3;
+  --code-bg:   rgba(255,255,255,.05);
+  --nav-bg:    rgba(10,10,11,.92);
+  --shadow:    0 24px 64px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg:        #ffffff;
+  --bg-alt:    #f5f5f6;
+  --surface:   rgba(0,0,0,.025);
+  --surface-2: rgba(0,0,0,.05);
+  --border:    rgba(0,0,0,.1);
+  --border-hi: rgba(0,0,0,.28);
+  --text:      #0c0c0d;
+  --text-2:    #54545c;
+  --text-3:    #8d8d95;
+  --accent:    #0c0c0d;
+  --code-bg:   rgba(0,0,0,.04);
+  --nav-bg:    rgba(255,255,255,.92);
+  --shadow:    0 24px 64px rgba(0,0,0,.08);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.7;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { font-family: 'Sora', system-ui, sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; color: var(--text); margin: 0; }
+p { margin: 0; }
+a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border-hi); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--text); }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.doc-section ul { list-style: disc; }
+.doc-section ol { list-style: decimal; }
+button { font-family: inherit; }
+
+/* ── small italic gloss ── */
+.gloss { font-style: italic; font-size: 12px; color: var(--text-3); font-weight: 400; }
+
+/* ── NAV ── */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.topnav-inner { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 15px; }
+.brand-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px; }
+.topnav-right { display: flex; align-items: center; gap: 8px; }
+.back-link { font-size: 12.5px; color: var(--text-2); text-decoration: none; display: none; }
+.back-link:hover { color: var(--text); }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-2);
+}
+.icon-btn:hover { border-color: var(--border-hi); color: var(--text); }
+.icon-sun, .icon-moon { display: none; width: 16px; height: 16px; }
+[data-theme="dark"]  .icon-moon { display: block; }
+[data-theme="light"] .icon-sun  { display: block; }
+.lang-btn {
+  height: 36px; padding: 0 12px; border-radius: 9px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 12.5px; font-weight: 700; letter-spacing: .03em; color: var(--text-2);
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+}
+.lang-btn:hover { border-color: var(--border-hi); color: var(--text); }
+.menu-btn { display: none; }
+
+/* ── SHELL ── */
+.shell { max-width: 1320px; margin: 0 auto; padding: 60px 20px 0; display: grid; grid-template-columns: 270px 1fr; gap: 0; align-items: start; }
+.sidebar {
+  position: sticky; top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 28px 18px 60px 4px;
+  border-right: 1px solid var(--border);
+}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+.sb-group { margin-bottom: 4px; }
+.sb-group summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-2);
+}
+.sb-group summary::-webkit-details-marker { display: none; }
+.sb-group summary:hover { color: var(--text); background: var(--surface); }
+.sb-group summary .chev { transition: transform .2s ease; color: var(--text-3); }
+.sb-group[open] summary .chev { transform: rotate(90deg); }
+.sb-list { padding: 2px 0 10px 10px; display: flex; flex-direction: column; gap: 1px; }
+.sb-list a {
+  display: block; padding: 7px 12px; border-radius: 7px; font-size: 13.5px; color: var(--text-2);
+  text-decoration: none; border-left: 2px solid transparent;
+}
+.sb-list a:hover { color: var(--text); background: var(--surface); }
+.sb-list a.active { color: var(--text); font-weight: 600; border-left-color: var(--text); background: var(--surface); }
+
+.content { padding: 36px 0 120px 48px; max-width: 760px; }
+.doc-header { margin-bottom: 48px; }
+.doc-kicker { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+.doc-title { font-size: clamp(30px,4vw,42px); margin-bottom: 14px; }
+.doc-sub { font-size: 16px; color: var(--text-2); max-width: 560px; }
+
+section.doc-section { padding-top: 56px; margin-top: 0; scroll-margin-top: 76px; border-top: 1px solid var(--border); }
+section.doc-section:first-of-type { border-top: none; padding-top: 0; }
+.doc-h2 { font-size: 24px; margin-bottom: 18px; }
+.doc-h3 { font-size: 16px; margin: 28px 0 10px; }
+.doc-section p { color: var(--text-2); margin-bottom: 14px; }
+.doc-section ul, .doc-section ol { margin-bottom: 16px; padding-left: 20px; }
+.doc-section li { color: var(--text-2); margin-bottom: 7px; }
+.doc-section li::marker { color: var(--text-3); }
+.doc-section strong { color: var(--text); font-weight: 700; }
+
+.callout {
+  border: 1px solid var(--border); border-left: 3px solid var(--text-3);
+  background: var(--surface); border-radius: 10px; padding: 16px 18px; margin: 18px 0; font-size: 13.5px; color: var(--text-2);
+}
+.callout strong { color: var(--text); }
+.callout.warn { border-left-color: #b8860b; }
+.callout.warn strong { color: #d4a017; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 18px 0 24px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+th { text-align: left; padding: 10px 14px; font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); background: var(--surface); border-bottom: 1px solid var(--border); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+
+code, .kbd { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; background: var(--code-bg); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+
+.tag { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); color: var(--text-2); background: var(--surface); margin: 0 4px 4px 0; }
+
+.lang-pt, .lang-en { }
+[data-doclang="pt"] .lang-en { display: none; }
+[data-doclang="en"] .lang-pt { display: none; }
+
+.glossary-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+.gl-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.gl-item:last-child { border-bottom: none; }
+.gl-term { font-weight: 700; color: var(--text); font-size: 14px; }
+.gl-def { color: var(--text-2); font-size: 13.5px; margin-top: 4px; }
+
+.faq-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+.faq-q { width: 100%; background: none; border: none; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; font-size: 14px; font-weight: 600; color: var(--text); cursor: pointer; }
+.faq-icon { color: var(--text-3); flex-shrink: 0; transition: transform .2s ease; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; padding: 0 18px; transition: max-height .3s ease, padding .3s ease; }
+.faq-item.open .faq-a { max-height: 300px; padding: 0 18px 16px; }
+.faq-a p { font-size: 13.5px; color: var(--text-2); border-top: 1px solid var(--border); padding-top: 12px; }
+
+.endnote { margin-top: 70px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: var(--text-3); }
+
+/* ── MOBILE OVERLAY ── */
+.scrim { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 150; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+.scrim.show { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 900px) {
+  .menu-btn { display: flex; }
+  .back-link { display: none; }
+  .shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; top: 60px; left: 0; bottom: 0; width: 280px;
+    background: var(--bg); z-index: 160;
+    transform: translateX(-100%); transition: transform .25s ease;
+    border-right: 1px solid var(--border);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .content { padding-left: 0; max-width: 100%; }
+}
+@media (max-width: 540px) {
+  .content { padding: 28px 0 90px; }
+  .doc-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a href="index.html" class="brand">Lead<span style="color:var(--text-2)">Hunter</span></a>
+      <span class="brand-tag">Docs</span>
+    </div>
+    <div class="topnav-right">
+      <a href="index.html" class="back-link">&larr; Voltar ao site</a>
+      <button class="lang-btn" id="langBtn" aria-label="Mudar idioma">EN</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Alternar tema">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+
+    <details class="sb-group" open>
+      <summary>Introdução <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#visao-geral">Visão geral</a></li>
+        <li><a href="#para-quem">Para quem é</a></li>
+        <li><a href="#primeiros-passos">Primeiros passos</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group" open>
+      <summary>Como Funciona <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#workflow">Workflow completo</a></li>
+        <li><a href="#score">Score de oportunidade</a></li>
+        <li><a href="#gaps">Gaps digitais</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group">
+      <summary>Planos & Pagamento <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#planos">Planos disponíveis</a></li>
+        <li><a href="#pagamento">Processo de pagamento</a></li>
+        <li><a href="#entrega">O que recebes</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group">
+      <summary>Dados & Qualidade <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#fontes">Fontes de dados</a></li>
+        <li><a href="#precisao">Precisão & limitações</a></li>
+        <li><a href="#atualizacao">Frequência de atualização</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group">
+      <summary>Segurança & Privacidade <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#rgpd">Proteção de dados (RGPD)</a></li>
+        <li><a href="#seguranca-tecnica">Segurança técnica</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group">
+      <summary>Dicas & Boas Práticas <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#abordagem">Como abordar um lead</a></li>
+        <li><a href="#erros-comuns">Erros comuns</a></li>
+      </ul>
+    </details>
+
+    <details class="sb-group">
+      <summary>Referência <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg></summary>
+      <ul class="sb-list">
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#glossario">Glossário</a></li>
+      </ul>
+    </details>
+
+  </aside>
+
+  <main class="content">
+    <div class="doc-header">
+      <div class="doc-kicker">
+        <span class="lang-pt">Documentação</span><span class="lang-en">Documentation</span>
+      </div>
+      <h1 class="doc-title">
+        <span class="lang-pt">Como o LeadHunter funciona</span>
+        <span class="lang-en">How LeadHunter works</span>
+      </h1>
+      <p class="doc-sub">
+        <span class="lang-pt">Guia completo do sistema: workflow, conceitos, planos, fontes de dados, segurança e boas práticas de prospeção.</span>
+        <span class="lang-en">Complete system guide: workflow, concepts, plans, data sources, security and prospecting best practices.</span>
+      </p>
+    </div>
+
+    <!-- VISÃO GERAL -->
+    <section class="doc-section" id="visao-geral">
+      <h2 class="doc-h2"><span class="lang-pt">Visão geral</span><span class="lang-en">Overview</span></h2>
+      <div class="lang-pt">
+        <p>LeadHunter é uma ferramenta de prospeção <strong>B2B</strong> <span class="gloss">(business-to-business, venda entre empresas)</span> focada nas 9 ilhas dos Açores. Mapeia negócios locais, calcula um <strong>score de oportunidade</strong> com base em gaps digitais detectados, e entrega um PDF pronto a usar com os dados de contacto.</p>
+        <p>O sistema não exige conta nem subscrição: paga-se uma vez por seleção, com download imediato.</p>
+      </div>
+      <div class="lang-en">
+        <p>LeadHunter is a <strong>B2B</strong> <span class="gloss">(business-to-business)</span> prospecting tool focused on the 9 Azores islands. It maps local businesses, calculates an <strong>opportunity score</strong> based on detected digital gaps, and delivers a ready-to-use PDF with contact data.</p>
+        <p>No account or subscription required: pay once per selection, with immediate download.</p>
+      </div>
+    </section>
+
+    <!-- PARA QUEM -->
+    <section class="doc-section" id="para-quem">
+      <h3 class="doc-h3"><span class="lang-pt">Para quem é</span><span class="lang-en">Who it's for</span></h3>
+      <div class="lang-pt">
+        <ul>
+          <li>Web designers e developers à procura de negócios sem website</li>
+          <li>Gestores de redes sociais e agências de marketing</li>
+          <li>Consultores de SEO <span class="gloss">(otimização para motores de busca)</span></li>
+          <li>Vendedores B2B e qualquer freelancer de serviços digitais</li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <ul>
+          <li>Web designers and developers looking for businesses without a website</li>
+          <li>Social media managers and marketing agencies</li>
+          <li>SEO <span class="gloss">(search engine optimization)</span> consultants</li>
+          <li>B2B salespeople and any digital services freelancer</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRIMEIROS PASSOS -->
+    <section class="doc-section" id="primeiros-passos">
+      <h3 class="doc-h3"><span class="lang-pt">Primeiros passos</span><span class="lang-en">Getting started</span></h3>
+      <div class="lang-pt">
+        <p>Não há instalação nem registo. Para começar:</p>
+        <ol>
+          <li>Abre <code>app.html</code> a partir da página inicial (botão "Começar a pesquisar")</li>
+          <li>Filtra o mapa por ilha e/ou categoria de negócio</li>
+          <li>Clica nos marcadores que te interessam — o preço atualiza automaticamente</li>
+          <li>Confirma a seleção e paga via Stripe</li>
+          <li>És redirecionado para a página de download — os PDFs geram-se no momento</li>
+        </ol>
+      </div>
+      <div class="lang-en">
+        <p>No installation or sign-up needed. To get started:</p>
+        <ol>
+          <li>Open <code>app.html</code> from the homepage ("Começar a pesquisar" button)</li>
+          <li>Filter the map by island and/or business category</li>
+          <li>Click the markers you're interested in — price updates automatically</li>
+          <li>Confirm your selection and pay via Stripe</li>
+          <li>You're redirected to the download page — PDFs generate instantly</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="doc-section" id="workflow">
+      <h2 class="doc-h2"><span class="lang-pt">Workflow completo</span><span class="lang-en">Full workflow</span></h2>
+      <div class="lang-pt">
+        <p>O ciclo completo, do lado do utilizador, segue 5 etapas:</p>
+      </div>
+      <div class="lang-en"><p>The full cycle, from the user's side, follows 5 steps:</p></div>
+      <table>
+        <thead><tr><th>#</th><th><span class="lang-pt">Etapa</span><span class="lang-en">Step</span></th><th><span class="lang-pt">Descrição</span><span class="lang-en">Description</span></th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong><span class="lang-pt">Exploração</span><span class="lang-en">Exploration</span></strong></td><td><span class="lang-pt">Mapa interativo com filtros por ilha e categoria (restaurantes, alojamento, saúde, beleza, ginásios, comércio, automóvel, serviços profissionais, turismo)</span><span class="lang-en">Interactive map with island and category filters (restaurants, lodging, health, beauty, gyms, retail, automotive, professional services, tourism)</span></td></tr>
+          <tr><td>2</td><td><strong><span class="lang-pt">Seleção</span><span class="lang-en">Selection</span></strong></td><td><span class="lang-pt">Clica nos negócios pretendidos; preço calculado em tempo real consoante a quantidade</span><span class="lang-en">Click the desired businesses; price calculated in real time based on quantity</span></td></tr>
+          <tr><td>3</td><td><strong><span class="lang-pt">Pagamento</span><span class="lang-en">Payment</span></strong></td><td><span class="lang-pt">Checkout via Stripe (cartão, Multibanco, Apple/Google Pay)</span><span class="lang-en">Checkout via Stripe (card, Multibanco, Apple/Google Pay)</span></td></tr>
+          <tr><td>4</td><td><strong><span class="lang-pt">Geração</span><span class="lang-en">Generation</span></strong></td><td><span class="lang-pt">PDF gerado diretamente no browser do cliente, por negócio selecionado</span><span class="lang-en">PDF generated directly in the client's browser, per selected business</span></td></tr>
+          <tr><td>5</td><td><strong><span class="lang-pt">Download</span><span class="lang-en">Download</span></strong></td><td><span class="lang-pt">Download imediato, sem espera e sem email intermediário</span><span class="lang-en">Immediate download, no waiting, no intermediary email</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SCORE -->
+    <section class="doc-section" id="score">
+      <h3 class="doc-h3"><span class="lang-pt">Score de oportunidade</span><span class="lang-en">Opportunity score</span></h3>
+      <div class="lang-pt"><p>Cada negócio recebe uma pontuação de 0 a 100, calculada a partir do número e da relevância dos gaps digitais detectados. Quanto maior o score, maior a probabilidade de o negócio precisar de serviços digitais.</p></div>
+      <div class="lang-en"><p>Each business receives a score from 0 to 100, calculated from the number and relevance of detected digital gaps. The higher the score, the higher the probability the business needs digital services.</p></div>
+      <table>
+        <thead><tr><th><span class="lang-pt">Intervalo</span><span class="lang-en">Range</span></th><th><span class="lang-pt">Tier</span><span class="lang-en">Tier</span></th><th><span class="lang-pt">Significado</span><span class="lang-en">Meaning</span></th></tr></thead>
+        <tbody>
+          <tr><td>70–100</td><td><span class="tag">Alta / High</span></td><td><span class="lang-pt">Múltiplos gaps — prioridade de contacto</span><span class="lang-en">Multiple gaps — priority contact</span></td></tr>
+          <tr><td>40–69</td><td><span class="tag">Média / Medium</span></td><td><span class="lang-pt">Alguns gaps relevantes</span><span class="lang-en">Some relevant gaps</span></td></tr>
+          <tr><td>0–39</td><td><span class="tag">Baixa / Low</span></td><td><span class="lang-pt">Presença digital já consolidada</span><span class="lang-en">Digital presence already established</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- GAPS -->
+    <section class="doc-section" id="gaps">
+      <h3 class="doc-h3"><span class="lang-pt">Gaps digitais</span><span class="lang-en">Digital gaps</span></h3>
+      <div class="lang-pt"><p>"Gap digital" é uma lacuna na presença online de um negócio — um sinal concreto de oportunidade de venda. Exemplos detectados pelo sistema:</p></div>
+      <div class="lang-en"><p>A "digital gap" is a gap in a business's online presence — a concrete sales opportunity signal. Examples detected by the system:</p></div>
+      <div>
+        <span class="tag">Sem website</span>
+        <span class="tag">Sem reservas online</span>
+        <span class="tag">Sem WhatsApp Business</span>
+        <span class="tag">Sem Analytics</span>
+        <span class="tag">Sem Pixel Facebook/Meta</span>
+        <span class="tag"><span class="lang-pt">Sem Instagram/Facebook ativo</span><span class="lang-en">No active Instagram/Facebook</span></span>
+      </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section class="doc-section" id="planos">
+      <h2 class="doc-h2"><span class="lang-pt">Planos disponíveis</span><span class="lang-en">Available plans</span></h2>
+      <table>
+        <thead><tr><th>Plano</th><th><span class="lang-pt">Preço</span><span class="lang-en">Price</span></th><th><span class="lang-pt">Negócios</span><span class="lang-en">Businesses</span></th><th><span class="lang-pt">Inclui</span><span class="lang-en">Includes</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>Starter</strong></td><td>€5</td><td><span class="lang-pt">Até 5</span><span class="lang-en">Up to 5</span></td><td><span class="lang-pt">1 PDF por negócio, score, gaps, email, telefone, WhatsApp</span><span class="lang-en">1 PDF per business, score, gaps, email, phone, WhatsApp</span></td></tr>
+          <tr><td><strong>Hunter</strong></td><td>€12</td><td><span class="lang-pt">Até 20</span><span class="lang-en">Up to 20</span></td><td><span class="lang-pt">Igual ao Starter, com gaps detalhados</span><span class="lang-en">Same as Starter, with detailed gaps</span></td></tr>
+        </tbody>
+      </table>
+      <div class="lang-pt"><p>Pagamento único, sem mensalidades nem subscrição.</p></div>
+      <div class="lang-en"><p>One-time payment, no monthly fees or subscription.</p></div>
+    </section>
+
+    <!-- PAGAMENTO -->
+    <section class="doc-section" id="pagamento">
+      <h3 class="doc-h3"><span class="lang-pt">Processo de pagamento</span><span class="lang-en">Payment process</span></h3>
+      <div class="lang-pt">
+        <p>Processado integralmente pela <strong>Stripe</strong>, certificada <span class="gloss">PCI-DSS (Payment Card Industry Data Security Standard, norma de segurança para dados de cartão)</span>. Métodos aceites: cartão de crédito/débito, Multibanco, Apple Pay e Google Pay.</p>
+      </div>
+      <div class="lang-en">
+        <p>Fully processed by <strong>Stripe</strong>, <span class="gloss">PCI-DSS (Payment Card Industry Data Security Standard)</span> certified. Accepted methods: credit/debit card, Multibanco, Apple Pay and Google Pay.</p>
+      </div>
+    </section>
+
+    <!-- ENTREGA -->
+    <section class="doc-section" id="entrega">
+      <h3 class="doc-h3"><span class="lang-pt">O que recebes</span><span class="lang-en">What you receive</span></h3>
+      <div class="lang-pt">
+        <p>Um ficheiro PDF por negócio selecionado, contendo:</p>
+        <ul>
+          <li>Score de oportunidade (0–100)</li>
+          <li><span class="lang-pt">Lista de gaps digitais detectados</span></li>
+          <li><span class="lang-pt">Email, telefone e link WhatsApp (quando disponíveis publicamente)</span></li>
+          <li><span class="lang-pt">Morada e link para o website (se existir)</span></li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <p>One PDF file per selected business, containing:</p>
+        <ul>
+          <li>Opportunity score (0–100)</li>
+          <li>List of detected digital gaps</li>
+          <li>Email, phone and WhatsApp link (when publicly available)</li>
+          <li>Address and website link (if it exists)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FONTES -->
+    <section class="doc-section" id="fontes">
+      <h2 class="doc-h2"><span class="lang-pt">Fontes de dados</span><span class="lang-en">Data sources</span></h2>
+      <div class="lang-pt">
+        <p>Os dados são recolhidos automaticamente de fontes públicas:</p>
+        <ul>
+          <li><strong><span class="gloss">OSM</span> — OpenStreetMap</strong><span class="lang-pt">: localização e dados base do negócio</span></li>
+          <li><strong>Google Maps</strong><span class="lang-pt">: validação de morada e categoria</span></li>
+          <li><strong><span class="lang-pt">Websites públicos das empresas</span></strong><span class="lang-pt">: deteção de gaps digitais</span></li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <p>Data is automatically collected from public sources:</p>
+        <ul>
+          <li><strong><span class="gloss">OSM</span> — OpenStreetMap</strong>: location and base business data</li>
+          <li><strong>Google Maps</strong>: address and category validation</li>
+          <li><strong>Public business websites</strong>: digital gap detection</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRECISAO -->
+    <section class="doc-section" id="precisao">
+      <h3 class="doc-h3"><span class="lang-pt">Precisão & limitações</span><span class="lang-en">Accuracy & limitations</span></h3>
+      <div class="callout warn">
+        <span class="lang-pt"><strong>Nota:</strong> a exactidão não é garantida a 100%. Emails e telefones podem estar desatualizados. Recomendamos verificar antes de contactar.</span>
+        <span class="lang-en"><strong>Note:</strong> accuracy is not 100% guaranteed. Emails and phone numbers may be outdated. We recommend verifying before contacting.</span>
+      </div>
+    </section>
+
+    <!-- ATUALIZACAO -->
+    <section class="doc-section" id="atualizacao">
+      <h3 class="doc-h3"><span class="lang-pt">Frequência de atualização</span><span class="lang-en">Update frequency</span></h3>
+      <div class="lang-pt"><p>A base de dados é reprocessada periodicamente; a data da última atualização é apresentada na página inicial junto ao número total de negócios mapeados.</p></div>
+      <div class="lang-en"><p>The database is reprocessed periodically; the last update date is shown on the homepage next to the total number of mapped businesses.</p></div>
+    </section>
+
+    <!-- RGPD -->
+    <section class="doc-section" id="rgpd">
+      <h2 class="doc-h2"><span class="lang-pt">Proteção de dados (RGPD)</span><span class="lang-en">Data protection (GDPR)</span></h2>
+      <div class="lang-pt">
+        <p><span class="gloss">RGPD — Regulamento Geral de Proteção de Dados, lei europeia de privacidade</span></p>
+        <ul>
+          <li><span class="lang-pt">O LeadHunter nunca armazena dados de cartão — tratados exclusivamente pela Stripe</span></li>
+          <li><span class="lang-pt">Os dados nos PDFs referem-se maioritariamente a pessoas coletivas (empresas), não a pessoas singulares</span></li>
+          <li><span class="lang-pt">O utilizador é responsável pelo tratamento dos dados após o download, de acordo com o RGPD</span></li>
+        </ul>
+        <p><span class="lang-pt">Política completa: </span><a href="privacidade.html">privacidade.html</a></p>
+      </div>
+      <div class="lang-en">
+        <p><span class="gloss">GDPR — General Data Protection Regulation, EU privacy law</span></p>
+        <ul>
+          <li>LeadHunter never stores card data — handled exclusively by Stripe</li>
+          <li>Data in PDFs mostly refers to legal entities (companies), not individuals</li>
+          <li>The user is responsible for data processing after download, per GDPR</li>
+        </ul>
+        <p>Full policy: <a href="privacidade.html">privacidade.html</a></p>
+      </div>
+    </section>
+
+    <!-- SEGURANCA TECNICA -->
+    <section class="doc-section" id="seguranca-tecnica">
+      <h3 class="doc-h3"><span class="lang-pt">Segurança técnica</span><span class="lang-en">Technical security</span></h3>
+      <div class="lang-pt">
+        <p>O site é estático <span class="gloss">(ficheiros servidos diretamente, sem base de dados editável publicamente)</span> e protegido por:</p>
+        <ul>
+          <li><strong><span class="gloss">CSP — Content Security Policy</span></strong>: restringe que scripts/recursos podem correr em cada página</li>
+          <li><strong>X-Frame-Options: DENY</strong><span class="lang-pt">: impede que o site seja incorporado noutro via iframe (proteção contra clickjacking)</span></li>
+          <li><strong>X-Content-Type-Options: nosniff</strong></li>
+          <li><strong>Referrer-Policy</strong><span class="lang-pt"> e </span><strong>Permissions-Policy</strong><span class="lang-pt"> restritivas</span></li>
+          <li><span class="lang-pt">Sem formulários de escrita pública nem editor de conteúdo exposto — não há vetor de modificação de ficheiros a partir do browser</span></li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <p>The site is static <span class="gloss">(files served directly, no publicly editable database)</span> and protected by:</p>
+        <ul>
+          <li><strong><span class="gloss">CSP — Content Security Policy</span></strong>: restricts which scripts/resources can run on each page</li>
+          <li><strong>X-Frame-Options: DENY</strong>: prevents the site from being embedded elsewhere via iframe (clickjacking protection)</li>
+          <li><strong>X-Content-Type-Options: nosniff</strong></li>
+          <li>Restrictive <strong>Referrer-Policy</strong> and <strong>Permissions-Policy</strong></li>
+          <li>No public write forms or exposed content editor — no file-modification vector from the browser</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ABORDAGEM -->
+    <section class="doc-section" id="abordagem">
+      <h2 class="doc-h2"><span class="lang-pt">Como abordar um lead</span><span class="lang-en">How to approach a lead</span></h2>
+      <div class="lang-pt">
+        <ol>
+          <li>Confirma o gap principal antes de contactar (ex: site offline há meses, sem reservas)</li>
+          <li>Personaliza a primeira mensagem com o gap específico, não um template genérico</li>
+          <li>Usa o WhatsApp para negócios locais — taxa de resposta mais alta que email frio</li>
+          <li>Propõe um valor concreto e mensurável (ex: "site novo + reservas online em 2 semanas")</li>
+        </ol>
+      </div>
+      <div class="lang-en">
+        <ol>
+          <li>Confirm the main gap before contacting (e.g. site offline for months, no bookings)</li>
+          <li>Personalize the first message with the specific gap, not a generic template</li>
+          <li>Use WhatsApp for local businesses — higher response rate than cold email</li>
+          <li>Propose concrete, measurable value (e.g. "new site + online bookings in 2 weeks")</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ERROS COMUNS -->
+    <section class="doc-section" id="erros-comuns">
+      <h3 class="doc-h3"><span class="lang-pt">Erros comuns</span><span class="lang-en">Common mistakes</span></h3>
+      <div class="lang-pt">
+        <ul>
+          <li>Contactar todos os leads com a mesma mensagem</li>
+          <li>Ignorar o score e gastar tempo em negócios de baixa oportunidade</li>
+          <li>Não verificar se o contacto ainda está ativo antes de insistir</li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <ul>
+          <li>Contacting every lead with the same message</li>
+          <li>Ignoring the score and spending time on low-opportunity businesses</li>
+          <li>Not checking whether the contact is still active before following up</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="doc-section" id="faq">
+      <h2 class="doc-h2">FAQ</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span class="lang-pt">Os dados são atualizados e precisos?</span><span class="lang-en">Is the data up to date and accurate?</span></span>
+            <svg class="faq-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">
+            <p><span class="lang-pt">Recolhidos de fontes públicas, com possíveis imprecisões pontuais. Recomendamos verificar antes de contactar.</span><span class="lang-en">Collected from public sources, with occasional inaccuracies. We recommend verifying before contacting.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span class="lang-pt">Como é entregue o pack após o pagamento?</span><span class="lang-en">How is the pack delivered after payment?</span></span>
+            <svg class="faq-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">
+            <p><span class="lang-pt">Download imediato no browser, sem espera nem email intermediário.</span><span class="lang-en">Immediate browser download, no waiting and no intermediary email.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span class="lang-pt">Funciona fora dos Açores?</span><span class="lang-en">Does it work outside the Azores?</span></span>
+            <svg class="faq-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">
+            <p><span class="lang-pt">Cobre as 9 ilhas dos Açores. Expansão para o resto de Portugal está planeada.</span><span class="lang-en">Covers the 9 Azores islands. Expansion to the rest of Portugal is planned.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span class="lang-pt">Os meus dados de pagamento ficam guardados?</span><span class="lang-en">Is my payment data stored?</span></span>
+            <svg class="faq-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">
+            <p><span class="lang-pt">Não. Processados exclusivamente pela Stripe (PCI-DSS). O LeadHunter nunca vê o número do cartão.</span><span class="lang-en">No. Processed exclusively by Stripe (PCI-DSS). LeadHunter never sees the card number.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLOSSARIO -->
+    <section class="doc-section" id="glossario">
+      <h2 class="doc-h2"><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></h2>
+      <div class="glossary-grid">
+        <div class="gl-item"><div class="gl-term">B2B</div><div class="gl-def"><span class="lang-pt">Business-to-business — venda entre empresas, não a consumidor final</span><span class="lang-en">Business-to-business — sales between companies, not to end consumers</span></div></div>
+        <div class="gl-item"><div class="gl-term">PME</div><div class="gl-def"><span class="lang-pt">Pequena e Média Empresa</span><span class="lang-en">Small and Medium Enterprise (SME)</span></div></div>
+        <div class="gl-item"><div class="gl-term">SEO</div><div class="gl-def"><span class="lang-pt">Search Engine Optimization — otimização para motores de busca</span><span class="lang-en">Search Engine Optimization</span></div></div>
+        <div class="gl-item"><div class="gl-term">RGPD / GDPR</div><div class="gl-def"><span class="lang-pt">Regulamento Geral de Proteção de Dados — lei europeia de privacidade</span><span class="lang-en">General Data Protection Regulation — EU privacy law</span></div></div>
+        <div class="gl-item"><div class="gl-term">CSP</div><div class="gl-def"><span class="lang-pt">Content Security Policy — cabeçalho de segurança que restringe scripts e recursos numa página</span><span class="lang-en">Content Security Policy — security header restricting scripts and resources on a page</span></div></div>
+        <div class="gl-item"><div class="gl-term">PCI-DSS</div><div class="gl-def"><span class="lang-pt">Norma de segurança da indústria de cartões de pagamento</span><span class="lang-en">Payment Card Industry Data Security Standard</span></div></div>
+        <div class="gl-item"><div class="gl-term">OSM</div><div class="gl-def">OpenStreetMap — <span class="lang-pt">mapa colaborativo de dados geográficos abertos</span><span class="lang-en">collaborative open geographic data map</span></div></div>
+        <div class="gl-item"><div class="gl-term"><span class="lang-pt">Gap digital</span><span class="lang-en">Digital gap</span></div><div class="gl-def"><span class="lang-pt">Lacuna na presença online de um negócio (ex: sem website, sem WhatsApp Business)</span><span class="lang-en">Gap in a business's online presence (e.g. no website, no WhatsApp Business)</span></div></div>
+        <div class="gl-item"><div class="gl-term">Pixel <span class="lang-pt">de conversão</span><span class="lang-en">(conversion)</span></div><div class="gl-def"><span class="lang-pt">Código de rastreio (ex: Meta Pixel) usado para medir campanhas de publicidade</span><span class="lang-en">Tracking code (e.g. Meta Pixel) used to measure ad campaigns</span></div></div>
+      </div>
+    </section>
+
+    <div class="endnote">
+      <span>&copy; 2025–2026 Pedro Paula Labs</span>
+      <a href="index.html">&larr; <span class="lang-pt">Voltar ao LeadHunter</span><span class="lang-en">Back to LeadHunter</span></a>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  var saved = localStorage.getItem('lh_theme');
+  document.documentElement.setAttribute('data-theme', saved || 'dark');
+  var savedLang = localStorage.getItem('lh_doclang');
+  document.documentElement.setAttribute('data-doclang', savedLang || 'pt');
+  document.getElementById('langBtn').textContent = (savedLang || 'pt') === 'pt' ? 'EN' : 'PT';
+})();
+
+document.getElementById('themeBtn').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-theme');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('lh_theme', next);
+});
+
+document.getElementById('langBtn').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-doclang');
+  var next = cur === 'pt' ? 'en' : 'pt';
+  document.documentElement.setAttribute('data-doclang', next);
+  localStorage.setItem('lh_doclang', next);
+  this.textContent = next === 'pt' ? 'EN' : 'PT';
+});
+
+var sidebar = document.getElementById('sidebar');
+var scrim = document.getElementById('scrim');
+document.getElementById('menuBtn').addEventListener('click', function () {
+  sidebar.classList.add('open');
+  scrim.classList.add('show');
+});
+scrim.addEventListener('click', function () {
+  sidebar.classList.remove('open');
+  scrim.classList.remove('show');
+});
+sidebar.querySelectorAll('a').forEach(function (a) {
+  a.addEventListener('click', function () {
+    sidebar.classList.remove('open');
+    scrim.classList.remove('show');
+  });
+});
+
+document.querySelectorAll('.faq-item').forEach(function (item) {
+  item.querySelector('.faq-q').addEventListener('click', function () {
+    var isOpen = item.classList.contains('open');
+    item.classList.toggle('open', !isOpen);
+  });
+});
+
+/* scroll-spy */
+var sections = Array.prototype.slice.call(document.querySelectorAll('section.doc-section[id]'));
+var links = sidebar.querySelectorAll('.sb-list a');
+var spyObs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) {
+      links.forEach(function (l) { l.classList.remove('active'); });
+      var link = sidebar.querySelector('.sb-list a[href="#' + e.target.id + '"]');
+      if (link) {
+        link.classList.add('active');
+        var group = link.closest('details');
+        if (group) group.open = true;
+      }
+    }
+  });
+}, { rootMargin: '-15% 0px -70% 0px' });
+sections.forEach(function (s) { spyObs.observe(s); });
+</script>
+</body>
+</html>
