@@ -184,6 +184,7 @@ def _rescue_social_website(lead: dict) -> None:
                 if real_platform not in redes or not redes[real_platform]:
                     redes[real_platform] = url
                     lead["redes_sociais"] = redes
+                lead["website"] = None
                 break
     except Exception:
         pass

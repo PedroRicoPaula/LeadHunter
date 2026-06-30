@@ -552,9 +552,14 @@ def analyze_all(max_leads: int | None = None, reprocessar: bool = False, progres
     elif provider == "nvidia_nim":
         from nim_client import nim
         if not nim.enabled:
-            console.print("[red]ERRO:[/] NVIDIA_API_KEY nao configurada ou NIM desactivado.")
-            return
-        console.print("[dim]NIM disponível — análise via cloud NVIDIA.[/]")
+            console.print("[yellow]Aviso:[/] NIM indisponível — _call_llm fará fallback para Ollama por lead.")
+            try:
+                httpx.get(f"{CONFIG.get('ollama', {}).get('base_url', 'http://localhost:11434')}/api/tags", timeout=3)
+            except Exception:
+                ollama_online = False
+                console.print("[yellow]Aviso:[/] Ollama também offline — usando scoring automático.")
+        else:
+            console.print("[dim]NIM disponível — análise via cloud NVIDIA.[/]")
     else:
         try:
             httpx.get(f"{CONFIG.get('ollama', {}).get('base_url', 'http://localhost:11434')}/api/tags", timeout=3)
