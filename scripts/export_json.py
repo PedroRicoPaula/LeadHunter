@@ -19,9 +19,52 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+import math
+import unicodedata
+
 ROOT      = Path(__file__).parent.parent
 JSON_FILE = ROOT / "leads_pendentes.json"
 OUT       = ROOT / "docs" / "data" / "businesses.json"
+
+# ── National/international chains — already have strong corporate digital presence.
+# Buyers of LeadHunter leads won't sell web design to McDonald's or Galp.
+# Slugified (lowercase, no accents, no spaces/punctuation).
+_CHAIN_EXCLUDE = {
+    # Fuel (corporate sites cover all locations)
+    "galp", "repsol",
+    # Supermarkets / convenience
+    "pingodoce", "continente", "continentemodelo", "meusuper", "spar",
+    "miniprecoide", "minipreco",
+    # Fast food international
+    "mcdonalds", "burgerking", "kfc", "subway", "dominospizza",
+    # Airlines / transport (not SMBs)
+    "sata", "ryanair", "tap",
+    # International fashion
+    "zara", "oysho", "bershka", "pullandbear",
+    # International car rental
+    "hertz", "sixt", "europcar", "avis",
+}
+
+# ── Regional Açores chains — keep but flag with is_chain=True
+# so buyers know these are multi-location businesses, not solo operators.
+_CHAIN_REGIONAL = {
+    "casacheia", "ilhaverde", "autatlantis", "micauto",
+    "bagga", "azorica", "azoria",
+}
+
+
+def _slugify_name(name: str) -> str:
+    s = unicodedata.normalize("NFD", (name or "").lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+def _haversine_km(lat1, lon1, lat2, lon2) -> float:
+    R = 6371.0
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
+    return R * 2 * math.asin(math.sqrt(a))
 
 NICHO_MAP = {
     # ── Alimentação ───────────────────────────────────────────────────────────
@@ -235,7 +278,10 @@ def export():
     skipped_no_coords = 0
     skipped_no_nicho = 0
     skipped_not_analisado = 0
+    skipped_chain = 0
+    skipped_geodup = 0
     businesses = []
+    seen_geo: list[tuple[str, float, float]] = []  # (slug, lat, lon)
 
     for lead in leads:
         status = lead.get("status")
@@ -267,6 +313,26 @@ def export():
             skipped_no_nicho += 1
             continue
 
+        name_slug = _slugify_name(lead.get("nome") or "")
+
+        # Exclude national/international chains — not valid SMB targets
+        if name_slug in _CHAIN_EXCLUDE:
+            skipped_chain += 1
+            continue
+
+        # Geo-deduplication: same name within 150m = OSM duplicate node
+        is_geodup = False
+        for seen_slug, slat, slon in seen_geo:
+            if seen_slug == name_slug and _haversine_km(float(lat), float(lon), slat, slon) < 0.15:
+                is_geodup = True
+                break
+        if is_geodup:
+            skipped_geodup += 1
+            continue
+        seen_geo.append((name_slug, float(lat), float(lon)))
+
+        is_regional_chain = name_slug in _CHAIN_REGIONAL
+
         # Score: real LLM score for analisado, or rule-based for pendente
         if is_analisado:
             score = max(0, min(100, int(lead["score"])))
@@ -297,7 +363,8 @@ def export():
             "has_ssl":      bool(lead.get("has_https")),
             "is_mobile_friendly": bool(lead.get("has_mobile_meta")),
             "gaps":         gaps,
-            "offline_only": not is_analisado,  # flag: website not found, phone only
+            "offline_only": not is_analisado,
+            "is_chain":     is_regional_chain,
             "email_assunto":   lead.get("email_assunto") or None,
             "email_mensagem":  lead.get("email_mensagem") or None,
             "problemas":       lead.get("problemas") or [],
@@ -331,7 +398,7 @@ def export():
     print(f"     Categorias: {dict(cats)}")
     print(f"     Com telefone: {with_phone} | email: {with_email} | website: {with_website}")
     print(f"     Score medio: {avg_score}")
-    print(f"     Ignorados: {skipped_not_analisado} nao analisado, {skipped_no_coords} sem coords, {skipped_no_nicho} sem nicho")
+    print(f"     Ignorados: {skipped_not_analisado} sem score/status, {skipped_chain} chains nacionais, {skipped_geodup} geo-duplicados, {skipped_no_coords} sem coords, {skipped_no_nicho} sem nicho")
     print(f"     meta.json actualizado: {meta['last_updated']}")
     print(f"     Faz 'git add docs/data/ && git push'")
 
