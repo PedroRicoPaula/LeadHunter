@@ -664,6 +664,15 @@
     ],
     "competitors": [
       {
+        "name": "Melo",
+        "score": 30,
+        "dist_km": 1.5,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 3
+      },
+      {
         "name": "Âncora",
         "score": 42,
         "dist_km": 2.2,
@@ -671,15 +680,6 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 3
-      },
-      {
-        "name": "Mobby Dick",
-        "score": 25,
-        "dist_km": 2.3,
-        "has_website": true,
-        "has_booking": false,
-        "has_ssl": false,
-        "gaps_count": 4
       }
     ]
   },
@@ -3930,6 +3930,15 @@
     ],
     "competitors": [
       {
+        "name": "Farmácia da Santa Casa da Misericórdia de Ribeira Grande",
+        "score": 52,
+        "dist_km": 0.2,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 4
+      },
+      {
         "name": "Farmácia da Ribeirinha",
         "score": 50,
         "dist_km": 2.2,
@@ -3937,15 +3946,6 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 7
-      },
-      {
-        "name": "Centro de Saúde",
-        "score": 40,
-        "dist_km": 5.0,
-        "has_website": true,
-        "has_booking": false,
-        "has_ssl": true,
-        "gaps_count": 5
       }
     ]
   },
@@ -19517,6 +19517,151 @@
     ]
   },
   {
+    "id": "osm_node_762122440",
+    "name": "Centro de Saúde das Furnas",
+    "category": "saude",
+    "lat": 37.7765359,
+    "lng": -25.3139614,
+    "address": null,
+    "municipality": "Sao Miguel, Acores",
+    "phone": null,
+    "email": "pocadadonabeija@gmail.com",
+    "website": "www.pocadonabeija.com",
+    "whatsapp": null,
+    "score": 52,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_facebook_pixel"
+    ],
+    "offline_only": false,
+    "is_chain": false,
+    "email_assunto": "Otimização do Site e Marcações Online para Centro de Saúde das Furnas",
+    "email_mensagem": "Olá Centro de Saúde das Furnas, descobri que o seu site está muito lento, o que pode estar afetando a experiência dos seus pacientes. Além disso, a falta de sistema de marcações online e WhatsApp Business pode estar limitando a comunicação com os pacientes. Gostaria de discutir como posso ajudar a melhorar esses aspectos e aumentar a eficiência do seu negócio.",
+    "problemas": [
+      "Site muito lento, levando a uma perda de visitantes",
+      "Falta de sistema de marcações online, dificultando a reserva de consultas",
+      "Ausência de WhatsApp Business, limitando a comunicação com os pacientes"
+    ],
+    "impacto": "Estima-se uma perda de 15-20 marcações por mês devido à falta de sistema de marcações online e ao site lento. Isso pode resultar em uma perda de receita de cerca de 5.000 a 10.000 euros por ano.",
+    "top_actions": [
+      {
+        "action": "Integrar sistema de reservas/marcações online",
+        "reason": "Clientes modernos abandonam se não puderem reservar no momento. Pode aumentar ocupação 20-30%.",
+        "gap": "sem_reservas"
+      },
+      {
+        "action": "Instalar Facebook Pixel",
+        "reason": "Permite criar anúncios que segmentam visitantes do site — ROI médio de 5x em campanhas locais.",
+        "gap": "sem_facebook_pixel"
+      },
+      {
+        "action": "Criar botão WhatsApp Business",
+        "reason": "WhatsApp é o canal de contacto preferido em Portugal. Um botão no site aumenta conversão de visitas em 15-25%.",
+        "gap": "sem_whatsapp"
+      }
+    ],
+    "competitors": [
+      {
+        "name": "Pedro Eleutério",
+        "score": 50,
+        "dist_km": 0.4,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 5
+      },
+      {
+        "name": "Santa Casa",
+        "score": 42,
+        "dist_km": 0.6,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 3
+      }
+    ]
+  },
+  {
+    "id": "osm_node_628178780",
+    "name": "Farmácia da Santa Casa da Misericórdia de Ribeira Grande",
+    "category": "saude",
+    "lat": 37.8196945,
+    "lng": -25.5262798,
+    "address": null,
+    "municipality": "Sao Miguel, Acores",
+    "phone": "296 470 110",
+    "email": "geral@scmrg.pt",
+    "website": "www.scmrg.pt",
+    "whatsapp": null,
+    "score": 52,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": false,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_analytics",
+      "sem_facebook_pixel"
+    ],
+    "offline_only": false,
+    "is_chain": false,
+    "email_assunto": "Otimização do Site e Melhoria da Experiência do Cliente",
+    "email_mensagem": "Olá Farmácia da Santa Casa da Misericórdia de Ribeira Grande, descobri que o seu site é muito lento, o que pode estar a afastar cerca de 50% dos visitantes. Além disso, a falta de um sistema de marcações online e a ausência de WhatsApp Business podem estar a perder oportunidades de negócio. Gostaria de discutir como posso ajudar a melhorar a experiência do cliente e aumentar a visibilidade da farmácia.",
+    "problemas": [
+      "O site é muito lento, o que pode afastar cerca de 50% dos visitantes",
+      "A falta de um sistema de marcações online pode estar a perder cerca de 15-20 marcações por mês",
+      "A ausência de WhatsApp Business pode dificultar a comunicação com os clientes"
+    ],
+    "impacto": "Estima-se que a farmácia possa estar a perder cerca de 15-20 marcações por mês devido à falta de um sistema de marcações online, o que pode resultar em uma perda de receita de cerca de 500-1000 euros por mês. Além disso, o site lento pode afastar cerca de 50% dos visitantes, o que pode ter um impacto significativo na visibilidade e reputação da farmácia.",
+    "top_actions": [
+      {
+        "action": "Integrar sistema de reservas/marcações online",
+        "reason": "Clientes modernos abandonam se não puderem reservar no momento. Pode aumentar ocupação 20-30%.",
+        "gap": "sem_reservas"
+      },
+      {
+        "action": "Instalar Facebook Pixel",
+        "reason": "Permite criar anúncios que segmentam visitantes do site — ROI médio de 5x em campanhas locais.",
+        "gap": "sem_facebook_pixel"
+      },
+      {
+        "action": "Adicionar Google Analytics",
+        "reason": "Sem dados não há decisões. Gratuito e instalado em 10 minutos — base para todas as optimizações futuras.",
+        "gap": "sem_analytics"
+      }
+    ],
+    "competitors": [
+      {
+        "name": "Farmácia da Misericórdia",
+        "score": 55,
+        "dist_km": 0.2,
+        "has_website": false,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 5
+      },
+      {
+        "name": "Farmácia da Ribeirinha",
+        "score": 50,
+        "dist_km": 2.4,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 7
+      }
+    ]
+  },
+  {
     "id": "osm_node_1797091855",
     "name": "Quinta dos Açores",
     "category": "restaurantes",
@@ -22089,6 +22234,15 @@
     ],
     "competitors": [
       {
+        "name": "Centro de Saúde das Furnas",
+        "score": 52,
+        "dist_km": 0.4,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 3
+      },
+      {
         "name": "Santa Casa",
         "score": 42,
         "dist_km": 0.5,
@@ -22096,15 +22250,6 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 3
-      },
-      {
-        "name": "Centro de Saúde da Povoação",
-        "score": 55,
-        "dist_km": 6.8,
-        "has_website": false,
-        "has_booking": false,
-        "has_ssl": false,
-        "gaps_count": 5
       }
     ]
   },
@@ -22175,13 +22320,13 @@
         "gaps_count": 5
       },
       {
-        "name": "Centro de Saúde",
-        "score": 40,
-        "dist_km": 7.2,
+        "name": "Farmácia da Santa Casa da Misericórdia de Ribeira Grande",
+        "score": 52,
+        "dist_km": 2.4,
         "has_website": true,
         "has_booking": false,
         "has_ssl": true,
-        "gaps_count": 5
+        "gaps_count": 4
       }
     ]
   },
@@ -31933,6 +32078,82 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 3
+      }
+    ]
+  },
+  {
+    "id": "osm_node_12708361066",
+    "name": "Queijaria Furnense",
+    "category": "restaurantes",
+    "lat": 37.7702427,
+    "lng": -25.3157689,
+    "address": null,
+    "municipality": "Sao Miguel, Acores",
+    "phone": "+351 296 588 134",
+    "email": null,
+    "website": "www.queijariafurnense.com",
+    "whatsapp": null,
+    "score": 50,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": false,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": false,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_redes_sociais",
+      "sem_email",
+      "sem_mobile",
+      "sem_analytics",
+      "sem_facebook_pixel"
+    ],
+    "offline_only": false,
+    "is_chain": false,
+    "email_assunto": "Oportunidades de melhoria digital para a Queijaria Furnense",
+    "email_mensagem": "Olá Queijaria Furnense, descobri que o seu site não tem um sistema de reservas online, o que pode estar a afetar negativamente o número de clientes. Além disso, a falta de presença em redes sociais e formulário de contato pode estar a limitar as oportunidades de negócio. Gostaria de discutir como posso ajudar a melhorar a presença digital da sua empresa.",
+    "problemas": [
+      "Falta de sistema de reservas online",
+      "Não tem presença em redes sociais",
+      "Não tem formulário de contato ou e-mail visível"
+    ],
+    "impacto": "Estima-se que a Queijaria Furnense perca cerca de 10-15 marcações por mês devido à falta de sistema de reservas online. Além disso, a ausência de redes sociais e formulário de contato pode resultar em uma perda adicional de 5-10 oportunidades de negócio por mês.",
+    "top_actions": [
+      {
+        "action": "Integrar sistema de reservas/marcações online",
+        "reason": "Clientes modernos abandonam se não puderem reservar no momento. Pode aumentar ocupação 20-30%.",
+        "gap": "sem_reservas"
+      },
+      {
+        "action": "Instalar Facebook Pixel",
+        "reason": "Permite criar anúncios que segmentam visitantes do site — ROI médio de 5x em campanhas locais.",
+        "gap": "sem_facebook_pixel"
+      },
+      {
+        "action": "Adicionar Google Analytics",
+        "reason": "Sem dados não há decisões. Gratuito e instalado em 10 minutos — base para todas as optimizações futuras.",
+        "gap": "sem_analytics"
+      }
+    ],
+    "competitors": [
+      {
+        "name": "King burguer",
+        "score": 50,
+        "dist_km": 0.3,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 6
+      },
+      {
+        "name": "Terra Nostra Garden Restaurant",
+        "score": 45,
+        "dist_km": 0.3,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 5
       }
     ]
   },
@@ -47917,13 +48138,13 @@
         "gaps_count": 5
       },
       {
-        "name": "Centro de Saúde da Povoação",
-        "score": 55,
-        "dist_km": 6.3,
-        "has_website": false,
+        "name": "Centro de Saúde das Furnas",
+        "score": 52,
+        "dist_km": 0.6,
+        "has_website": true,
         "has_booking": false,
-        "has_ssl": false,
-        "gaps_count": 5
+        "has_ssl": true,
+        "gaps_count": 3
       }
     ]
   },
@@ -64381,19 +64602,19 @@
     ],
     "competitors": [
       {
+        "name": "Farmácia da Santa Casa da Misericórdia de Ribeira Grande",
+        "score": 52,
+        "dist_km": 4.8,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 4
+      },
+      {
         "name": "Farmácia da Misericórdia",
         "score": 55,
         "dist_km": 5.0,
         "has_website": false,
-        "has_booking": false,
-        "has_ssl": true,
-        "gaps_count": 5
-      },
-      {
-        "name": "Pharma Luz",
-        "score": 38,
-        "dist_km": 5.6,
-        "has_website": true,
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 5
@@ -79123,6 +79344,15 @@
     ],
     "competitors": [
       {
+        "name": "Centro de Saúde das Furnas",
+        "score": 52,
+        "dist_km": 9.2,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 3
+      },
+      {
         "name": "Pedro Eleutério",
         "score": 50,
         "dist_km": 9.4,
@@ -79130,15 +79360,6 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 5
-      },
-      {
-        "name": "Santa Casa",
-        "score": 42,
-        "dist_km": 9.7,
-        "has_website": true,
-        "has_booking": false,
-        "has_ssl": true,
-        "gaps_count": 3
       }
     ]
   },
@@ -81624,6 +81845,15 @@
     ],
     "competitors": [
       {
+        "name": "Queijaria Furnense",
+        "score": 50,
+        "dist_km": 1.5,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 7
+      },
+      {
         "name": "King burguer",
         "score": 50,
         "dist_km": 1.5,
@@ -81631,15 +81861,6 @@
         "has_booking": false,
         "has_ssl": true,
         "gaps_count": 6
-      },
-      {
-        "name": "Já Se Sabe",
-        "score": 50,
-        "dist_km": 1.5,
-        "has_website": true,
-        "has_booking": false,
-        "has_ssl": true,
-        "gaps_count": 5
       }
     ]
   },
@@ -85158,6 +85379,78 @@
         "has_booking": false,
         "has_ssl": false,
         "gaps_count": 5
+      }
+    ]
+  },
+  {
+    "id": "osm_node_6789398870",
+    "name": "Melo",
+    "category": "restaurantes",
+    "lat": 37.8200717,
+    "lng": -25.6617691,
+    "address": null,
+    "municipality": "Sao Miguel, Acores",
+    "phone": null,
+    "email": "firstname@melo.com",
+    "website": "melo.com",
+    "whatsapp": null,
+    "score": 30,
+    "has_website": true,
+    "has_booking": false,
+    "has_analytics": true,
+    "has_facebook_pixel": false,
+    "has_ssl": true,
+    "is_mobile_friendly": true,
+    "gaps": [
+      "sem_whatsapp",
+      "sem_reservas",
+      "sem_facebook_pixel"
+    ],
+    "offline_only": false,
+    "is_chain": false,
+    "email_assunto": "Oportunidade de melhoria digital para Melo",
+    "email_mensagem": "Olá Melo, descobri que o seu site não tem um sistema de marcações online, o que pode estar afetando a sua receita. Além disso, a não utilização do WhatsApp Business e a falta de telefone de contato visível também podem ser obstáculos para o seu negócio. Gostaria de discutir como posso ajudar a melhorar a presença digital do seu negócio.",
+    "problemas": [
+      "Falta de sistema de marcações online",
+      "Não utiliza WhatsApp Business",
+      "Não tem telefone de contato visível"
+    ],
+    "impacto": "Estima-se que a falta de sistema de marcações online e a não utilização do WhatsApp Business possam resultar em 10-15 marcações perdidas por mês, o que pode afetar negativamente a receita do negócio. Além disso, a falta de telefone de contato visível pode dificultar a comunicação com os clientes.",
+    "top_actions": [
+      {
+        "action": "Integrar sistema de reservas/marcações online",
+        "reason": "Clientes modernos abandonam se não puderem reservar no momento. Pode aumentar ocupação 20-30%.",
+        "gap": "sem_reservas"
+      },
+      {
+        "action": "Instalar Facebook Pixel",
+        "reason": "Permite criar anúncios que segmentam visitantes do site — ROI médio de 5x em campanhas locais.",
+        "gap": "sem_facebook_pixel"
+      },
+      {
+        "action": "Criar botão WhatsApp Business",
+        "reason": "WhatsApp é o canal de contacto preferido em Portugal. Um botão no site aumenta conversão de visitas em 15-25%.",
+        "gap": "sem_whatsapp"
+      }
+    ],
+    "competitors": [
+      {
+        "name": "Âncora",
+        "score": 42,
+        "dist_km": 1.5,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": true,
+        "gaps_count": 3
+      },
+      {
+        "name": "O Sole Mio São Vicente Ferreira",
+        "score": 60,
+        "dist_km": 1.5,
+        "has_website": true,
+        "has_booking": false,
+        "has_ssl": false,
+        "gaps_count": 6
       }
     ]
   },
@@ -101131,13 +101424,13 @@
         "gaps_count": 4
       },
       {
-        "name": "Ponta do Garajau",
-        "score": 30,
-        "dist_km": 2.7,
+        "name": "Queijaria Furnense",
+        "score": 50,
+        "dist_km": 2.5,
         "has_website": true,
         "has_booking": false,
-        "has_ssl": false,
-        "gaps_count": 5
+        "has_ssl": true,
+        "gaps_count": 7
       }
     ]
   },
