@@ -26,7 +26,7 @@ _MODEL_EMBED  = "nvidia/nv-embed-v2"
 _MODEL_VISION = "meta/llama-3.2-90b-vision-instruct"
 
 
-# ── Rate limiter simples ──────────────────────────────────────────────────────
+# ── Rate limiter ─────────────────────────────────────────────────────────────
 
 class _RateLimiter:
     """Garante intervalo mínimo entre chamadas (free tier ~30 req/min)."""
@@ -42,6 +42,49 @@ class _RateLimiter:
             if elapsed < self._interval:
                 time.sleep(self._interval - elapsed)
             self._last = time.monotonic()
+
+
+# ── Circuit breaker ───────────────────────────────────────────────────────────
+
+class _CircuitBreaker:
+    """
+    Após FAIL_THRESHOLD falhas consecutivas abre o circuito por OPEN_SECONDS.
+    Durante esse período, _post() devolve None imediatamente sem qualquer
+    retry/sleep — Ollama assume instantaneamente sem perder tempo.
+    """
+    FAIL_THRESHOLD = 3
+    OPEN_SECONDS   = 300  # 5 min antes de tentar NIM de novo
+
+    def __init__(self) -> None:
+        self._fails  = 0
+        self._opened = 0.0
+        self._lock   = threading.Lock()
+
+    def is_open(self) -> bool:
+        with self._lock:
+            if self._fails < self.FAIL_THRESHOLD:
+                return False
+            if time.monotonic() - self._opened > self.OPEN_SECONDS:
+                # Tempo de cooling passou — meio-aberto: tenta uma vez
+                self._fails = 0
+                return False
+            return True
+
+    def record_success(self) -> None:
+        with self._lock:
+            self._fails = 0
+
+    def record_failure(self) -> None:
+        with self._lock:
+            self._fails += 1
+            if self._fails >= self.FAIL_THRESHOLD:
+                if self._opened == 0.0 or self._fails == self.FAIL_THRESHOLD:
+                    self._opened = time.monotonic()
+                    import sys
+                    print(
+                        f"  [NIM circuit open — fallback Ollama por {self.OPEN_SECONDS//60} min]",
+                        file=sys.stderr, flush=True
+                    )
 
 
 # ── Funções de similaridade (sem numpy) ───────────────────────────────────────
@@ -72,6 +115,7 @@ class NimClient:
         self._api_key: str = ""
         self._cfg: dict = {}
         self._rl  = _RateLimiter()
+        self._cb  = _CircuitBreaker()
         self._loaded = False
 
     # ── Init lazy ─────────────────────────────────────────────────────────────
@@ -117,27 +161,37 @@ class NimClient:
     # ── Retry decorator helper ────────────────────────────────────────────────
 
     def _post(self, endpoint: str, payload: dict, timeout: float = 60.0) -> dict | None:
-        """POST com retry em 429/5xx. Retorna JSON ou None."""
+        """POST com circuit breaker + retry limitado. Retorna JSON ou None."""
+        if self._cb.is_open():
+            return None  # circuit open — skip immediately, Ollama will take over
+
         self._rl.wait()
         url = f"{_BASE_URL}/{endpoint}"
-        for attempt in range(4):
+        for attempt in range(2):  # 2 retries max (was 4 — avoids 120s hang on quota)
             try:
                 resp = httpx.post(url, headers=self._headers(), json=payload, timeout=timeout)
                 if resp.status_code == 429:
-                    wait = min(10 * (attempt + 1), 60)
+                    self._cb.record_failure()
+                    wait = min(8 * (attempt + 1), 20)  # 8s, 16s max (was 60s)
                     time.sleep(wait)
                     continue
                 if resp.status_code >= 500:
-                    time.sleep(5 * (attempt + 1))
+                    self._cb.record_failure()
+                    time.sleep(4 * (attempt + 1))
                     continue
                 resp.raise_for_status()
+                self._cb.record_success()
                 return resp.json()
             except (httpx.ConnectError, httpx.ConnectTimeout, httpx.RemoteProtocolError):
+                self._cb.record_failure()
                 return None
             except httpx.HTTPStatusError:
+                self._cb.record_failure()
                 return None
             except Exception:
-                time.sleep(3)
+                self._cb.record_failure()
+                time.sleep(2)
+        self._cb.record_failure()
         return None
 
     # ── LLM ──────────────────────────────────────────────────────────────────

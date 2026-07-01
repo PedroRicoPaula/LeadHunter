@@ -160,12 +160,17 @@ def _has_real_website(lead):
     return bool(url) and not _is_social_url(url)
 
 
-def get_municipality(morada):
+def get_municipality(lead):
+    """Best municipality label: prefer regiao field, fall back to postal-code lookup."""
+    regiao = lead.get("regiao") or ""
+    if regiao:
+        return regiao  # e.g. "Sao Miguel, Acores" — island filter uses this
+    morada = lead.get("morada") or ""
     if morada:
         m = re.search(r"(\d{4})-\d{3}", str(morada))
         if m:
-            return POSTAL_MUN.get(m.group(1), "Sao Miguel")
-    return "Sao Miguel"
+            return POSTAL_MUN.get(m.group(1), "Sao Miguel, Acores")
+    return "Sao Miguel, Acores"
 
 
 def compute_gaps(lead):
@@ -233,7 +238,20 @@ def export():
     businesses = []
 
     for lead in leads:
-        if lead.get("status") != "analisado" or not lead.get("score"):
+        status = lead.get("status")
+        has_score = bool(lead.get("score"))
+
+        # Include analisado (real LLM score) + pendente with phone/contact data
+        # Pendente = no website found; still valuable as "offline" leads if they
+        # have a phone number (buyer can call them directly).
+        is_analisado = status == "analisado" and has_score
+        is_pendente_with_contact = (
+            status == "pendente"
+            and get_phone(lead)  # has phone from OSM
+            and not _has_real_website(lead)
+        )
+
+        if not is_analisado and not is_pendente_with_contact:
             skipped_not_analisado += 1
             continue
 
@@ -249,7 +267,15 @@ def export():
             skipped_no_nicho += 1
             continue
 
-        score = max(0, min(100, int(lead["score"])))
+        # Score: real LLM score for analisado, or rule-based for pendente
+        if is_analisado:
+            score = max(0, min(100, int(lead["score"])))
+        else:
+            # Pendente: score from gaps only (no website = baseline opportunity)
+            gaps = compute_gaps(lead)
+            score = min(65, 15 + len(gaps) * 8)  # 15–65 range, never fake-high
+
+        gaps = compute_gaps(lead)
 
         businesses.append({
             "id":           str(lead.get("place_id") or lead.get("id") or ""),
@@ -258,7 +284,7 @@ def export():
             "lat":          float(lat),
             "lng":          float(lon),
             "address":      lead.get("morada"),
-            "municipality": get_municipality(lead.get("morada")),
+            "municipality": get_municipality(lead),
             "phone":        get_phone(lead),
             "email":        get_email(lead),
             "website":      clean_website(lead.get("website")),
@@ -270,7 +296,8 @@ def export():
             "has_facebook_pixel": bool(lead.get("has_facebook_pixel")),
             "has_ssl":      bool(lead.get("has_https")),
             "is_mobile_friendly": bool(lead.get("has_mobile_meta")),
-            "gaps":         compute_gaps(lead),
+            "gaps":         gaps,
+            "offline_only": not is_analisado,  # flag: website not found, phone only
             "email_assunto":   lead.get("email_assunto") or None,
             "email_mensagem":  lead.get("email_mensagem") or None,
             "problemas":       lead.get("problemas") or [],
