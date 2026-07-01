@@ -13,6 +13,11 @@ database/
 
 # Exports
 export_leads.csv
+
+# Pipeline logs (temp debug artifacts)
+*.log
+pipeline*.sh
+run_pipeline*.sh
 export_leads.md
 
 # Config (use config/settings.example.yaml as template)
