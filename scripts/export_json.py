@@ -59,6 +59,81 @@ def _slugify_name(name: str) -> str:
     return re.sub(r"[^a-z0-9]", "", s)
 
 
+# ── ROI-ordered action recommendations ───────────────────────────────────────
+
+_GAP_ACTIONS = [
+    # (gap_key, roi_rank, short_action, why_it_matters)
+    ("sem_website",        1, "Criar website próprio",
+     "Empresas sem website perdem até 70% dos clientes que pesquisam online. É a acção de maior impacto."),
+    ("sem_reservas",       2, "Integrar sistema de reservas/marcações online",
+     "Clientes modernos abandonam se não puderem reservar no momento. Pode aumentar ocupação 20-30%."),
+    ("sem_facebook_pixel", 3, "Instalar Facebook Pixel",
+     "Permite criar anúncios que segmentam visitantes do site — ROI médio de 5x em campanhas locais."),
+    ("sem_analytics",      4, "Adicionar Google Analytics",
+     "Sem dados não há decisões. Gratuito e instalado em 10 minutos — base para todas as optimizações futuras."),
+    ("sem_ssl",            5, "Activar certificado SSL (HTTPS)",
+     "Google penaliza sites sem SSL. Browsers mostram alerta 'Não seguro' que afasta visitantes. Gratuito via Let's Encrypt."),
+    ("sem_mobile",         6, "Optimizar site para telemóvel",
+     "62% do tráfego web é mobile. Um site não responsivo perde mais de metade dos visitantes antes de carregar."),
+    ("sem_whatsapp",       7, "Criar botão WhatsApp Business",
+     "WhatsApp é o canal de contacto preferido em Portugal. Um botão no site aumenta conversão de visitas em 15-25%."),
+    ("sem_email",          8, "Publicar email de contacto",
+     "Clientes que não encontram contacto directo escolhem o concorrente. Email visível = mais pedidos de orçamento."),
+    ("sem_redes_sociais",  9, "Criar perfil Instagram/Facebook",
+     "Presença social é cartão de visita digital. Negócios com Instagram activo têm 40% mais descoberta local."),
+]
+
+_GAP_ACTION_MAP = {g[0]: g for g in _GAP_ACTIONS}
+
+
+def compute_top_actions(gaps: list[str]) -> list[dict]:
+    """Return up to 3 concrete actions ordered by ROI for the given gap list."""
+    actions = []
+    for gap in gaps:
+        if gap in _GAP_ACTION_MAP:
+            _, rank, action, reason = _GAP_ACTION_MAP[gap]
+            actions.append({"rank": rank, "action": action, "reason": reason, "gap": gap})
+    actions.sort(key=lambda x: x["rank"])
+    return [{"action": a["action"], "reason": a["reason"], "gap": a["gap"]} for a in actions[:3]]
+
+
+# ── Competitor finder ─────────────────────────────────────────────────────────
+
+def find_competitors(biz: dict, all_businesses: list[dict], max_dist_km: float = 15.0, n: int = 2) -> list[dict]:
+    """Find up to n nearest businesses in the same category on the same island."""
+    same_island = (biz.get("municipality") or "").split(",")[0].strip()
+    same_cat    = biz.get("category")
+    bid         = biz.get("id")
+    blat, blng  = biz.get("lat", 0), biz.get("lng", 0)
+
+    candidates = []
+    for other in all_businesses:
+        if other.get("id") == bid:
+            continue
+        if other.get("category") != same_cat:
+            continue
+        other_island = (other.get("municipality") or "").split(",")[0].strip()
+        if other_island != same_island:
+            continue
+        dist = _haversine_km(blat, blng, other.get("lat", 0), other.get("lng", 0))
+        if dist <= max_dist_km:
+            candidates.append((dist, other))
+
+    candidates.sort(key=lambda x: x[0])
+    result = []
+    for dist, other in candidates[:n]:
+        result.append({
+            "name":        other.get("name", ""),
+            "score":       other.get("score", 0),
+            "dist_km":     round(dist, 1),
+            "has_website": other.get("has_website", False),
+            "has_booking": other.get("has_booking", False),
+            "has_ssl":     other.get("has_ssl", False),
+            "gaps_count":  len(other.get("gaps") or []),
+        })
+    return result
+
+
 def _haversine_km(lat1, lon1, lat2, lon2) -> float:
     R = 6371.0
     dlat = math.radians(lat2 - lat1)
@@ -373,6 +448,12 @@ def export():
 
     # Sort by score descending
     businesses.sort(key=lambda b: b["score"], reverse=True)
+
+    # Enrich with competitors + top_actions (needs full list built first)
+    print(f"     A calcular concorrentes e acções por ROI…")
+    for biz in businesses:
+        biz["top_actions"]  = compute_top_actions(biz.get("gaps") or [])
+        biz["competitors"]  = find_competitors(biz, businesses)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(businesses, ensure_ascii=False, indent=2), encoding="utf-8")

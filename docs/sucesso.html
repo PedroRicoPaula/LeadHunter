@@ -212,280 +212,330 @@ function renderList() {
   `).join('');
 }
 
-// ── PDF — funcao unica de rendering ─────────────────────────────
+// ── PDF helpers ──────────────────────────────────────────────────
+const PDF_DARK  = [6, 10, 16];
+const PDF_LIGHT = [248, 250, 252];
+const PDF_GRAY  = [100, 110, 120];
+const PDF_LINE  = [220, 226, 234];
+const PDF_ACCENT= [16, 245, 160];
+
+function pdfSectionHead(doc, label, y) {
+  doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...PDF_GRAY);
+  doc.text(label.toUpperCase(), 14, y);
+  return y + 6;
+}
+
+function pdfDivider(doc, y) {
+  doc.setDrawColor(...PDF_LINE);
+  doc.setLineWidth(0.3);
+  doc.line(14, y, 196, y);
+  return y + 7;
+}
+
+function pdfGuard(doc, y, needed = 30) {
+  if (y + needed > 272) {
+    doc.addPage();
+    pdfFooter(doc);
+    return 16;
+  }
+  return y;
+}
+
+function pdfFooter(doc) {
+  const H = 297;
+  doc.setFillColor(...PDF_DARK);
+  doc.rect(0, H - 16, 210, 16, 'F');
+  doc.setTextColor(...PDF_GRAY);
+  doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
+  doc.text('LeadHunter · leadhunter.pedropaula.com', 14, H - 9);
+  doc.text('Dados de fontes públicas. Verificar antes de contactar.', 14, H - 4);
+  doc.setTextColor(16, 245, 160);
+  doc.text('Relatório Premium', 196, H - 6.5, { align: 'right' });
+}
+
+// ── PDF — renderPageContent ───────────────────────────────────────
 function renderPageContent(doc, b) {
-  const W = 210, H = 297;
+  const W = 210;
   const sc = Number(b.score) || 0;
   const sRGB = sc >= 60 ? [239,68,68] : sc >= 40 ? [249,115,22] : sc >= 20 ? [234,179,8] : [107,114,128];
+  const tierLabel = sc >= 60 ? 'Oportunidade Crítica' : sc >= 40 ? 'Alta Prioridade' : 'Potencial Médio';
+  const tierEmoji = sc >= 60 ? '🔥' : sc >= 40 ? '⚡' : '💡';
 
-  const isFacebook   = (b.website || '').includes('facebook.com');
-  const isInstagram  = (b.website || '').includes('instagram.com');
-  const isSocialOnly = (isFacebook || isInstagram) && !(b.gaps || []).includes('sem_website');
+  // ── HEADER ──────────────────────────────────────────────────────
+  doc.setFillColor(...PDF_DARK);
+  doc.rect(0, 0, W, 34, 'F');
 
-  // ── HEADER ──
-  doc.setFillColor(6, 10, 16);
-  doc.rect(0, 0, W, 42, 'F');
-
+  // Logo
   if (logoPngDataUrl) {
-    // Logo SVG pré-renderizado como PNG — preserva crosshair + tipografia
-    doc.addImage(logoPngDataUrl, 'PNG', 12, 7, 52.5, 12);
+    doc.addImage(logoPngDataUrl, 'PNG', 12, 8, 46, 11);
   } else {
-    // Fallback: texto simples
-    doc.setTextColor(16, 245, 160);
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.text('LeadHunter', 14, 17);
+    doc.setTextColor(16, 245, 160); doc.setFontSize(14); doc.setFont('helvetica', 'bold');
+    doc.text('LeadHunter', 14, 16);
   }
+  doc.setTextColor(...PDF_GRAY); doc.setFontSize(7); doc.setFont('helvetica', 'normal');
+  doc.text('Relatório Premium · ' + new Date().toLocaleDateString('pt-PT'), 14, 27);
 
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.text('leadhunter.pedropaula.com', 14, 24);
-  doc.text('Gerado em ' + new Date().toLocaleDateString('pt-PT'), 14, 30);
-
+  // Score badge (header right)
   doc.setFillColor(...sRGB);
-  doc.circle(189, 21, 13, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(13);
-  doc.setFont('helvetica', 'bold');
-  doc.text(String(sc), 189, 25, { align: 'center' });
-  doc.setFontSize(6);
-  doc.setFont('helvetica', 'normal');
-  doc.text('SCORE', 189, 30, { align: 'center' });
+  doc.circle(188, 17, 11, 'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
+  doc.text(String(sc), 188, 21, { align: 'center' });
+  doc.setFontSize(5.5); doc.setFont('helvetica', 'normal');
+  doc.text('SCORE', 188, 26, { align: 'center' });
 
-  // ── NOME ──
-  doc.setFillColor(255, 255, 255);
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(20);
-  doc.setFont('helvetica', 'bold');
-  doc.text(b.name || '', 14, 58);
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  // Show category + island (municipality is always the same — removed)
-  doc.text(CAT_NAMES[b.category] || b.category || '', 14, 68);
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, 74, W - 14, 74);
+  // ── NOME + CATEGORIA + LOCALIZAÇÃO ──────────────────────────────
+  let y = 43;
+  const nameLines = doc.splitTextToSize(b.name || '', 145);
+  doc.setTextColor(10, 12, 20); doc.setFont('helvetica', 'bold');
+  doc.setFontSize(nameLines.length > 1 ? 16 : 19);
+  doc.text(nameLines, 14, y);
+  y += nameLines.length * (nameLines.length > 1 ? 9 : 11);
 
-  // ── CONTACTABILIDADE BADGE ──
+  // Category pill + municipality
+  doc.setFillColor(...sRGB.map(v => Math.min(v + 185, 255)));
+  doc.roundedRect(14, y - 4, 60, 7, 2, 2, 'F');
+  doc.setTextColor(...sRGB); doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
+  doc.text(CAT_NAMES[b.category] || b.category || '', 17, y + 0.5);
+
+  doc.setTextColor(...PDF_GRAY); doc.setFontSize(8.5); doc.setFont('helvetica', 'normal');
+  const muni = (b.municipality || '').replace(', Acores', ', Açores');
+  doc.text('📍 ' + muni, 82, y + 0.5);
+  y += 11;
+
+  // Score tier pill
+  doc.setFillColor(...sRGB.map(v => Math.min(v + 175, 255)));
+  doc.roundedRect(14, y - 4, 100, 8, 2, 2, 'F');
+  doc.setTextColor(...sRGB); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+  doc.text(tierEmoji + '  ' + tierLabel.toUpperCase() + ' — Score ' + sc + '/100', 18, y + 1);
+  y += 13;
+
+  y = pdfDivider(doc, y);
+
+  // ── CONTACTO ────────────────────────────────────────────────────
+  y = pdfSectionHead(doc, 'Contacto', y);
   const hasPhone = b.phone && b.phone !== '-';
   const hasEmail = !!b.email;
   const hasWA    = !!b.whatsapp;
-  const contactScore = (hasPhone ? 1 : 0) + (hasEmail ? 1 : 0) + (hasWA ? 1 : 0);
-  const contactLabel = contactScore >= 2 ? 'CONTACTO COMPLETO'
-                     : contactScore === 1 ? 'CONTACTO PARCIAL'
-                     : 'SEM CONTACTO DIRECTO';
-  const contactRGB   = contactScore >= 2 ? [22, 163, 74]
-                     : contactScore === 1 ? [234, 179, 8]
-                     : [180, 60, 60];
 
-  let y = 80;
-  doc.setFillColor(...contactRGB.map(v => Math.min(v + 170, 255)));
-  doc.roundedRect(14, y - 4, 80, 9, 2, 2, 'F');
-  doc.setTextColor(...contactRGB);
-  doc.setFontSize(7.5);
-  doc.setFont('helvetica', 'bold');
-  doc.text(contactLabel, 18, y + 1);
-  y += 12;
+  const contacts = [];
+  if (hasPhone) contacts.push(['Telefone', b.phone]);
+  if (hasEmail) contacts.push(['Email', b.email]);
+  if (b.website && !b.website.includes('instagram.com') && !b.website.includes('facebook.com'))
+    contacts.push(['Website', b.website]);
+  if (hasWA)    contacts.push(['WhatsApp', 'wa.me/' + b.whatsapp]);
+  if (b.address) contacts.push(['Morada', b.address]);
+  if (!contacts.length) contacts.push(['Contacto', 'Não encontrado — verificar Google Maps']);
 
-  // ── CONTACTO ──
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('CONTACTO', 14, y);
-  y += 9;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-
-  const rows = [];
-  if (hasPhone)   rows.push(['Telefone', b.phone, false, false]);
-  if (hasEmail)   rows.push(['Email', b.email, false, false]);
-
-  // Website / redes sociais
-  if (isFacebook) {
-    rows.push(['Facebook', b.website, false, false]);
-    rows.push(['Website', 'Sem website real', true, true]); // aviso explícito
-  } else if (isInstagram) {
-    rows.push(['Instagram', b.website, false, false]);
-    rows.push(['Website', 'Sem website real', true, true]); // aviso explícito
-  } else if (b.website) {
-    rows.push(['Website', b.website, false, false]);
-  } else {
-    rows.push(['Website', 'Sem website', true, true]);
-  }
-
-  if (b.address) {
-    const mapsUrl = 'maps.google.com/?q=' + encodeURIComponent(b.address);
-    rows.push(['Morada', b.address, false, false]);
-    rows.push(['Google Maps', mapsUrl.length > 55 ? mapsUrl.substring(0,52)+'...' : mapsUrl, false, false]);
-  }
-
-  if (contactScore === 0 && !b.website) {
-    doc.setTextColor(180, 60, 60);
-    doc.setFontSize(9);
-    doc.text('Nenhum contacto encontrado — verificar Google Maps', 14, y);
-    y += 9;
-  } else {
-    rows.forEach(([label, val, isAbsent, isWarning]) => {
-      const display = val.length > 55 ? val.substring(0, 52) + '...' : val;
-      doc.setTextColor(120, 130, 145);
-      doc.setFontSize(isWarning ? 8.5 : 10);
-      doc.setFont('helvetica', isWarning ? 'bold' : 'normal');
-      doc.text(label + ':', 14, y);
-      doc.setTextColor(isAbsent ? 200 : 10, isAbsent ? 60 : 12, isAbsent ? 60 : 20);
-      doc.text(display, 55, y);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      y += 9;
+  // 2-col grid
+  const leftCols  = contacts.filter((_, i) => i % 2 === 0);
+  const rightCols = contacts.filter((_, i) => i % 2 === 1);
+  const colRows   = Math.max(leftCols.length, rightCols.length);
+  for (let i = 0; i < colRows; i++) {
+    y = pdfGuard(doc, y, 10);
+    [[leftCols[i], 14], [rightCols[i], 110]].forEach(([item, x]) => {
+      if (!item) return;
+      const [label, val] = item;
+      doc.setTextColor(...PDF_GRAY); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+      doc.text(label.toUpperCase(), x, y - 1);
+      doc.setTextColor(20, 25, 35); doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+      const display = String(val || '').slice(0, 40);
+      doc.text(display, x, y + 5);
     });
+    y += 14;
   }
 
-  if (b.whatsapp) {
-    y += 3;
+  // WhatsApp button visual
+  if (hasWA) {
+    y = pdfGuard(doc, y, 14);
     doc.setFillColor(22, 163, 74);
-    doc.roundedRect(14, y - 5, 90, 9, 2, 2, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    doc.text('WhatsApp: wa.me/' + b.whatsapp, 18, y);
+    doc.roundedRect(14, y - 4, 86, 9, 2, 2, 'F');
+    doc.setTextColor(255,255,255); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+    doc.text('💬  Contactar via WhatsApp: wa.me/' + b.whatsapp, 17, y + 1.5);
+    y += 13;
+  }
+
+  // Google Maps status (if available from audit)
+  const hasMaps = b.google_maps_found === true;
+  const noMaps  = b.google_maps_found === false;
+  if (hasMaps || noMaps) {
+    y = pdfGuard(doc, y, 10);
+    const mapsRGB = hasMaps ? [22, 163, 74] : [180, 60, 60];
+    const mapsLabel = hasMaps
+      ? 'Google Maps: Encontrado' + (b.google_maps_rating ? ' · ⭐ ' + b.google_maps_rating : '')
+      : 'Google Maps: Não encontrado — oportunidade de criar perfil gratuito';
+    doc.setFillColor(...mapsRGB.map(v => Math.min(v + 170, 255)));
+    doc.roundedRect(14, y - 4, W - 28, 8, 2, 2, 'F');
+    doc.setTextColor(...mapsRGB); doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
+    doc.text(mapsLabel, 17, y + 0.5);
     y += 12;
   }
 
-  y += 4;
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, y, W - 14, y);
-  y += 10;
+  y = pdfDivider(doc, y);
 
-  // ── GAPS ──
-  // Se o único "website" é uma rede social, adiciona gap que a pipeline omitiu
-  const extraGaps = isSocialOnly ? ['sem_website_real'] : [];
-  const gaps = [...extraGaps, ...(b.gaps || [])];
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('GAPS IDENTIFICADOS (' + gaps.length + ')', 14, y);
-  y += 10;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  gaps.forEach(gap => {
-    // Overflow guard: new page if too close to footer
-    if (y > 258) {
-      doc.addPage();
-      doc.setFillColor(6, 10, 16);
-      doc.rect(0, 0, W, 12, 'F');
-      y = 20;
-    }
-    doc.setFillColor(...sRGB);
-    doc.circle(17, y - 1.5, 1.8, 'F');
-    doc.setTextColor(40, 45, 55);
-    doc.text(GAP_DESC[gap] || gap, 22, y);
-    y += 8;
-  });
+  // ── CONCORRENTES PRÓXIMOS ────────────────────────────────────────
+  const comps = b.competitors || [];
+  if (comps.length > 0) {
+    y = pdfGuard(doc, y, 40);
+    y = pdfSectionHead(doc, 'Concorrentes Próximos · Mesma Categoria · Mesma Ilha', y);
 
-  y += 4;
-  // Guard before divider + score section (~30mm needed)
-  if (y > 245) {
-    doc.addPage();
-    doc.setFillColor(6, 10, 16);
-    doc.rect(0, 0, W, 12, 'F');
-    y = 20;
-  }
-  doc.setDrawColor(220, 224, 230);
-  doc.line(14, y, W - 14, y);
-  y += 10;
+    // Table header
+    doc.setFillColor(240, 244, 250);
+    doc.rect(14, y - 4, W - 28, 9, 'F');
+    doc.setTextColor(...PDF_GRAY); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+    ['Negócio', 'Distância', 'Score', 'Website', 'Reservas'].forEach((h, i) => {
+      doc.text(h, [14, 75, 110, 140, 168][i], y + 1);
+    });
+    y += 11;
 
-  // ── SCORE INTERPRETATION ──
-  doc.setTextColor(10, 12, 20);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('INTERPRETACAO DO SCORE', 14, y);
-  y += 9;
-  const tier = sc >= 60
-    ? 'OPORTUNIDADE CRITICA — Multiplos gaps digitais + score elevado'
-    : sc >= 40
-    ? 'OPORTUNIDADE ALTA — Bons indicadores de necessidade digital'
-    : 'OPORTUNIDADE MEDIA — Verificar perfil antes de contactar';
-  doc.setFillColor(...sRGB.map(v => Math.min(v + 180, 255)));
-  doc.roundedRect(14, y - 5, W - 28, 11, 2, 2, 'F');
-  doc.setTextColor(...sRGB);
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'bold');
-  doc.text(tier, 18, y + 1);
-
-  // ── ABORDAGEM SUGERIDA (AI-generated) ──
-  const hasAI = b.email_assunto && b.email_mensagem;
-  if (hasAI) {
-    y += 4;
-    // Guard: need ~60mm for this section
-    if (y > 220) {
-      doc.addPage();
-      doc.setFillColor(6, 10, 16);
-      doc.rect(0, 0, W, 12, 'F');
-      y = 20;
-    }
-    doc.setDrawColor(220, 224, 230);
-    doc.line(14, y, W - 14, y);
-    y += 10;
-
-    doc.setTextColor(10, 12, 20);
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('ABORDAGEM SUGERIDA', 14, y);
+    comps.forEach((c, ci) => {
+      y = pdfGuard(doc, y, 12);
+      if (ci % 2 === 0) {
+        doc.setFillColor(250, 252, 255);
+        doc.rect(14, y - 4, W - 28, 10, 'F');
+      }
+      doc.setTextColor(20, 25, 35); doc.setFontSize(8.5); doc.setFont('helvetica', ci === 0 ? 'bold' : 'normal');
+      doc.text((c.name || '').slice(0, 26), 14, y + 1);
+      doc.setFont('helvetica', 'normal');
+      doc.text(c.dist_km + ' km', 75, y + 1);
+      // Score chip
+      const cRGB = c.score >= 60 ? [239,68,68] : c.score >= 40 ? [249,115,22] : [107,114,128];
+      doc.setFillColor(...cRGB);
+      doc.circle(115, y - 1, 5, 'F');
+      doc.setTextColor(255,255,255); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+      doc.text(String(c.score), 115, y + 1.5, { align: 'center' });
+      doc.setTextColor(c.has_website ? 22 : 180, c.has_website ? 163 : 60, c.has_website ? 74 : 60);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+      doc.text(c.has_website ? 'Sim' : 'Não', 140, y + 1);
+      doc.setTextColor(c.has_booking ? 22 : 180, c.has_booking ? 163 : 60, c.has_booking ? 74 : 60);
+      doc.text(c.has_booking ? 'Sim' : 'Não', 168, y + 1);
+      y += 11;
+    });
     y += 3;
+    y = pdfDivider(doc, y);
+  }
+
+  // ── TOP 3 ACÇÕES POR ROI ─────────────────────────────────────────
+  const actions = b.top_actions || [];
+  if (actions.length > 0) {
+    y = pdfGuard(doc, y, 50);
+    y = pdfSectionHead(doc, 'Plano de Acção — Ordenado por ROI', y);
+
+    actions.forEach((a, i) => {
+      y = pdfGuard(doc, y, 26);
+      // Number badge
+      doc.setFillColor(...sRGB);
+      doc.circle(20, y + 1, 5, 'F');
+      doc.setTextColor(255,255,255); doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+      doc.text(String(i + 1), 20, y + 3.5, { align: 'center' });
+
+      // Action title
+      doc.setTextColor(10, 12, 20); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+      doc.text(a.action, 30, y + 1.5);
+
+      // Reason
+      doc.setTextColor(...PDF_GRAY); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+      const rLines = doc.splitTextToSize(a.reason, W - 46);
+      doc.text(rLines, 30, y + 8);
+      y += Math.max(rLines.length * 5 + 14, 22);
+    });
+
+    y = pdfDivider(doc, y);
+  }
+
+  // ── GAPS DIGITAIS ────────────────────────────────────────────────
+  const gaps = b.gaps || [];
+  if (gaps.length > 0) {
+    y = pdfGuard(doc, y, 30);
+    y = pdfSectionHead(doc, 'Gaps Digitais (' + gaps.length + ' identificados)', y);
+
+    // Two-column gap list
+    const half = Math.ceil(gaps.length / 2);
+    const leftGaps  = gaps.slice(0, half);
+    const rightGaps = gaps.slice(half);
+    const maxRows   = Math.max(leftGaps.length, rightGaps.length);
+    for (let i = 0; i < maxRows; i++) {
+      y = pdfGuard(doc, y, 8);
+      [[leftGaps[i], 14], [rightGaps[i], 108]].forEach(([gap, x]) => {
+        if (!gap) return;
+        doc.setFillColor(...sRGB);
+        doc.circle(x + 3, y - 1, 1.5, 'F');
+        doc.setTextColor(40, 50, 65); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+        doc.text(GAP_DESC[gap] || gap, x + 8, y + 0.5);
+      });
+      y += 8;
+    }
+    y += 4;
+    y = pdfDivider(doc, y);
+  }
+
+  // ── EMAIL DE ABORDAGEM ───────────────────────────────────────────
+  if (b.email_assunto && b.email_mensagem) {
+    y = pdfGuard(doc, y, 55);
+    y = pdfSectionHead(doc, 'Email de Abordagem Sugerido (Gerado por IA)', y);
 
     // AI badge
-    doc.setFillColor(16, 90, 60);
-    doc.roundedRect(14, y, 28, 6, 1.5, 1.5, 'F');
-    doc.setTextColor(16, 245, 160);
-    doc.setFontSize(6);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Gerado por IA', 16, y + 4);
-    y += 12;
+    doc.setFillColor(16, 80, 55);
+    doc.roundedRect(14, y - 3, 30, 6, 1.5, 1.5, 'F');
+    doc.setTextColor(...PDF_ACCENT); doc.setFontSize(6.5); doc.setFont('helvetica', 'bold');
+    doc.text('✦  IA Generated', 16, y + 1);
+    y += 10;
 
-    // Subject
-    doc.setTextColor(120, 130, 145);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Assunto:', 14, y);
-    doc.setTextColor(10, 12, 20);
-    doc.setFont('helvetica', 'normal');
-    const subjectLines = doc.splitTextToSize(b.email_assunto, W - 70);
-    doc.text(subjectLines, 55, y);
-    y += Math.max(subjectLines.length * 5, 7) + 4;
+    // Subject box
+    doc.setFillColor(240, 250, 245);
+    const subjLines = doc.splitTextToSize(b.email_assunto, W - 34);
+    doc.roundedRect(14, y - 4, W - 28, subjLines.length * 5.5 + 5, 2, 2, 'F');
+    doc.setTextColor(...PDF_GRAY); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+    doc.text('ASSUNTO', 18, y + 0.5);
+    doc.setTextColor(10, 20, 30); doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+    doc.text(subjLines, 18, y + 6.5);
+    y += subjLines.length * 5.5 + 10;
 
     // Message body
-    doc.setTextColor(120, 130, 145);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Mensagem:', 14, y);
-    y += 7;
-
-    doc.setTextColor(40, 45, 55);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
+    doc.setTextColor(35, 45, 60); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
     const msgLines = doc.splitTextToSize(b.email_mensagem, W - 28);
     msgLines.forEach(line => {
-      if (y > 262) {
-        doc.addPage();
-        doc.setFillColor(6, 10, 16);
-        doc.rect(0, 0, W, 12, 'F');
-        y = 20;
-        doc.setTextColor(40, 45, 55);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8.5);
-      }
+      y = pdfGuard(doc, y, 8);
       doc.text(line, 14, y);
-      y += 6;
+      y += 5.5;
     });
+    y += 4;
   }
 
-  // ── FOOTER ──
-  doc.setFillColor(6, 10, 16);
-  doc.rect(0, H - 22, W, 22, 'F');
-  doc.setTextColor(75, 85, 99);
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.text('LeadHunter · Pedro Paula Labs · leadhunter.pedropaula.com', 14, H - 13);
-  doc.text('Dados de fontes publicas. Verificar antes de contactar.', 14, H - 7);
+  // ── SCREENSHOT MOBILE (se disponível) ────────────────────────────
+  if (b.mobile_screenshot_b64) {
+    // Screenshot sempre numa página nova para máxima visibilidade
+    doc.addPage();
+    pdfFooter(doc);
+    let sy = 14;
+
+    doc.setFillColor(...PDF_DARK);
+    doc.rect(0, 0, W, 22, 'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+    doc.text('Aspecto do Site em Telemóvel (375px)', 14, 14);
+    doc.setTextColor(...PDF_GRAY); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+    doc.text('Captura real a 375px — o que os clientes vêem num iPhone SE', 14, 20);
+    sy = 28;
+
+    // Mobile frame visual (dark bezel)
+    const frameW = 70, frameH = 148, frameX = (W - frameW) / 2;
+    doc.setFillColor(20, 25, 35);
+    doc.roundedRect(frameX - 4, sy - 2, frameW + 8, frameH + 8, 6, 6, 'F');
+    // Screen
+    doc.addImage('data:image/jpeg;base64,' + b.mobile_screenshot_b64, 'JPEG', frameX, sy, frameW, frameH);
+    sy += frameH + 14;
+
+    // Caption
+    doc.setTextColor(...PDF_GRAY); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    const captionMsg = b.has_website
+      ? (b.is_mobile_friendly ? '✓ Site com meta viewport — estrutura responsiva presente' : '⚠ Site sem optimização mobile — experiência degradada no telemóvel')
+      : '✗ Sem website — captura não disponível';
+    const capLines = doc.splitTextToSize(captionMsg, W - 28);
+    doc.text(capLines, 14, sy);
+  }
+
+  // Footer na última página (jsPDF não tem afterEachPage, pdfGuard já chama pdfFooter em new pages)
+  pdfFooter(doc);
 }
 
 // ── DOWNLOAD ─────────────────────────────────────────────────────

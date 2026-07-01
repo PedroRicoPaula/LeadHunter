@@ -510,7 +510,7 @@ function buildPopupHTML(b) {
   const catColor = CAT_COLORS[b.category] || '#6b7280';
   const isSelected = selectedIds.has(b.id);
   const gapCount = b.gaps.length;
-  const canSelect = !isSelected && selectedIds.size >= 20;
+  const canSelect = !isSelected && selectedIds.size >= 3;
 
   const tier = b.score >= 60
     ? { label: '🔥 Oportunidade Crítica', color: '#ef4444', bg: 'rgba(239,68,68,.08)' }
@@ -530,7 +530,7 @@ function buildPopupHTML(b) {
   const btnBg = isSelected ? '#0f2a1a' : 'linear-gradient(135deg,#10f5a0,#06d6a0)';
   const btnCol = isSelected ? '#10f5a0' : '#060a10';
   const btnBorder = isSelected ? '1px solid rgba(16,245,160,.35)' : 'none';
-  const btnTxt = isSelected ? '✓ Selecionado — toca para remover' : canSelect ? 'Limite atingido (20)' : 'Selecionar lead';
+  const btnTxt = isSelected ? '✓ Selecionado — toca para remover' : canSelect ? 'Limite atingido (3 negócios)' : 'Selecionar — incluir no relatório';
 
   return `<div style="font-family:Inter,sans-serif">
     <div style="padding:15px 15px 10px">
@@ -572,6 +572,7 @@ function buildPopupHTML(b) {
         style="width:100%;padding:11px;border-radius:11px;font-weight:700;font-size:12px;cursor:${canSelect ? 'not-allowed' : 'pointer'};border:${btnBorder};background:${btnBg};color:${btnCol};opacity:${canSelect ? '.4' : '1'};transition:all .15s;letter-spacing:.01em">
         ${btnTxt}
       </button>
+      ${!isSelected && !canSelect && selectedIds.size === 0 ? `<div style="margin-top:6px;font-size:9px;color:#4b5563;text-align:center">1 negócio = €5 · até 3 negócios = €12</div>` : ''}
     </div>
   </div>`;
 }
@@ -579,7 +580,7 @@ function buildPopupHTML(b) {
 // ── SELECTION ──────────────────────────────────────────────────
 function toggleSelect(id) {
   if (selectedIds.has(id)) { selectedIds.delete(id); }
-  else { if (selectedIds.size >= 20) return; selectedIds.add(id); }
+  else { if (selectedIds.size >= 3) return; selectedIds.add(id); }
   refreshMarkerIcon(id);
   updateUI();
 }
@@ -593,12 +594,12 @@ function clearSelection() {
 
 function updateUI() {
   const count = selectedIds.size;
-  const price = count === 0 ? 0 : count <= 5 ? 5 : 12;
+  const price = count === 0 ? 0 : count === 1 ? 5 : 12;
   const tier = count === 0
     ? ''
-    : count <= 5
-    ? 'Pack Starter — até 5 negócios · €5'
-    : 'Pack Hunter — até 20 negócios · €12';
+    : count === 1
+    ? 'Relatório individual — 1 negócio · €5'
+    : `Relatório pack — ${count} negócios · €12`;
 
   const bar = document.getElementById('bottom-bar');
   const mapEl = document.getElementById('map');
@@ -703,7 +704,7 @@ function toggleContactFilter(type) {
 function handlePayment() {
   if (selectedIds.size === 0) return;
   const ids = Array.from(selectedIds).join('-');
-  const plan = selectedIds.size <= 5 ? 'starter' : 'hunter';
+  const plan = selectedIds.size === 1 ? 'starter' : 'hunter';
   const base = plan === 'starter' ? STRIPE_STARTER : STRIPE_HUNTER;
   window.location.href = `${base}?client_reference_id=${ids}`;
 }

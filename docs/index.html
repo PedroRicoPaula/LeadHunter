@@ -27,8 +27,8 @@
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "offers": [
-      { "@type": "Offer", "name": "Starter", "price": "5.00", "priceCurrency": "EUR", "description": "Até 5 empresas em PDF" },
-      { "@type": "Offer", "name": "Hunter",  "price": "12.00", "priceCurrency": "EUR", "description": "Até 20 empresas em PDF" }
+      { "@type": "Offer", "name": "Análise Individual", "price": "5.00", "priceCurrency": "EUR", "description": "Relatório premium de 1 negócio com score, gaps, concorrentes e 3 acções por ROI" },
+      { "@type": "Offer", "name": "Pack Análise",        "price": "12.00", "priceCurrency": "EUR", "description": "Relatório premium de até 3 negócios com screenshot mobile e verificação Google Maps" }
     ],
     "author": { "@type": "Person", "name": "Pedro Paula", "email": "pedroricopaula@gmail.com" },
     "areaServed": { "@type": "Place", "name": "Açores, Portugal" }
@@ -1067,7 +1067,7 @@
       <div class="reveal d1 step">
         <div class="step-num">2</div>
         <div class="step-title">Seleccionas os que queres</div>
-        <p class="step-body">Clica nos marcadores que te interessam. O preço actualiza automaticamente — até 5 negócios por €5, até 20 por €12.</p>
+        <p class="step-body">Clica nos marcadores que te interessam. 1 negócio = €5 · até 3 negócios = €12. O preço actualiza automaticamente.</p>
       </div>
       <div class="reveal d2 step">
         <div class="step-num">3</div>
@@ -1179,6 +1179,35 @@
   </div>
 </section>
 
+<!-- ═══ VERIFICA O TEU NEGÓCIO ═══ -->
+<section id="verifica" class="section-alt">
+  <div class="container--sm">
+    <div class="sh center">
+      <span class="label">Para donos de negócio</span>
+      <h2 class="section-title">O que é que os teus<br/><em>clientes vêem online?</em></h2>
+      <p class="section-sub" style="margin:12px auto 0;">Pesquisa o nome do teu negócio e vê o teu score de presença digital. Gratuito.</p>
+    </div>
+
+    <!-- Search box -->
+    <div class="reveal" style="max-width:560px;margin:40px auto 0;position:relative;">
+      <div style="position:relative;">
+        <svg style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="biz-search" type="text" placeholder="Nome do negócio (ex: Restaurante Mar Azul)…"
+          style="width:100%;padding:16px 16px 16px 48px;border-radius:14px;border:1.5px solid var(--border);background:var(--surface-2);color:var(--text);font-size:15px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s"
+          oninput="bizSearch(this.value)" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
+      </div>
+
+      <!-- Results -->
+      <div id="biz-results" style="margin-top:12px;display:none"></div>
+
+      <!-- No results message -->
+      <div id="biz-no-results" style="display:none;margin-top:16px;text-align:center;color:var(--text-2);font-size:14px;">
+        Negócio não encontrado no nosso mapa. <a href="app.html" style="color:var(--accent)">Explora todos os negócios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ PRICING ═══ -->
 <section id="planos" class="section-alt">
   <div class="container">
@@ -1196,29 +1225,33 @@
     <div class="plans">
       <!-- Starter -->
       <div class="reveal card plan">
-        <div class="plan-name">Starter</div>
+        <div class="plan-name">Análise Individual</div>
         <div class="plan-price">€5</div>
-        <div class="plan-cycle">pagamento único</div>
+        <div class="plan-cycle">pagamento único · 1 negócio</div>
         <ul class="plan-feats">
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            <span>Até <strong>5 negócios</strong> seleccionados no mapa</span>
+            <span>Relatório detalhado de <strong>1 negócio</strong></span>
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            1 PDF por negócio
+            Score + todos os gaps digitais
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            Score + gaps digitais
+            Comparação com concorrentes próximos
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            Email + telefone + WhatsApp
+            Email · telefone · WhatsApp
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            <strong>Download imediato</strong>
+            3 acções concretas ordenadas por ROI
+          </li>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <strong>PDF premium — download imediato</strong>
           </li>
         </ul>
         <a href="app.html" class="btn btn-ghost" style="text-align:center;justify-content:center;">Escolher no mapa</a>
@@ -1228,29 +1261,33 @@
       <!-- Hunter -->
       <div class="reveal d1 card plan plan-feat" style="position:relative;">
         <div class="plan-pill">Mais popular</div>
-        <div class="plan-name">Hunter</div>
+        <div class="plan-name">Pack Análise</div>
         <div class="plan-price">€12</div>
-        <div class="plan-cycle">pagamento único</div>
+        <div class="plan-cycle">pagamento único · até 3 negócios</div>
         <ul class="plan-feats">
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            <span>Até <strong>20 negócios</strong> seleccionados no mapa</span>
+            <span>Relatório completo de <strong>até 3 negócios</strong></span>
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            1 PDF por negócio
+            Tudo do plano Individual
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            Score + gaps digitais detalhados
+            Screenshot do site em mobile (375px)
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            Email + telefone + WhatsApp
+            Presença no Google Maps verificada
           </li>
           <li class="plan-feat-item">
             <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            <strong>Download imediato</strong>
+            Email de abordagem gerado por IA
+          </li>
+          <li class="plan-feat-item">
+            <svg class="ck" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            <strong>PDF premium por negócio — download imediato</strong>
           </li>
         </ul>
         <a href="app.html" class="btn btn-primary" style="text-align:center;justify-content:center;">Escolher no mapa</a>
@@ -1550,6 +1587,78 @@
     heroSec.addEventListener('mouseleave', function () {
       lc.style.transform = 'perspective(720px) rotateX(0deg) rotateY(0deg)';
     });
+  }
+
+  // ── "Verifica o teu negócio" search ──────────────────────────────
+  var _bizData = null;
+  var _bizTimer = null;
+
+  function loadBizData(cb) {
+    if (_bizData) { cb(_bizData); return; }
+    fetch('data/businesses.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ _bizData = d; cb(d); })
+      .catch(function(){ cb([]); });
+  }
+
+  function bizSearch(val) {
+    clearTimeout(_bizTimer);
+    val = val.trim();
+    var resEl = document.getElementById('biz-results');
+    var noResEl = document.getElementById('biz-no-results');
+    if (!val || val.length < 2) {
+      resEl.style.display = 'none';
+      noResEl.style.display = 'none';
+      return;
+    }
+    _bizTimer = setTimeout(function() {
+      loadBizData(function(data) {
+        var q = val.toLowerCase();
+        var hits = data.filter(function(b) {
+          return (b.name || '').toLowerCase().includes(q);
+        }).slice(0, 5);
+
+        if (!hits.length) {
+          resEl.style.display = 'none';
+          noResEl.style.display = 'block';
+          return;
+        }
+        noResEl.style.display = 'none';
+        resEl.style.display = 'block';
+
+        var CAT_NAMES_LOCAL = {
+          restaurantes:'Restauração', alojamento:'Alojamento', saude:'Saúde',
+          beleza:'Beleza', ginasios:'Ginásios', comercio:'Comércio',
+          automovel:'Automóvel', servicos_prof:'Serv. Prof.',
+          turismo:'Turismo', turismo_natureza:'Turismo Natureza', desporto:'Desporto'
+        };
+
+        resEl.innerHTML = hits.map(function(b) {
+          var sc = b.score || 0;
+          var scCol = sc >= 60 ? '#ef4444' : sc >= 40 ? '#f97316' : sc >= 20 ? '#eab308' : '#6b7280';
+          var gaps = (b.gaps || []).slice(0, 2);
+          var gapTags = gaps.map(function(g) {
+            var labels = {
+              sem_website:'Sem website', sem_reservas:'Sem reservas',
+              sem_analytics:'Sem analytics', sem_ssl:'Sem SSL',
+              sem_whatsapp:'Sem WhatsApp', sem_mobile:'Não mobile'
+            };
+            return '<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(239,68,68,.1);color:#ef4444;font-weight:600">' + (labels[g] || g) + '</span>';
+          }).join(' ');
+          var hasMore = (b.gaps || []).length > 2;
+
+          return '<div style="padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);margin-bottom:8px;display:flex;align-items:center;gap:14px">' +
+            '<div style="width:42px;height:42px;border-radius:50%;background:' + scCol + ';display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:white;flex-shrink:0">' + sc + '</div>' +
+            '<div style="flex:1;min-width:0">' +
+              '<div style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:3px">' + (b.name || '') + '</div>' +
+              '<div style="font-size:11px;color:var(--text-2);margin-bottom:6px">' + (CAT_NAMES_LOCAL[b.category] || b.category || '') + ' · ' + (b.municipality || '').replace(', Acores', ', Açores') + '</div>' +
+              '<div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">' + gapTags + (hasMore ? '<span style="font-size:10px;color:var(--text-3)">+' + ((b.gaps||[]).length - 2) + ' mais</span>' : '') + '</div>' +
+            '</div>' +
+            '<a href="app.html" style="flex-shrink:0;padding:8px 14px;border-radius:10px;background:var(--accent);color:#060a10;font-weight:700;font-size:12px;text-decoration:none">Ver no mapa</a>' +
+          '</div>';
+        }).join('');
+      });
+    }, 280);
   }
 </script>
 </body>

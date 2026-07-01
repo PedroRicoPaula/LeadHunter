@@ -421,6 +421,66 @@ async def _audit_page(page: Page, url: str, timeout: int) -> dict:
     return result
 
 
+async def _take_mobile_screenshot(page: Page, url: str) -> str | None:
+    """
+    Navigate to url at 375×812 (iPhone SE viewport) and return a JPEG
+    screenshot as a base64 string, or None on failure.
+    Restores the original desktop viewport afterwards.
+    """
+    try:
+        await page.set_viewport_size({"width": 375, "height": 812})
+        await page.goto(url, wait_until="domcontentloaded", timeout=15_000)
+        await page.wait_for_timeout(1000)
+        shot = await page.screenshot(
+            type="jpeg", quality=72,
+            clip={"x": 0, "y": 0, "width": 375, "height": 812}
+        )
+        return base64.b64encode(shot).decode()
+    except Exception:
+        return None
+    finally:
+        try:
+            await page.set_viewport_size({"width": 1280, "height": 800})
+        except Exception:
+            pass
+
+
+async def _check_google_maps(page: Page, nome: str, regiao: str) -> dict:
+    """
+    Quick Google Maps presence check: searches for the business and reads
+    the first result's name/rating from the SERP knowledge panel.
+    Returns {google_maps_found, google_maps_rating, google_maps_reviews}.
+    """
+    from urllib.parse import quote_plus
+    city = (regiao or "Açores").split(",")[0].strip()
+    query = quote_plus(f"{nome} {city}")
+    result = {"google_maps_found": False, "google_maps_rating": None, "google_maps_reviews": None}
+    try:
+        url = f"https://www.google.com/maps/search/{query}/?hl=pt"
+        resp = await page.goto(url, wait_until="domcontentloaded", timeout=12_000)
+        await page.wait_for_timeout(1500)
+        html = await page.content()
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html, "lxml")
+        # If Google Maps returns results, the page title won't be "Maps"
+        title = soup.find("title")
+        title_txt = title.text.strip() if title else ""
+        if title_txt and "Google Maps" not in title_txt and nome.split()[0].lower() in title_txt.lower():
+            result["google_maps_found"] = True
+        # Try to grab rating from aria-label patterns like "4,5 estrelas"
+        rating_m = re.search(r'(\d[,\.]\d)\s*(?:estrelas|stars)', html)
+        if rating_m:
+            result["google_maps_rating"] = float(rating_m.group(1).replace(",", "."))
+        reviews_m = re.search(r'(\d+(?:\.\d+)?)\s*(?:avaliações|reviews|comentários)', html)
+        if reviews_m:
+            result["google_maps_reviews"] = int(reviews_m.group(1).replace(".", ""))
+        if result["google_maps_rating"]:
+            result["google_maps_found"] = True
+    except Exception:
+        pass
+    return result
+
+
 async def _visual_audit_nim(page: Page, url: str) -> dict:
     """
     Tira screenshot e envia ao NIM vision para análise visual do site.
@@ -532,9 +592,20 @@ async def _run_audit(leads: list[dict], max_sites: int | None, progress_callback
             page = await context.new_page()
             try:
                 result = await _audit_page(page, lead["website"], timeout)
-                if do_vision and not result.get("erro"):
-                    visual = await _visual_audit_nim(page, lead["website"])
-                    result.update(visual)
+                if not result.get("erro"):
+                    # Mobile screenshot (375px) — always capture when browser available
+                    result["mobile_screenshot_b64"] = await _take_mobile_screenshot(
+                        page, lead["website"]
+                    )
+                    # Google Maps presence check
+                    maps = await _check_google_maps(
+                        page, lead.get("nome", ""), lead.get("regiao", "")
+                    )
+                    result.update(maps)
+                    # NIM vision analysis (optional feature)
+                    if do_vision:
+                        visual = await _visual_audit_nim(page, lead["website"])
+                        result.update(visual)
                 return result
             finally:
                 await context.close()
